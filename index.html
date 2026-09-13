@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#059669">
-    <title>الحصون الخمسة</title>
+    <title>الحصون الخمسة | رفيق الحفظ المتقن</title>
     <link rel="manifest" id="manifestPlaceholder">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Amiri:wght@700&display=swap" rel="stylesheet">
     <style>
@@ -23,34 +23,78 @@
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
 
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-            font-family: 'Cairo', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body { 
-            background-color: var(--bg); 
-            color: var(--text-main); 
-            padding: 16px 12px; 
-            display: flex; 
-            justify-content: center; 
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--bg); color: var(--text-main); padding: 14px 10px; display: flex; justify-content: center; }
         .app-container { width: 100%; max-width: 480px; }
 
-        header { text-align: center; margin-bottom: 12px; }
-        header h1 { font-family: 'Amiri', serif; color: var(--primary-dark); font-size: 2.2rem; margin-bottom: 2px; }
-        .user-greeting { font-size: 0.95rem; color: var(--text-main); font-weight: 700; }
+        header { text-align: center; margin-bottom: 10px; }
+        header h1 { font-family: 'Amiri', serif; color: var(--primary-dark); font-size: 2.1rem; margin-bottom: 2px; }
+        .user-greeting { font-size: 0.9rem; color: var(--text-main); font-weight: 700; }
+
+        /* شريط نمط اليوم (المرونة الإنسانية) */
+        .mode-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+            background: #e2e8f0;
+            padding: 4px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+        .mode-btn {
+            border: none;
+            padding: 6px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            background: transparent;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+        .mode-btn.active { background: white; color: var(--primary-dark); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
+        /* بطاقة «المهمة الواحدة الآن» */
+        .focus-hero-card {
+            background: linear-gradient(135deg, #064e3b, #047857);
+            color: white;
+            border-radius: var(--radius);
+            padding: 16px;
+            box-shadow: 0 8px 16px -2px rgba(5, 150, 105, 0.25);
+            margin-bottom: 14px;
+            position: relative;
+        }
+        .hero-tag { font-size: 0.7rem; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px; }
+        .hero-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 4px; }
+        .hero-desc { font-size: 0.8rem; opacity: 0.9; line-height: 1.4; margin-bottom: 12px; }
+        .hero-actions { display: flex; gap: 8px; }
+        .hero-btn {
+            flex: 1;
+            background: white;
+            color: var(--primary-dark);
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .hero-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); }
+
+        .progress-card {
+            background: var(--card-bg); padding: 12px 14px; border-radius: var(--radius);
+            box-shadow: var(--shadow); margin-bottom: 12px; border: 1px solid var(--border);
+        }
+        .progress-header { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--primary-dark); }
+        .progress-bar-bg { width: 100%; height: 8px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s ease; }
 
         .calendar-strip {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 6px;
+            gap: 4px;
             background: var(--card-bg);
-            padding: 10px;
+            padding: 8px;
             border-radius: var(--radius);
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
@@ -58,210 +102,99 @@
             text-align: center;
         }
         .cal-day {
-            padding: 6px 2px;
-            border-radius: 8px;
-            font-size: 0.75rem;
+            padding: 4px 2px;
+            border-radius: 6px;
+            font-size: 0.7rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 2px;
             background: #f8fafc;
-            border: 1px solid transparent;
         }
-        .cal-day.today { border-color: var(--primary); background: #f0fdf4; }
-        .cal-day-name { font-weight: 700; color: var(--text-muted); font-size: 0.7rem; }
-        .cal-status {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: grid;
-            place-content: center;
-            font-size: 0.7rem;
-            background: #e2e8f0;
-            color: transparent;
-        }
+        .cal-day.today { border: 1.5px solid var(--primary); background: #f0fdf4; }
+        .cal-status { width: 16px; height: 16px; border-radius: 50%; display: grid; place-content: center; font-size: 0.65rem; background: #e2e8f0; color: transparent; }
         .cal-status.done { background: var(--primary); color: white; font-weight: bold; }
 
-        .progress-card {
-            background: var(--card-bg); padding: 14px 16px; border-radius: var(--radius);
-            box-shadow: var(--shadow); margin-bottom: 12px; border: 1px solid var(--border);
-        }
-        .progress-header { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; color: var(--primary-dark); }
-        .progress-bar-bg { width: 100%; height: 10px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s ease; }
-
-        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
-        .input-group { background: var(--card-bg); padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow); }
-        .input-group label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; }
-        .input-group input, .input-group select { width: 100%; padding: 8px; border: 1.5px solid var(--border); border-radius: 8px; font-weight: 700; font-size: 0.95rem; outline: none; background: #fff; }
+        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+        .input-group { background: var(--card-bg); padding: 8px 10px; border-radius: 10px; border: 1px solid var(--border); }
+        .input-group label { display: block; font-size: 0.7rem; font-weight: 700; color: var(--text-muted); margin-bottom: 2px; }
+        .input-group input, .input-group select { width: 100%; padding: 6px; border: 1px solid var(--border); border-radius: 6px; font-weight: 700; font-size: 0.9rem; outline: none; }
 
         .actions-row { display: grid; grid-template-columns: 1fr 1fr 1fr auto auto; gap: 5px; margin-bottom: 14px; }
-        .btn-action { background: #1e293b; color: white; border: none; padding: 10px 4px; border-radius: 10px; font-weight: 700; font-size: 0.75rem; cursor: pointer; text-align: center; }
-        .btn-action.share { background: #25d366; color: white; }
+        .btn-action { background: #1e293b; color: white; border: none; padding: 8px 4px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; cursor: pointer; text-align: center; }
+        .btn-action.imam { background: #6b21a8; }
         .btn-action.map { background: #0284c7; }
-        .btn-action.reset { background: #fee2e2; color: var(--danger); border: 1px solid #fecaca; }
-        .btn-action.settings { background: #e2e8f0; color: var(--text-main); font-size: 1.1rem; width: 40px; }
+        .btn-action.share { background: #25d366; }
+        .btn-action.settings { background: #e2e8f0; color: var(--text-main); font-size: 1rem; width: 36px; }
 
-        .task-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+        /* قائمة المهام التفصيلية */
+        .task-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
         .task-card {
-            background: var(--card-bg); border-radius: var(--radius); padding: 14px;
+            background: var(--card-bg); border-radius: var(--radius); padding: 12px;
             border: 1px solid var(--border); box-shadow: var(--shadow);
-            display: flex; gap: 12px; align-items: flex-start; transition: all 0.25s ease;
+            display: flex; gap: 10px; align-items: flex-start; transition: all 0.2s;
         }
-        .task-card.completed { background: #f1f5f9; opacity: 0.65; border-color: var(--primary); }
+        .task-card.active-target { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(5,150,105,0.2); }
+        .task-card.completed { background: #f1f5f9; opacity: 0.65; }
 
         .checkbox-wrapper { margin-top: 2px; }
         .checkbox-wrapper input {
-            appearance: none; width: 28px; height: 28px; border: 2px solid #cbd5e1;
+            appearance: none; width: 26px; height: 26px; border: 2px solid #cbd5e1;
             border-radius: 50%; cursor: pointer; display: grid; place-content: center; background: #fff;
-            transition: transform 0.15s ease;
         }
-        .checkbox-wrapper input:active { transform: scale(0.9); }
         .checkbox-wrapper input:checked { background: var(--primary); border-color: var(--primary); }
-        .checkbox-wrapper input:checked::before { content: '✔'; color: white; font-weight: bold; font-size: 14px; }
+        .checkbox-wrapper input:checked::before { content: '✔'; color: white; font-weight: bold; font-size: 13px; }
 
         .task-content { flex: 1; min-width: 0; }
-        .task-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
-        .task-title { font-weight: 700; font-size: 0.95rem; color: var(--primary-dark); }
-        .task-actions { display: flex; align-items: center; gap: 6px; }
-        .task-time { font-size: 0.75rem; background: var(--primary-light); color: var(--primary-dark); padding: 2px 8px; border-radius: 12px; font-weight: 700; white-space: nowrap; }
-        .timer-btn { background: none; border: none; cursor: pointer; font-size: 1rem; }
-        .task-pages { font-size: 0.9rem; font-weight: 700; color: var(--text-main); margin-bottom: 2px; }
-        .task-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 8px; }
+        .task-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
+        .task-title { font-weight: 700; font-size: 0.9rem; color: var(--primary-dark); }
+        .task-time { font-size: 0.7rem; background: var(--primary-light); color: var(--primary-dark); padding: 1px 6px; border-radius: 10px; font-weight: 700; }
+        .task-pages { font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 2px; }
+        .task-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.3; margin-bottom: 6px; }
 
         .quran-btn {
-            display: inline-flex; align-items: center; gap: 6px; background: #f8fafc; color: var(--text-main);
-            font-size: 0.8rem; font-weight: 700; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border);
+            display: inline-flex; align-items: center; gap: 4px; background: #f8fafc; color: var(--text-main);
+            font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border);
             cursor: pointer;
         }
-        .quran-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .quran-btn:hover { background: var(--primary); color: white; }
 
-        .btn-next { width: 100%; background: var(--primary); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25); }
+        .btn-next { width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 12px; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
 
         /* نوافذ منبثقة */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; place-items: center; z-index: 100; padding: 10px; backdrop-filter: blur(2px); }
         .modal-overlay.active { display: grid; }
-        .modal-card { 
-            background: white; 
-            width: 100%; 
-            max-width: 440px; 
-            border-radius: 20px; 
-            padding: 16px; 
-            text-align: center; 
-            max-height: 94vh; 
-            display: flex; 
-            flex-direction: column; 
-            overflow-y: auto; 
-        }
+        .modal-card { background: white; width: 100%; max-width: 440px; border-radius: 18px; padding: 16px; text-align: center; max-height: 94vh; display: flex; flex-direction: column; overflow-y: auto; }
 
+        /* وضع الإمام */
+        .imam-card { background: #2e1065; color: white; }
+        .imam-timer { font-size: 3rem; font-weight: 800; color: #e9d5ff; margin: 15px 0; }
+        .imam-score-btn { border: none; padding: 8px; border-radius: 8px; font-weight: 700; cursor: pointer; flex: 1; }
+
+        /* نافذة المصحف */
         .quran-modal-card { max-width: 480px; padding: 10px; max-height: 98vh; overflow: hidden; }
         .quran-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .quran-nav-btn { background: #f1f5f9; border: 1px solid var(--border); padding: 6px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem; }
-        .quran-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
-        
-        .audio-player-container {
-            background: #f8fafc; border-radius: 10px; padding: 6px 8px; margin-bottom: 6px;
-            border: 1px solid var(--border); display: flex; flex-direction: column; gap: 5px; text-align: right;
-        }
-        .audio-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-        .audio-row select { padding: 4px 6px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.75rem; font-weight: 600; outline: none; }
-        .audio-row button { background: var(--primary); color: white; border: none; padding: 5px 12px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }
-        
-        .quran-toolbar { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 4px 8px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.75rem; font-weight: 700; }
-        .blur-btn { background: #f1f5f9; border: 1px solid var(--border); padding: 4px 8px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.75rem; }
-        .blur-btn.active { background: #fee2e2; color: var(--danger); border-color: #fca5a5; }
+        .quran-nav-btn { background: #f1f5f9; border: 1px solid var(--border); padding: 6px 12px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }
+        .quran-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
         .quran-img-container {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #fffcf5;
-            border-radius: 10px;
-            border: 1px solid #f1e9d2;
-            overflow: hidden;
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none;
+            flex: 1; display: flex; align-items: center; justify-content: center; background: #fffcf5;
+            border-radius: 8px; border: 1px solid #f1e9d2; overflow: hidden;
+            user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
         }
-
-        .quran-img-container img {
-            max-width: 100%;
-            max-height: 68vh;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            display: block;
-            margin: 0 auto;
-            transition: filter 0.15s ease;
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none;
-        }
-
+        .quran-img-container img { max-width: 100%; max-height: 65vh; width: auto; height: auto; object-fit: contain; display: block; user-select: none; -webkit-touch-callout: none; }
         .quran-img-container img.blurred { filter: blur(10px); }
-        .quran-img-container img.blurred:active { filter: blur(0px); }
 
-        .heatmap-grid {
-            display: grid;
-            grid-template-columns: repeat(20, 1fr);
-            gap: 2px;
-            padding: 8px;
-            overflow-y: auto;
-            max-height: 340px;
-            background: #f8fafc;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            margin-bottom: 12px;
-        }
-        .heat-cell {
-            aspect-ratio: 1;
-            border-radius: 2px;
-            font-size: 7px;
-            display: grid;
-            place-content: center;
-            color: #fff;
-            cursor: pointer;
-        }
-        .cell-empty { background-color: #e2e8f0; color: #94a3b8; }
-        .cell-distant { background-color: #047857; }
-        .cell-near { background-color: #34d399; }
-        .cell-current { background-color: var(--accent); font-weight: bold; }
+        /* خريطة المصحف مع مؤشر الصحة */
+        .heatmap-grid { display: grid; grid-template-columns: repeat(20, 1fr); gap: 2px; padding: 6px; max-height: 320px; overflow-y: auto; background: #f8fafc; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 10px; }
+        .heat-cell { aspect-ratio: 1; border-radius: 2px; font-size: 6px; display: grid; place-content: center; color: white; cursor: pointer; }
+        .h-excellent { background-color: #047857; }
+        .h-good { background-color: #10b981; }
+        .h-warning { background-color: #f59e0b; }
+        .h-danger { background-color: #ef4444; }
+        .h-empty { background-color: #cbd5e1; color: #64748b; }
 
-        .heatmap-legend { display: flex; justify-content: center; gap: 8px; font-size: 0.7rem; font-weight: 700; margin-bottom: 10px; flex-wrap: wrap; }
-        .legend-item { display: flex; align-items: center; gap: 4px; }
-        .legend-color { width: 10px; height: 10px; border-radius: 2px; }
-
-        .timer-display { font-size: 3.5rem; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--primary-dark); margin: 20px 0; }
-        .timer-controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
-        .timer-ctrl-btn { padding: 10px 24px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer; font-size: 0.95rem; }
-        .timer-start { background: var(--primary); color: white; }
-        .timer-reset { background: #e2e8f0; color: var(--text-main); }
-
-        .stat-circle { width: 110px; height: 110px; border-radius: 50%; margin: 0 auto 16px; display: grid; place-items: center; font-size: 1.3rem; font-weight: bold; color: var(--primary-dark); }
-        .stat-circle span { background: white; width: 85px; height: 85px; border-radius: 50%; display: grid; place-items: center; }
-        .stat-details { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-        .stat-box { background: var(--bg); padding: 10px; border-radius: 10px; border: 1px solid var(--border); }
-        .stat-box strong { display: block; font-size: 1.15rem; color: var(--text-main); margin-top: 2px; }
-        
-        .btn-close { width: 100%; background: #e2e8f0; border: none; padding: 10px; border-radius: 10px; font-weight: 700; cursor: pointer; color: var(--text-main); margin-top: 8px; }
-
-        .share-preview-box {
-            background: #f8fafc;
-            border: 1.5px dashed var(--primary);
-            border-radius: 12px;
-            padding: 12px;
-            font-size: 0.85rem;
-            line-height: 1.6;
-            text-align: right;
-            margin: 12px 0;
-            white-space: pre-wrap;
-            color: #334155;
-        }
-
-        .onboarding-field { text-align: right; margin-bottom: 12px; }
-        .onboarding-field label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
-        .onboarding-field input, .onboarding-field select { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--border); font-size: 0.95rem; outline: none; }
+        .btn-close { width: 100%; background: #e2e8f0; border: none; padding: 8px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 8px; }
     </style>
 </head>
 <body>
@@ -272,7 +205,23 @@
         <div class="user-greeting" id="userGreeting">مرحباً بك</div>
     </header>
 
-    <div class="calendar-strip" id="calendarStrip"></div>
+    <!-- محدد نمط اليوم (مرونة الورد) -->
+    <div class="mode-selector">
+        <button class="mode-btn active" id="modeNormal" onclick="setDayMode('normal')">🌿 طبيعي</button>
+        <button class="mode-btn" id="modeBusy" onclick="setDayMode('busy')">🧳 مسافر/مزدحم</button>
+        <button class="mode-btn" id="modeTired" onclick="setDayMode('tired')">😴 مرهق</button>
+    </div>
+
+    <!-- بطاقة «المهمة الواحدة الآن» -->
+    <div class="focus-hero-card" id="heroCard">
+        <span class="hero-tag" id="heroTag">المهمة الحالية للتركيز</span>
+        <div class="hero-title" id="heroTitle">جاري تحميل المهمة...</div>
+        <div class="hero-desc" id="heroDesc">افتح وابدأ مباشرة دون تفكير.</div>
+        <div class="hero-actions">
+            <button class="hero-btn" id="heroMainBtn" onclick="triggerCurrentHeroAction()">ابدأ الحصن ⏱️</button>
+            <button class="hero-btn secondary" onclick="skipHeroTask()">المهمة التالية ←</button>
+        </div>
+    </div>
 
     <div class="progress-card">
         <div class="progress-header">
@@ -283,6 +232,8 @@
             <div class="progress-bar-fill" id="progressBar"></div>
         </div>
     </div>
+
+    <div class="calendar-strip" id="calendarStrip"></div>
 
     <div class="controls">
         <div class="input-group">
@@ -299,10 +250,9 @@
     </div>
 
     <div class="actions-row">
-        <button class="btn-action share" onclick="openShareModal()">📢 مشاركة الإنجاز</button>
-        <button class="btn-action" onclick="openReport()">📊 التقرير</button>
-        <button class="btn-action map" onclick="openHeatmap()">🗺️ الخريطة</button>
-        <button class="btn-action reset" onclick="confirmReset()" title="تصفير الخطة">🔄</button>
+        <button class="btn-action imam" onclick="openImamModal()">🕋 وضع الإمام</button>
+        <button class="btn-action map" onclick="openHeatmap()">🗺️ صحة الحفظ</button>
+        <button class="btn-action share" onclick="shareDirectWhatsApp()">📢 إرسال</button>
         <button class="btn-action settings" onclick="openSettings()" title="الإعدادات">⚙️</button>
     </div>
 
@@ -311,157 +261,96 @@
     <button class="btn-next" onclick="nextDay()">✨ بارك الله فيك، أتممت ورد اليوم وانتقل للغد ←</button>
 </div>
 
-<!-- نافذة مشاركة الإنجاز مع الصحبة الصالحة -->
-<div class="modal-overlay" id="shareModal" onclick="closeShareModal()">
-    <div class="modal-card" onclick="event.stopPropagation()">
-        <h3 style="font-family: 'Amiri', serif; font-size: 1.5rem; color: var(--primary-dark); margin-bottom: 4px;">بطاقة التحدي القرآني</h3>
-        <p style="font-size: 0.8rem; color: var(--text-muted);">شارك إنجازك اليوم وشجع أصحابك على تعاهد القرآن</p>
+<!-- نافذة وضع الإمام (التدريب على الصلاة) -->
+<div class="modal-overlay" id="imamModal">
+    <div class="modal-card imam-card">
+        <h3 style="font-family:'Amiri', serif; font-size:1.5rem; color:#e9d5ff;">🕋 وضع الإمام والمحراب</h3>
+        <p style="font-size:0.8rem; opacity:0.9;">صلِّ بركعتين واقرأ مقطع اليوم غيباً دون النظر في المصحف</p>
+        <div class="imam-timer" id="imamTimer">00:00</div>
+        <button class="hero-btn" id="imamTimerBtn" onclick="toggleImamTimer()" style="margin-bottom:12px;">بدء الصلاة والتسميع</button>
         
-        <div class="share-preview-box" id="sharePreviewText"></div>
-
-        <div style="display:flex; gap:8px; margin-top: 4px;">
-            <button class="btn-action share" style="flex:1; padding:12px; font-size:0.9rem;" onclick="shareDirectWhatsApp()">📲 إرسال عبر واتساب</button>
-            <button class="btn-action" style="flex:1; padding:12px; font-size:0.9rem; background:#334155;" onclick="copyShareText()">📋 نسخ النص</button>
+        <p style="font-size:0.75rem; margin-bottom:6px;">تقييم استحضارك بعد التسليم:</p>
+        <div style="display:flex; gap:6px;">
+            <button class="imam-score-btn" style="background:#10b981; color:white;" onclick="recordImamResult(100)">🟢 متقن تماماً</button>
+            <button class="imam-score-btn" style="background:#f59e0b; color:white;" onclick="recordImamResult(70)">🟡 تردد بسيط</button>
+            <button class="imam-score-btn" style="background:#ef4444; color:white;" onclick="recordImamResult(40)">🔴 تعثر وتفلت</button>
         </div>
-        <button class="btn-close" onclick="closeShareModal()">إغلاق</button>
+        <button class="btn-close" style="background:rgba(255,255,255,0.2); color:white;" onclick="closeImamModal()">إغلاق</button>
     </div>
 </div>
 
-<!-- نافذة خريطة المصحف البصرية (Heatmap) -->
+<!-- نافذة خريطة صحة الحفظ (Health Score Heatmap) -->
 <div class="modal-overlay" id="heatmapModal" onclick="closeHeatmap()">
     <div class="modal-card" onclick="event.stopPropagation()">
-        <h3 style="font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--primary-dark); margin-bottom: 6px;">خريطة المصحف البصرية (604 صفحة)</h3>
-        <div class="heatmap-legend">
-            <div class="legend-item"><div class="legend-color cell-distant"></div><span>مستقر (بعيد)</span></div>
-            <div class="legend-item"><div class="legend-color cell-near"></div><span>قريب ملاصق</span></div>
-            <div class="legend-item"><div class="legend-color cell-current"></div><span>جديد اليوم</span></div>
-            <div class="legend-item"><div class="legend-color cell-empty"></div><span>متبقي</span></div>
+        <h3 style="font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--primary-dark); margin-bottom: 4px;">خريطة صحة الحفظ (Health Score)</h3>
+        <div style="display:flex; justify-content:center; gap:8px; font-size:0.65rem; margin-bottom:8px;">
+            <span>🟢 90%+ مستقر</span>
+            <span>🟢 70%+ جيد</span>
+            <span>🟡 50%+ يحتاج مدارسة</span>
+            <span>🔴 ضعيف</span>
         </div>
         <div class="heatmap-grid" id="heatmapContainer"></div>
         <button class="btn-close" onclick="closeHeatmap()">إغلاق</button>
     </div>
 </div>
 
-<!-- مؤقت التركيز -->
-<div class="modal-overlay" id="timerModal" onclick="closeTimerModal()">
-    <div class="modal-card" onclick="event.stopPropagation()">
-        <h3 id="timerTaskTitle" style="font-size: 1.1rem; color: var(--primary-dark);">مؤقت التركيز</h3>
-        <div class="timer-display" id="timerClock">15:00</div>
-        <div class="timer-controls">
-            <button class="timer-ctrl-btn timer-start" id="timerStartBtn" onclick="toggleTimer()">بدء التركيز</button>
-            <button class="timer-ctrl-btn timer-reset" onclick="resetTimer()">إعادة ضبط</button>
+<!-- نافذة بروتوكول الإنقاذ والعودة بعد الانقطاع -->
+<div class="modal-overlay" id="rescueModal">
+    <div class="modal-card" style="border: 2px solid var(--primary);">
+        <h3 style="font-family: 'Amiri', serif; font-size: 1.5rem; color: var(--primary-dark);">🛟 مرحباً بعودتك للقرآن!</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 8px 0 14px;">لاحظنا غيابك لبضعة أيام. لا تقلق، لن نبدأ من الصفر ولن نثقلك بمهمات متراكمة[span_2](start_span)[span_2](end_span).</p>
+        <div style="background:#ecfdf5; border-radius:10px; padding:10px; font-size:0.8rem; text-align:right; margin-bottom:12px;">
+            <strong>خطة الإنعاش السريعة المقترحة:</strong><br>
+            • تجميد الحفظ الجديد لمدة 3 أيام[span_3](start_span)[span_3](end_span).<br>
+            • قراءة حدر سريعة لآخر 15 صفحة فقط لتنشيط الذاكرة[span_4](start_span)[span_4](end_span).
         </div>
-        <button class="btn-close" onclick="closeTimerModal()">إغلاق</button>
+        <button class="hero-btn" style="background:var(--primary); color:white;" onclick="acceptRescuePlan()">ابدأ خطة الإنعاش السريعة</button>
     </div>
 </div>
 
-<!-- الإعداد المبدئي وإدارة النسخ الاحتياطي -->
-<div class="modal-overlay" id="onboardingModal">
-    <div class="modal-card">
-        <h3 style="font-family: 'Amiri', serif; font-size: 1.5rem; color: var(--primary-dark); margin-bottom: 4px;">إعدادات رحلتك مع القرآن</h3>
-        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">ضبط الخطة والقراء وحفظ التقدم</p>
-        
-        <div class="onboarding-field">
-            <label>اسمك الكريم:</label>
-            <input type="text" id="setupName" placeholder="مثال: أحمد">
-        </div>
-        <div class="onboarding-field">
-            <label>صفحة الحفظ الحالية:</label>
-            <input type="number" id="setupStartPage" value="3" min="3" max="604">
-        </div>
-        <div class="onboarding-field">
-            <label>القارئ المفضل:</label>
-            <select id="setupReciter">
-                <option value="Minshawy_Murattal_128kbps">محمد صديق المنشاوي (موصى به بالمنظومة)</option>
-                <option value="Husary_128kbps">محمود خليل الحصري (مرتل)</option>
-                <option value="Hudhaify_128kbps">علي بن عبد الرحمن الحذيفي</option>
-                <option value="Alafasy_128kbps">مشاري راشد العفاسي</option>
-                <option value="Abdul_Basit_Murattal_192kbps">عبد الباسط عبد الصمد (مرتل)</option>
-            </select>
-        </div>
-        <div class="onboarding-field">
-            <label>وقت التذكير اليومي:</label>
-            <input type="time" id="setupReminderTime" value="06:30">
-        </div>
-
-        <button class="btn-next" onclick="saveUserProfile()" style="margin-top: 4px; margin-bottom: 12px;">حفظ ومتابعة</button>
-
-        <div style="border-top: 1px solid var(--border); padding-top: 10px; display:flex; gap:6px;">
-            <button class="btn-action" style="background:#475569;" onclick="exportData()">💾 تصدير نسختي</button>
-            <label class="btn-action" style="background:#475569; cursor:pointer; display:grid; place-content:center;">
-                📥 استيراد نسخة
-                <input type="file" id="importFileInput" style="display:none" onchange="importData(event)">
-            </label>
-        </div>
-    </div>
-</div>
-
-<!-- تقرير الختمة -->
-<div class="modal-overlay" id="reportModal" onclick="closeReport()">
-    <div class="modal-card" onclick="event.stopPropagation()">
-        <h3 style="margin-bottom: 4px; font-family: 'Amiri', serif; font-size: 1.5rem;" id="reportTitle">رحلتك يا صاحب القرآن</h3>
-        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom: 12px;">ثبات الحفظ في دوام التعاهد</p>
-        <div class="stat-circle" id="reportCircle">
-            <span id="reportPercent">0%</span>
-        </div>
-        <div class="stat-details">
-            <div class="stat-box">
-                <small style="color:var(--text-muted); font-size:0.75rem;">رصيدك المحفوظ</small>
-                <strong id="repCompleted">0</strong> <span style="font-size:0.75rem;">صفحة</span>
-            </div>
-            <div class="stat-box">
-                <small style="color:var(--text-muted); font-size:0.75rem;">المتبقي للتاج</small>
-                <strong id="repRemaining">0</strong> <span style="font-size:0.75rem;">صفحة</span>
-            </div>
-        </div>
-        <button class="btn-close" onclick="closeReport()">إغلاق</button>
-    </div>
-</div>
-
-<!-- المصحف المحمي من القوائم المنبثقة والمعروض بالكامل -->
+<!-- نافذة المصحف والتكرار واختبار الحفظ -->
 <div class="modal-overlay" id="quranModal" onclick="closeQuranModal()">
     <div class="modal-card quran-modal-card" onclick="event.stopPropagation()">
         <div class="quran-nav">
             <button class="quran-nav-btn" id="nextPageBtn" onclick="changeQuranPage(1)">التالي ←</button>
-            <div style="display:flex; flex-direction:column; align-items:center;">
-                <strong id="quranPageTitle" style="color: var(--primary-dark); font-size: 0.95rem;">صفحة</strong>
-                <small id="quranRangeTitle" style="font-size:0.7rem; color:var(--text-muted);"></small>
-            </div>
+            <strong id="quranPageTitle" style="color:var(--primary-dark); font-size:0.9rem;">صفحة</strong>
             <button class="quran-nav-btn" id="prevPageBtn" onclick="changeQuranPage(-1)">→ السابق</button>
         </div>
 
-        <div class="audio-player-container">
-            <div class="audio-row">
-                <select id="modalReciterSelect" onchange="changeReciter(this.value)">
-                    <option value="Minshawy_Murattal_128kbps">محمد المنشاوي</option>
-                    <option value="Husary_128kbps">محمود الحصري</option>
-                    <option value="Hudhaify_128kbps">علي الحذيفي</option>
-                    <option value="Alafasy_128kbps">مشاري العفاسي</option>
-                    <option value="Abdul_Basit_Murattal_192kbps">عبد الباسط</option>
-                </select>
-                <button id="audioToggleBtn" onclick="toggleAudioRecitation()">تشغيل ▶</button>
-            </div>
-            <div class="quran-toolbar">
-                <div style="display:flex; align-items:center; gap:4px;">
-                    <span>🔁 التكرار:</span>
-                    <select id="loopCountSelect" style="padding:2px 4px; border-radius:4px; border:1px solid var(--border);" onchange="setAudioLoop(this.value)">
-                        <option value="1">مرة واحدة</option>
-                        <option value="3">3 مرات</option>
-                        <option value="5">5 مرات</option>
-                        <option value="10">10 مرات</option>
-                    </select>
-                    <span id="loopStatus" style="color:var(--primary); font-size:0.7rem;"></span>
-                </div>
-                <button class="blur-btn" id="blurToggleBtn" onclick="toggleBlurMode()">👁️ اختبار الحفظ (تغطية)</button>
-            </div>
-            <audio id="quranAudio" preload="none"></audio>
+        <div style="background:#f8fafc; padding:6px; border-radius:8px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;">
+            <select id="modalReciterSelect" style="padding:4px; font-size:0.75rem;" onchange="changeReciter(this.value)">
+                <option value="Minshawy_Murattal_128kbps">محمد المنشاوي (موصى به)[span_5](start_span)[span_5](end_span)</option>
+                <option value="Husary_128kbps">محمود الحصري</option>
+                <option value="Hudhaify_128kbps">علي الحذيفي</option>
+                <option value="Alafasy_128kbps">مشاري العفاسي</option>
+            </select>
+            <button class="quran-btn" id="audioToggleBtn" onclick="toggleAudioRecitation()">تشغيل ▶</button>
+            <button class="quran-btn" id="blurToggleBtn" onclick="toggleBlurMode()">👁️ حجب</button>
         </div>
 
         <div class="quran-img-container" oncontextmenu="return false;">
-            <img id="quranPageImg" src="" alt="صفحة المصحف" oncontextmenu="return false;" draggable="false">
+            <img id="quranPageImg" src="" alt="صفحة المصحف" draggable="false">
         </div>
 
         <button class="btn-close" onclick="closeQuranModal()">إغلاق المصحف</button>
+        <audio id="quranAudio" preload="none"></audio>
+    </div>
+</div>
+
+<!-- الإعدادات -->
+<div class="modal-overlay" id="settingsModal">
+    <div class="modal-card">
+        <h3 style="font-family:'Amiri', serif; font-size:1.4rem; color:var(--primary-dark); margin-bottom:8px;">الإعدادات الشخصية</h3>
+        <div class="input-group" style="text-align:right; margin-bottom:8px;">
+            <label>اسمك الكريم:</label>
+            <input type="text" id="setupName">
+        </div>
+        <div class="input-group" style="text-align:right; margin-bottom:12px;">
+            <label>صفحة الحفظ الحالية:</label>
+            <input type="number" id="setupStartPage" min="3" max="604">
+        </div>
+        <button class="hero-btn" style="background:var(--primary); color:white;" onclick="saveSettings()">حفظ التعديلات</button>
+        <button class="btn-close" onclick="closeSettings()">إلغاء</button>
     </div>
 </div>
 
@@ -470,151 +359,283 @@
     let activeQuranPage = 3;
     let allowedMinPage = 1;
     let allowedMaxPage = 604;
-    let audioCtx = null;
-    let remainingLoops = 1;
-    let targetLoops = 1;
+    let currentMode = 'normal'; // normal, busy, tired
+    let heroTaskIndex = 0;
+    let generatedTasksCache = [];
 
-    // إعداد اسم التطبيق وأيقونته للـ PWA
+    // إعداد الـ PWA
     (function setupPWA() {
         const manifest = {
-            name: "الحصون الخمسة",
-            short_name: "الحصون الخمسة",
-            description: "الورد اليومي المنظم لحفظ القرآن الكريم بإتقان",
-            start_url: "./index.html",
-            display: "standalone",
-            orientation: "portrait",
-            background_color: "#f8fafc",
-            theme_color: "#059669",
-            icons: [
-                {
-                    src: "https://android.quran.com/data/width_1260/page003.png",
-                    sizes: "192x192",
-                    type: "image/png",
-                    purpose: "any maskable"
-                },
-                {
-                    src: "https://android.quran.com/data/width_1260/page003.png",
-                    sizes: "512x512",
-                    type: "image/png"
-                }
-            ]
+            name: "الحصون الخمسة", short_name: "الحصون الخمسة", start_url: "./index.html", display: "standalone",
+            theme_color: "#059669", background_color: "#f8fafc",
+            icons: [{ src: "https://android.quran.com/data/width_1260/page003.png", sizes: "192x192", type: "image/png" }]
         };
-        const stringManifest = JSON.stringify(manifest);
-        const blob = new Blob([stringManifest], {type: 'application/json'});
+        const blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
         document.getElementById('manifestPlaceholder').setAttribute('href', URL.createObjectURL(blob));
     })();
-
-    function playChime(isFinish = false) {
-        try {
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const now = audioCtx.currentTime;
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.type = 'sine';
-            if (!isFinish) {
-                osc.frequency.setValueAtTime(523.25, now);
-                osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.12);
-                gain.gain.setValueAtTime(0.01, now);
-                gain.gain.exponentialRampToValueAtTime(0.3, now + 0.05);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
-                osc.start(now);
-                osc.stop(now + 0.4);
-            } else {
-                osc.frequency.setValueAtTime(440, now);
-                osc.frequency.setValueAtTime(554.37, now + 0.15);
-                osc.frequency.setValueAtTime(659.25, now + 0.3);
-                gain.gain.setValueAtTime(0.2, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
-                osc.start(now);
-                osc.stop(now + 0.8);
-            }
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-        } catch (e) {}
-    }
 
     function getUserData() {
         return JSON.parse(localStorage.getItem('quran_user_profile')) || null;
     }
 
     function initUser() {
-        const user = getUserData();
+        let user = getUserData();
         const todayDayIndex = (new Date().getDay() + 1) % 7;
 
         if (!user) {
-            document.getElementById('onboardingModal').classList.add('active');
-            document.getElementById('currentDay').value = todayDayIndex;
-        } else {
-            document.getElementById('currentPage').value = user.currentPage;
-            document.getElementById('currentDay').value = user.currentDay !== undefined ? user.currentDay : todayDayIndex;
-            updateHeader(user.name);
-            renderCalendar();
-            renderTasks();
-            setupReminder(user.reminderTime, user.name);
+            user = {
+                name: 'صاحب القرآن',
+                currentPage: 5,
+                currentDay: todayDayIndex,
+                history: {},
+                pageHealth: {},
+                lastVisit: new Date().toISOString().split('T')[0],
+                streak: 1
+            };
+            localStorage.setItem('quran_user_profile', JSON.stringify(user));
         }
-        setupAudioEvents();
-    }
 
-    function saveUserProfile() {
-        const name = document.getElementById('setupName').value.trim() || 'صاحب القرآن';
-        const startPage = parseInt(document.getElementById('setupStartPage').value) || 3;
-        const reciter = document.getElementById('setupReciter').value;
-        const reminderTime = document.getElementById('setupReminderTime').value || '06:30';
-        const currentDay = parseInt(document.getElementById('currentDay').value) || 0;
-
-        const user = getUserData() || {};
-        user.name = name;
-        user.currentPage = startPage;
-        user.reciter = reciter;
-        user.reminderTime = reminderTime;
-        user.currentDay = currentDay;
-        if (!user.history) user.history = {};
-        if (user.streak === undefined) user.streak = 1;
-
-        localStorage.setItem('quran_user_profile', JSON.stringify(user));
-        document.getElementById('onboardingModal').classList.remove('active');
-
-        if ("Notification" in window && Notification.permission !== "granted") {
-            Notification.requestPermission();
-        }
+        // فحص الغياب الطويل لبروتوكول الإنقاذ
+        checkAbsenceProtocol(user);
 
         document.getElementById('currentPage').value = user.currentPage;
-        updateHeader(user.name);
+        document.getElementById('currentDay').value = user.currentDay !== undefined ? user.currentDay : todayDayIndex;
+        document.getElementById('userGreeting').innerText = `يا ${user.name}، استعن بالله وثبّت عهدك 🌱`;
+
+        // تقادم درجات الصحة تلقائياً
+        decayHealthScores(user);
+
         renderCalendar();
         renderTasks();
-        setupReminder(reminderTime, name);
     }
 
-    function updateHeader(name) {
-        document.getElementById('userGreeting').innerText = `يا ${name}، استعن بالله ولا تعجز 🌱`;
+    /* فحص بروتوكول الإنقاذ والعودة */
+    function checkAbsenceProtocol(user) {
+        if (!user.lastVisit) return;
+        const last = new Date(user.lastVisit);
+        const now = new Date();
+        const diffDays = Math.floor((now - last) / (1000 * 60 * 60 * 24));
+
+        if (diffDays >= 7) {
+            document.getElementById('rescueModal').classList.add('active');
+        }
+        user.lastVisit = new Date().toISOString().split('T')[0];
+        localStorage.setItem('quran_user_profile', JSON.stringify(user));
     }
 
-    function confirmReset() {
-        if (confirm("هل تريد بالتأكيد تصفير الخطة؟ سيتم مسح بياناتك والبدء من جديد.")) {
-            localStorage.removeItem('quran_user_profile');
-            document.getElementById('setupName').value = '';
-            document.getElementById('setupStartPage').value = '3';
-            document.getElementById('setupReminderTime').value = '06:30';
-            document.getElementById('onboardingModal').classList.add('active');
+    function acceptRescuePlan() {
+        setDayMode('busy');
+        document.getElementById('rescueModal').classList.remove('active');
+        alert("تم تفعيل خطة الإنعاش السريعة: التركيز على القريب والبعيد فقط دون عبء الحفظ الجديد.");
+    }
+
+    /* محرك تقادم صحة الصفحات (Decay Engine) */
+    function decayHealthScores(user) {
+        if (!user.pageHealth) user.pageHealth = {};
+        for (let p = 3; p < user.currentPage; p++) {
+            if (!user.pageHealth[p]) user.pageHealth[p] = 80;
+            // تراجع بمعدل نقطة كل فترة
+            user.pageHealth[p] = Math.max(20, user.pageHealth[p] - 1);
+        }
+        localStorage.setItem('quran_user_profile', JSON.stringify(user));
+    }
+
+    function updatePageHealth(page, score) {
+        const user = getUserData() || {};
+        if (!user.pageHealth) user.pageHealth = {};
+        user.pageHealth[page] = Math.min(100, Math.max(10, score));
+        localStorage.setItem('quran_user_profile', JSON.stringify(user));
+    }
+
+    /* تغيير نمط اليوم (طبيعي / مزدحم / مرهق) */
+    function setDayMode(mode) {
+        currentMode = mode;
+        document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+        if (mode === 'normal') document.getElementById('modeNormal').classList.add('active');
+        if (mode === 'busy') document.getElementById('modeBusy').classList.add('active');
+        if (mode === 'tired') document.getElementById('modeTired').classList.add('active');
+        heroTaskIndex = 0;
+        renderTasks();
+    }
+
+    /* توليد المهام وفق الوضع الحركي */
+    function generateTasks(P, dayIndex) {
+        let tasks = [];
+
+        // في الوضع المزدحم يتم إسقاط الحفظ الجديد والتحضير الأسبوعي للتركيز على المراجعة الحامية فقط
+        if (currentMode !== 'busy' && currentMode !== 'tired') {
+            tasks.push({
+                order: 1, title: "الحصن الأول: القراءة المستمرة", timeMin: 40,
+                pagesText: "جزأين من المصحف (حدر)[span_6](start_span)[span_6](end_span)", desc: "تغذية الذاكرة البصرية وتثبيت الختمة[span_7](start_span)[span_7](end_span).", range: null
+            });
+            const weekIndex = Math.floor((P - 3) / 7);
+            const nextWeekStart = 3 + (weekIndex + 1) * 7;
+            tasks.push({
+                order: 2, title: "الحصن الثاني: التحضير الأسبوعي", timeMin: 10,
+                pagesText: `قراءة صـ ${nextWeekStart} إلى ${nextWeekStart + 6}[span_8](start_span)[span_8](end_span)`, desc: "تمهيد أسبوعي لصفحات الأسبوع القادم[span_9](start_span)[span_9](end_span).",
+                range: { start: nextWeekStart, end: nextWeekStart + 6, label: "التحضير الأسبوعي" }
+            });
+        }
+
+        if (currentMode !== 'busy') {
+            tasks.push({
+                order: 3, title: "الحصن الثاني: التحضير الليلي", timeMin: 15,
+                pagesText: `صفحة الغد (صـ ${P + 1})[span_10](start_span)[span_10](end_span)`, desc: "سماع وقراءة متكررة قبل النوم بتركيز[span_11](start_span)[span_11](end_span).",
+                range: { start: P + 1, end: P + 1, label: "التحضير الليلي" }
+            });
+            tasks.push({
+                order: 4, title: "الحصن الثاني: التحضير القبلي", timeMin: 15,
+                pagesText: `صفحة اليوم (صـ ${P})[span_12](start_span)[span_12](end_span)`, desc: "حدر متكرر 15 مرة قبل جلسة الحفظ مباشرة[span_13](start_span)[span_13](end_span).",
+                range: { start: P, end: P, label: "التحضير القبلي" }
+            });
+        }
+
+        // الحصون الحامية الأساسية (القريب والبعيد) تحضر دائماً حتى في وضع السفر
+        let distantPool = P > 23 ? (P - 20) - 3 : 0;
+        if (distantPool > 0) {
+            const tubeStart = 3 + (dayIndex * 40);
+            const available = distantPool - (dayIndex * 40);
+            if (available > 0) {
+                const count = Math.min(40, available);
+                tasks.push({
+                    order: 5, title: `الحصن الثالث: مراجعة البعيد`, timeMin: count,
+                    pagesText: `صـ ${tubeStart} إلى ${tubeStart + count - 1}[span_14](start_span)[span_14](end_span)`, desc: `أنبوبة يوم ${daysMap[dayIndex]} لحماية القديم[span_15](start_span)[span_15](end_span).`,
+                    range: { start: tubeStart, end: tubeStart + count - 1, label: "البعيد" }
+                });
+            }
+        }
+
+        if (P > 3) {
+            const startNear = Math.max(3, P - 20);
+            const count = (P - 1) - startNear + 1;
+            tasks.push({
+                order: 6, title: "الحصن الرابع: مراجعة القريب", timeMin: count,
+                pagesText: `صـ ${startNear} إلى ${P - 1}[span_16](start_span)[span_16](end_span)`, desc: "تثبيت آخر 20 صفحة ملاصقة[span_17](start_span)[span_17](end_span).",
+                range: { start: startNear, end: P - 1, label: "القريب" }
+            });
+        }
+
+        if (currentMode === 'normal') {
+            tasks.push({
+                order: 7, title: "الحصن الخامس: الحفظ الجديد", timeMin: 15,
+                pagesText: `صفحة رقم ${P}[span_18](start_span)[span_18](end_span)`, desc: "غرس الحفظ الجديد المتقن ركناً بركن[span_19](start_span)[span_19](end_span).",
+                range: { start: P, end: P, label: "الجديد" }
+            });
+        }
+
+        return tasks.sort((a, b) => a.order - b.order);
+    }
+
+    function renderTasks() {
+        const P = parseInt(document.getElementById('currentPage').value) || 3;
+        const D = parseInt(document.getElementById('currentDay').value);
+        const container = document.getElementById('tasksList');
+        container.innerHTML = '';
+
+        generatedTasksCache = generateTasks(P, D);
+
+        // تحديث بطاقة «المهمة الواحدة الآن»
+        updateHeroCard();
+
+        generatedTasksCache.forEach((task, idx) => {
+            let quranBtnHtml = task.range ? 
+                `<button type="button" class="quran-btn" onclick='openQuranRange(${task.range.start}, ${task.range.end}, "${task.range.label}")'>📖 تصفح ورد الحصن</button>` : '';
+
+            const card = document.createElement('div');
+            card.className = `task-card ${idx === heroTaskIndex ? 'active-target' : ''}`;
+            card.innerHTML = `
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" onchange="toggleTask(this, ${idx})">
+                </div>
+                <div class="task-content">
+                    <div class="task-header">
+                        <span class="task-title">${task.title}</span>
+                        <span class="task-time">${task.timeMin} د</span>
+                    </div>
+                    <div class="task-pages">${task.pagesText}</div>
+                    <div class="task-desc">${task.desc}</div>
+                    ${quranBtnHtml}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        updateProgress();
+    }
+
+    /* إدارة بطاقة المهمة الواحدة */
+    function updateHeroCard() {
+        if (!generatedTasksCache.length) return;
+        if (heroTaskIndex >= generatedTasksCache.length) {
+            document.getElementById('heroTitle').innerText = "🎉 أتممت جميع مهام اليوم بنجاح!";
+            document.getElementById('heroDesc').innerText = "هنيئاً لك وفاءك بعهد القرآن اليوم[span_20](start_span)[span_20](end_span).";
+            document.getElementById('heroMainBtn').style.display = 'none';
+            return;
+        }
+
+        document.getElementById('heroMainBtn').style.display = 'block';
+        const task = generatedTasksCache[heroTaskIndex];
+        document.getElementById('heroTag').innerText = `المهمة الحالية (${heroTaskIndex + 1} من ${generatedTasksCache.length})`;
+        document.getElementById('heroTitle').innerText = task.title;
+        document.getElementById('heroDesc').innerText = `${task.pagesText} • المقدر: ${task.timeMin} دقيقة`;
+    }
+
+    function triggerCurrentHeroAction() {
+        const task = generatedTasksCache[heroTaskIndex];
+        if (task.range) {
+            openQuranRange(task.range.start, task.range.end, task.range.label);
+        } else {
+            alert(`ابدأ الآن قراءة ${task.pagesText} بطريقة الحدر[span_21](start_span)[span_21](end_span).`);
         }
     }
 
-    function openSettings() {
-        const user = getUserData() || { name: '', currentPage: 3, reminderTime: '06:30', reciter: 'Minshawy_Murattal_128kbps' };
-        document.getElementById('setupName').value = user.name;
-        document.getElementById('setupStartPage').value = user.currentPage;
-        document.getElementById('setupReminderTime').value = user.reminderTime;
-        document.getElementById('setupReciter').value = user.reciter || 'Minshawy_Murattal_128kbps';
-        document.getElementById('onboardingModal').classList.add('active');
+    function skipHeroTask() {
+        if (heroTaskIndex < generatedTasksCache.length - 1) {
+            heroTaskIndex++;
+            renderTasks();
+        }
+    }
+
+    function toggleTask(cb, idx) {
+        if (cb.checked) {
+            if (idx === heroTaskIndex) heroTaskIndex++;
+            // رفع درجة صحة الصفحات المرتبطة
+            const task = generatedTasksCache[idx];
+            if (task && task.range) {
+                for (let p = task.range.start; p <= task.range.end; p++) updatePageHealth(p, 95);
+            }
+        }
+        renderTasks();
+    }
+
+    function updateProgress() {
+        const checkboxes = document.querySelectorAll('.task-card input[type="checkbox"]');
+        const cards = document.querySelectorAll('.task-card');
+        let checked = 0;
+        checkboxes.forEach((cb, idx) => {
+            if (cb.checked) { checked++; cards[idx].classList.add('completed'); }
+            else { cards[idx].classList.remove('completed'); }
+        });
+
+        const percent = checkboxes.length ? Math.round((checked / checkboxes.length) * 100) : 0;
+        document.getElementById('progressBar').style.width = `${percent}%`;
+        document.getElementById('progressText').innerText = `${percent}%`;
+
+        if (percent === 100) {
+            const user = getUserData() || {};
+            const todayStr = new Date().toISOString().split('T')[0];
+            if (!user.history) user.history = {};
+            user.history[todayStr] = true;
+            localStorage.setItem('quran_user_profile', JSON.stringify(user));
+            renderCalendar();
+        }
     }
 
     function renderCalendar() {
         const strip = document.getElementById('calendarStrip');
         strip.innerHTML = '';
-        const user = getUserData() || { history: {} };
+        const user = getUserData() || {};
         const history = user.history || {};
-
         const now = new Date();
         const currentDayOfWeek = (now.getDay() + 1) % 7;
         const startOfWeek = new Date(now);
@@ -630,195 +651,10 @@
             const dayBox = document.createElement('div');
             dayBox.className = `cal-day ${isToday ? 'today' : ''}`;
             dayBox.innerHTML = `
-                <span class="cal-day-name">${daysMap[i]}</span>
+                <span>${daysMap[i]}</span>
                 <span class="cal-status ${isDone ? 'done' : ''}">${isDone ? '✔' : ''}</span>
             `;
             strip.appendChild(dayBox);
-        }
-    }
-
-    function setupReminder(timeStr, name) {
-        if (!("Notification" in window)) return;
-        setInterval(() => {
-            const now = new Date();
-            const currentHours = String(now.getHours()).padStart(2, '0');
-            const currentMins = String(now.getMinutes()).padStart(2, '0');
-            const currentTimeStr = `${currentHours}:${currentMins}`;
-
-            if (currentTimeStr === timeStr && now.getSeconds() < 2) {
-                if (Notification.permission === "granted") {
-                    new Notification(`حيّاك الله يا ${name}! 🌿`, {
-                        body: "حان موعد عهدك مع القرآن اليوم (الحصون الخمسة). تعاهد القرآن واثبت عليه.",
-                        icon: "https://android.quran.com/data/width_1260/page003.png"
-                    });
-                }
-            }
-        }, 1000);
-    }
-
-    function generateTasks(P, dayIndex) {
-        let tasks = [];
-
-        tasks.push({
-            order: 1,
-            title: "الحصن الأول: القراءة المستمرة",
-            timeMin: 40,
-            pagesText: "جزأين من المصحف (حدر)",
-            desc: "وردك اليومي لتغذية الذاكرة البصرية وتثبيت المصحف كاملاً.",
-            range: null
-        });
-
-        const weekIndex = Math.floor((P - 3) / 7);
-        const nextWeekStart = 3 + (weekIndex + 1) * 7;
-        const nextWeekEnd = nextWeekStart + 6;
-        tasks.push({
-            order: 2,
-            title: "الحصن الثاني: التحضير الأسبوعي",
-            timeMin: 10,
-            pagesText: `قراءة الصفحات ${nextWeekStart} إلى ${nextWeekEnd}`,
-            desc: "تمهيد لصفحات الأسبوع القادم حتى تألفها عينك وأذنك.",
-            range: { start: nextWeekStart, end: nextWeekEnd, label: `الأسبوع القادم (${nextWeekStart} - ${nextWeekEnd})` }
-        });
-
-        tasks.push({
-            order: 3,
-            title: "الحصن الثاني: التحضير الليلي",
-            timeMin: 15,
-            pagesText: `صفحة الغد (صـ ${P + 1})`,
-            desc: "سماع وقراءة متكررة بتركيز مع القارئ المختار قبل النوم.",
-            range: { start: P + 1, end: P + 1, label: `صفحة الغد (${P + 1})` }
-        });
-
-        tasks.push({
-            order: 4,
-            title: "الحصن الثاني: التحضير القبلي",
-            timeMin: 15,
-            pagesText: `صفحة اليوم (صـ ${P})`,
-            desc: "قراءة حدر 15 مرة قبل جلسة الحفظ لكسر صعوبة الصفحة.",
-            range: { start: P, end: P, label: `صفحة اليوم (${P})` }
-        });
-
-        let distantPool = P > 23 ? (P - 20) - 3 : 0;
-        if (distantPool > 0) {
-            const tubeStart = 3 + (dayIndex * 40);
-            const availableForThisDay = distantPool - (dayIndex * 40);
-            if (availableForThisDay > 0) {
-                const pagesToday = Math.min(40, availableForThisDay);
-                const tubeEnd = tubeStart + pagesToday - 1;
-                tasks.push({
-                    order: 5,
-                    title: `الحصن الثالث: مراجعة البعيد`,
-                    timeMin: pagesToday,
-                    pagesText: `صـ ${tubeStart} إلى ${tubeEnd} (${pagesToday} ص)`,
-                    desc: `أنبوبة يوم ${daysMap[dayIndex]} لحماية أصل حفظك القديم من التفلت.`,
-                    range: { start: tubeStart, end: tubeEnd, label: `أنبوبة ${daysMap[dayIndex]} (${tubeStart} - ${tubeEnd})` }
-                });
-            }
-        }
-
-        if (P > 3) {
-            const startNear = Math.max(3, P - 20);
-            const endNear = P - 1;
-            const count = endNear - startNear + 1;
-            tasks.push({
-                order: 6,
-                title: "الحصن الرابع: مراجعة القريب",
-                timeMin: count,
-                pagesText: `صـ ${startNear} إلى ${endNear} (${count} ص)`,
-                desc: "تثبيت آخر 20 صفحة ملاصقة حتى تستقر في الذاكرة الدائمة.",
-                range: { start: startNear, end: endNear, label: `القريب (${startNear} - ${endNear})` }
-            });
-        }
-
-        tasks.push({
-            order: 7,
-            title: "الحصن الخامس: الحفظ الجديد",
-            timeMin: 15,
-            pagesText: `صفحة رقم ${P}`,
-            desc: "غرس الصفحة الجديدة بتركيز وإتقان ركناً بركن.",
-            range: { start: P, end: P, label: `الحفظ الجديد (${P})` }
-        });
-
-        return tasks.sort((a, b) => a.order - b.order);
-    }
-
-    function renderTasks() {
-        const P = parseInt(document.getElementById('currentPage').value) || 3;
-        const D = parseInt(document.getElementById('currentDay').value);
-        const container = document.getElementById('tasksList');
-        container.innerHTML = '';
-
-        const tasks = generateTasks(P, D);
-
-        tasks.forEach(task => {
-            let quranBtnHtml = task.range ? 
-                `<button type="button" class="quran-btn" onclick='openQuranRange(${task.range.start}, ${task.range.end}, "${task.range.label}")'>📖 تصفح ورد الحصن</button>` : 
-                '';
-
-            const card = document.createElement('div');
-            card.className = 'task-card';
-            card.innerHTML = `
-                <div class="checkbox-wrapper">
-                    <input type="checkbox" onchange="toggleTask(this)">
-                </div>
-                <div class="task-content">
-                    <div class="task-header">
-                        <span class="task-title">${task.title}</span>
-                        <div class="task-actions">
-                            <span class="task-time">${task.timeMin} د</span>
-                            <button class="timer-btn" title="تشغيل مؤقت" onclick="startTaskTimer('${task.title}', ${task.timeMin})">⏱️</button>
-                        </div>
-                    </div>
-                    <div class="task-pages">${task.pagesText}</div>
-                    <div class="task-desc">${task.desc}</div>
-                    <div class="task-bottom-actions">
-                        ${quranBtnHtml}
-                    </div>
-                </div>
-            `;
-            container.appendChild(card);
-        });
-        updateProgress();
-    }
-
-    function toggleTask(checkbox) {
-        if (checkbox.checked) playChime(false);
-        updateProgress();
-    }
-
-    function updateProgress() {
-        const checkboxes = document.querySelectorAll('.task-card input[type="checkbox"]');
-        const cards = document.querySelectorAll('.task-card');
-        
-        let checked = 0;
-        checkboxes.forEach((cb, index) => {
-            if (cb.checked) {
-                checked++;
-                cards[index].classList.add('completed');
-            } else {
-                cards[index].classList.remove('completed');
-            }
-        });
-
-        const percent = checkboxes.length ? Math.round((checked / checkboxes.length) * 100) : 0;
-        document.getElementById('progressBar').style.width = `${percent}%`;
-        document.getElementById('progressText').innerText = `${percent}%`;
-
-        const user = getUserData() || {};
-        const userName = user.name || 'يا بطل';
-        const motEl = document.getElementById('motivationalText');
-
-        if (percent === 100) {
-            motEl.innerText = `هنيئاً لك يا ${userName}! تم وردك كاملاً 👑`;
-            const todayStr = new Date().toISOString().split('T')[0];
-            if (!user.history) user.history = {};
-            user.history[todayStr] = true;
-            localStorage.setItem('quran_user_profile', JSON.stringify(user));
-            renderCalendar();
-        } else if (percent >= 50) {
-            motEl.innerText = `أحسنت يا ${userName}، قطعت أكثر من النصف!`;
-        } else {
-            motEl.innerText = `إنجاز ورد اليوم`;
         }
     }
 
@@ -827,202 +663,96 @@
         let dInput = document.getElementById('currentDay');
         pInput.value = parseInt(pInput.value) + 1;
         dInput.value = (parseInt(dInput.value) + 1) % 7;
-        
+
         const user = getUserData() || {};
         user.currentPage = parseInt(pInput.value);
         user.currentDay = parseInt(dInput.value);
-
-        const todayStr = new Date().toISOString().split('T')[0];
-        if (user.lastCompletedDate !== todayStr) {
-            user.streak = (user.streak || 0) + 1;
-            user.lastCompletedDate = todayStr;
-        }
-
+        user.lastVisit = new Date().toISOString().split('T')[0];
         localStorage.setItem('quran_user_profile', JSON.stringify(user));
 
+        heroTaskIndex = 0;
         renderTasks();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /* نظام مشاركة الإنجاز مع الصحبة */
-    function getShareMessage() {
-        const user = getUserData() || {};
-        const name = user.name || 'صاحب القرآن';
-        const P = parseInt(document.getElementById('currentPage').value) || 3;
-        const streak = user.streak || 1;
-        const totalQuranPages = 602;
-        const completed = Math.max(0, P - 3);
-        const percent = ((completed / totalQuranPages) * 100).toFixed(1);
-
-        return `🌿 *بفضل الله وتوفيقه* 🌿\n\nأتممت ورد اليوم من منهج *الحصون الخمسة* لحفظ القرآن الكريم بإتقان.\n\n👤 القارئ: *${name}*\n📖 صفحة اليوم: *صـ ${P}*\n📊 نسبة الإنجاز من القرآن: *${percent}%* (${completed} صفحة)\n🔥 مستمر في الالتزام: *${streak} ${streak === 1 ? 'يوم' : streak === 2 ? 'يومان' : 'أيام متتالية'}*\n\nقال رسول الله ﷺ: «تَعَاهَدُوا هذا القُرْآنَ».\nانضم وتحداني في الحفظ والمراجعة عبر الرابط:\n${window.location.href}`;
-    }
-
-    function openShareModal() {
-        const text = getShareMessage();
-        document.getElementById('sharePreviewText').innerText = text;
-        document.getElementById('shareModal').classList.add('active');
-    }
-
-    function closeShareModal() {
-        document.getElementById('shareModal').classList.remove('active');
-    }
-
-    function shareDirectWhatsApp() {
-        const text = getShareMessage();
-        const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
-        window.open(url, '_blank');
-    }
-
-    function copyShareText() {
-        const text = getShareMessage();
-        navigator.clipboard.writeText(text).then(() => {
-            alert("تم نسخ بطاقة الإنجاز بنجاح! يمكنك لصقها في أي تطبيق.");
-        }).catch(() => {
-            alert("يرجى نسخ النص يدوياً من المربع.");
-        });
-    }
-
-    /* خريطة المصحف البصرية (Heatmap) */
+    /* خريطة صحة الحفظ (Health Score) */
     function openHeatmap() {
         const container = document.getElementById('heatmapContainer');
         container.innerHTML = '';
+        const user = getUserData() || {};
+        const healthMap = user.pageHealth || {};
         const P = parseInt(document.getElementById('currentPage').value) || 3;
 
-        const currentMemorizationPage = P;
-        const nearStart = P > 3 ? Math.max(3, P - 20) : 0;
-        const nearEnd = P - 1;
-
-        for (let page = 1; page <= 604; page++) {
+        for (let p = 1; p <= 604; p++) {
             const cell = document.createElement('div');
             cell.className = 'heat-cell';
-            cell.innerText = page;
+            cell.innerText = p;
 
-            if (page === currentMemorizationPage) {
-                cell.classList.add('cell-current');
-            } else if (page >= nearStart && page <= nearEnd) {
-                cell.classList.add('cell-near');
-            } else if (page >= 3 && page < nearStart) {
-                cell.classList.add('cell-distant');
+            if (p >= P) {
+                cell.classList.add('h-empty');
             } else {
-                cell.classList.add('cell-empty');
+                const score = healthMap[p] || 70;
+                if (score >= 85) cell.classList.add('h-excellent');
+                else if (score >= 65) cell.classList.add('h-good');
+                else if (score >= 45) cell.classList.add('h-warning');
+                else cell.classList.add('h-danger');
             }
 
             cell.onclick = () => {
                 closeHeatmap();
-                openQuranRange(page, page, `تصفح صـ ${page}`);
+                openQuranRange(p, p, `صـ ${p}`);
             };
-
             container.appendChild(cell);
         }
-
         document.getElementById('heatmapModal').classList.add('active');
     }
 
-    function closeHeatmap() {
-        document.getElementById('heatmapModal').classList.remove('active');
+    function closeHeatmap() { document.getElementById('heatmapModal').classList.remove('active'); }
+
+    /* وضع الإمام */
+    let imamInterval = null;
+    let imamSecs = 0;
+    function openImamModal() { document.getElementById('imamModal').classList.add('active'); }
+    function closeImamModal() {
+        clearInterval(imamInterval);
+        document.getElementById('imamModal').classList.remove('active');
     }
-
-    /* نظام المؤقت */
-    let timerInterval = null, timerRemainingSecs = 0, timerTotalSecs = 0, timerIsRunning = false;
-
-    function startTaskTimer(title, minutes) {
-        document.getElementById('timerTaskTitle').innerText = title;
-        timerTotalSecs = minutes * 60;
-        timerRemainingSecs = timerTotalSecs;
-        updateTimerDisplay();
-        timerIsRunning = false;
-        document.getElementById('timerStartBtn').innerText = 'بدء التركيز';
-        document.getElementById('timerModal').classList.add('active');
-    }
-
-    function toggleTimer() {
-        if (timerIsRunning) {
-            clearInterval(timerInterval);
-            timerIsRunning = false;
-            document.getElementById('timerStartBtn').innerText = 'استئناف';
+    function toggleImamTimer() {
+        const btn = document.getElementById('imamTimerBtn');
+        if (imamInterval) {
+            clearInterval(imamInterval);
+            imamInterval = null;
+            btn.innerText = 'استئناف الصلاة';
         } else {
-            timerIsRunning = true;
-            document.getElementById('timerStartBtn').innerText = 'إيقاف مؤقت';
-            timerInterval = setInterval(() => {
-                if (timerRemainingSecs > 0) {
-                    timerRemainingSecs--;
-                    updateTimerDisplay();
-                } else {
-                    clearInterval(timerInterval);
-                    timerIsRunning = false;
-                    playChime(true);
-                    alert("انتهى وقت الحصن بنجاح! بارك الله في همتك.");
-                    closeTimerModal();
-                }
+            imamInterval = setInterval(() => {
+                imamSecs++;
+                const m = String(Math.floor(imamSecs / 60)).padStart(2, '0');
+                const s = String(imamSecs % 60).padStart(2, '0');
+                document.getElementById('imamTimer').innerText = `${m}:${s}`;
             }, 1000);
+            btn.innerText = 'إيقاف مؤقت ⏸';
         }
     }
-
-    function resetTimer() {
-        clearInterval(timerInterval);
-        timerIsRunning = false;
-        timerRemainingSecs = timerTotalSecs;
-        updateTimerDisplay();
-        document.getElementById('timerStartBtn').innerText = 'بدء التركيز';
-    }
-
-    function updateTimerDisplay() {
-        const m = Math.floor(timerRemainingSecs / 60);
-        const s = timerRemainingSecs % 60;
-        document.getElementById('timerClock').innerText = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-    }
-
-    function closeTimerModal() {
-        clearInterval(timerInterval);
-        timerIsRunning = false;
-        document.getElementById('timerModal').classList.remove('active');
-    }
-
-    function openReport() {
+    function recordImamResult(score) {
         const P = parseInt(document.getElementById('currentPage').value) || 3;
-        const totalQuranPages = 602;
-        let completed = Math.max(0, P - 3);
-        let remaining = totalQuranPages - completed;
-        let percent = ((completed / totalQuranPages) * 100).toFixed(1);
-
-        const user = getUserData();
-        if (user) document.getElementById('reportTitle').innerText = `إنجازك يا ${user.name}`;
-
-        document.getElementById('repCompleted').innerText = completed;
-        document.getElementById('repRemaining').innerText = remaining;
-        document.getElementById('reportPercent').innerText = `${percent}%`;
-        document.getElementById('reportCircle').style.background = `conic-gradient(var(--primary) ${percent}%, var(--border) 0%)`;
-        document.getElementById('reportModal').classList.add('active');
+        updatePageHealth(P, score);
+        alert(`تم تسجيل تقييم الصلاة (${score}%) بنجاح في مؤشر قوة الحفظ.`);
+        closeImamModal();
     }
 
-    function closeReport() {
-        document.getElementById('reportModal').classList.remove('active');
-    }
-
+    /* نافذة المصحف والتكرار والبلور */
     function openQuranRange(start, end, label) {
         allowedMinPage = start;
         allowedMaxPage = end;
         activeQuranPage = start;
-
-        const user = getUserData() || {};
-        const savedReciter = user.reciter || 'Minshawy_Murattal_128kbps';
-        document.getElementById('modalReciterSelect').value = savedReciter;
-        document.getElementById('quranRangeTitle').innerText = `نطاق الحصن: ${label}`;
-
-        document.getElementById('loopCountSelect').value = "1";
-        setAudioLoop("1");
-        resetBlur();
-
         updateQuranModalView();
         document.getElementById('quranModal').classList.add('active');
     }
 
     function updateQuranModalView() {
         const padded = String(activeQuranPage).padStart(3, '0');
-        const imgUrl = `https://android.quran.com/data/width_1260/page${padded}.png`;
-        document.getElementById('quranPageImg').src = imgUrl;
-        document.getElementById('quranPageTitle').innerText = `صفحة رقم ${activeQuranPage}`;
-
+        document.getElementById('quranPageImg').src = `https://android.quran.com/data/width_1260/page${padded}.png`;
+        document.getElementById('quranPageTitle').innerText = `صفحة ${activeQuranPage}`;
         document.getElementById('prevPageBtn').disabled = (activeQuranPage <= allowedMinPage);
         document.getElementById('nextPageBtn').disabled = (activeQuranPage >= allowedMaxPage);
 
@@ -1033,68 +763,15 @@
         document.getElementById('audioToggleBtn').innerText = 'تشغيل ▶';
     }
 
-    function changeReciter(reciterId) {
-        const user = getUserData() || {};
-        user.reciter = reciterId;
-        localStorage.setItem('quran_user_profile', JSON.stringify(user));
-        updateQuranModalView();
-    }
-
-    function setAudioLoop(val) {
-        targetLoops = parseInt(val);
-        remainingLoops = targetLoops;
-        updateLoopStatusUI();
-    }
-
-    function updateLoopStatusUI() {
-        const statusEl = document.getElementById('loopStatus');
-        if (targetLoops > 1) {
-            statusEl.innerText = `(المتبقي: ${remainingLoops})`;
-        } else {
-            statusEl.innerText = '';
-        }
-    }
-
-    function setupAudioEvents() {
-        const audio = document.getElementById('quranAudio');
-        audio.onended = () => {
-            if (remainingLoops > 1) {
-                remainingLoops--;
-                updateLoopStatusUI();
-                audio.currentTime = 0;
-                audio.play();
-            } else {
-                remainingLoops = targetLoops;
-                updateLoopStatusUI();
-                document.getElementById('audioToggleBtn').innerText = 'تشغيل ▶';
-            }
-        };
-    }
-
     function toggleAudioRecitation() {
         const audio = document.getElementById('quranAudio');
         const btn = document.getElementById('audioToggleBtn');
-        if (audio.paused) {
-            audio.play();
-            btn.innerText = 'إيقاف ⏸';
-        } else {
-            audio.pause();
-            btn.innerText = 'تشغيل ▶';
-        }
+        if (audio.paused) { audio.play(); btn.innerText = 'إيقاف ⏸'; }
+        else { audio.pause(); btn.innerText = 'تشغيل ▶'; }
     }
 
     function toggleBlurMode() {
-        const img = document.getElementById('quranPageImg');
-        const btn = document.getElementById('blurToggleBtn');
-        img.classList.toggle('blurred');
-        btn.classList.toggle('active');
-    }
-
-    function resetBlur() {
-        const img = document.getElementById('quranPageImg');
-        const btn = document.getElementById('blurToggleBtn');
-        img.classList.remove('blurred');
-        btn.classList.remove('active');
+        document.getElementById('quranPageImg').classList.toggle('blurred');
     }
 
     function changeQuranPage(delta) {
@@ -1106,59 +783,47 @@
     }
 
     function closeQuranModal() {
-        const audio = document.getElementById('quranAudio');
-        audio.pause();
-        resetBlur();
+        document.getElementById('quranAudio').pause();
+        document.getElementById('quranPageImg').classList.remove('blurred');
         document.getElementById('quranModal').classList.remove('active');
-        document.getElementById('quranPageImg').src = '';
     }
 
-    function exportData() {
-        const data = localStorage.getItem('quran_user_profile');
-        if (!data) return alert("لا توجد بيانات مسجلة حالياً.");
-        const blob = new Blob([data], { type: 'application/json' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = `quran_backup_${new Date().toISOString().split('T')[0]}.json`;
-        a.click();
+    function shareDirectWhatsApp() {
+        const user = getUserData() || {};
+        const P = document.getElementById('currentPage').value;
+        const text = `🌿 بفضل الله أتممت ورد اليوم من *الحصون الخمسة* (صـ ${P}) بنمط [${currentMode === 'busy' ? 'المسافر/المزدحم' : 'الطبيعي'}]. تعاهدوا القرآن! ${window.location.href}`;
+        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
     }
 
-    function importData(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            try {
-                const parsed = JSON.parse(e.target.result);
-                if (parsed.currentPage) {
-                    localStorage.setItem('quran_user_profile', JSON.stringify(parsed));
-                    alert("تم استعادة نسختك الاحتياطية بنجاح!");
-                    location.reload();
-                } else {
-                    alert("ملف غير صالح.");
-                }
-            } catch (err) {
-                alert("تعذر قراءة الملف.");
-            }
-        };
-        reader.readAsText(file);
+    function openSettings() {
+        const user = getUserData() || {};
+        document.getElementById('setupName').value = user.name || '';
+        document.getElementById('setupStartPage').value = user.currentPage || 5;
+        document.getElementById('settingsModal').classList.add('active');
+    }
+
+    function closeSettings() { document.getElementById('settingsModal').classList.remove('active'); }
+
+    function saveSettings() {
+        const user = getUserData() || {};
+        user.name = document.getElementById('setupName').value.trim() || 'صاحب القرآن';
+        user.currentPage = parseInt(document.getElementById('setupStartPage').value) || 5;
+        localStorage.setItem('quran_user_profile', JSON.stringify(user));
+        document.getElementById('settingsModal').classList.remove('active');
+        initUser();
     }
 
     document.getElementById('currentPage').addEventListener('input', () => {
-        const user = getUserData();
-        if (user) {
-            user.currentPage = parseInt(document.getElementById('currentPage').value) || 3;
-            localStorage.setItem('quran_user_profile', JSON.stringify(user));
-        }
+        const user = getUserData() || {};
+        user.currentPage = parseInt(document.getElementById('currentPage').value) || 3;
+        localStorage.setItem('quran_user_profile', JSON.stringify(user));
         renderTasks();
     });
 
     document.getElementById('currentDay').addEventListener('change', () => {
-        const user = getUserData();
-        if (user) {
-            user.currentDay = parseInt(document.getElementById('currentDay').value);
-            localStorage.setItem('quran_user_profile', JSON.stringify(user));
-        }
+        const user = getUserData() || {};
+        user.currentDay = parseInt(document.getElementById('currentDay').value);
+        localStorage.setItem('quran_user_profile', JSON.stringify(user));
         renderTasks();
     });
 
