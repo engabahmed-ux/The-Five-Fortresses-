@@ -34,13 +34,17 @@
             --quran-bg: #1e293b;
         }
 
-        /* تكبير الخطوط في وضع كبار السن لراحة البصر */
-        body.elderly-mode {
-            font-size: 1.15rem;
+        /* تنسيق وضع كبار السن والبساطة المطلقة */
+        body.elderly-simple-mode .normal-mode-container { display: none !important; }
+        body:not(.elderly-simple-mode) .elderly-simple-container { display: none !important; }
+
+        body.elderly-simple-mode {
+            font-size: 1.25rem;
+            background-color: #fffbeb;
         }
-        body.elderly-mode .task-title { font-size: 1.1rem !important; }
-        body.elderly-mode .task-pages { font-size: 1rem !important; }
-        body.elderly-mode .task-desc { font-size: 0.9rem !important; }
+        body.dark-mode.elderly-simple-mode {
+            background-color: #1e293b;
+        }
 
         * { 
             box-sizing: border-box; 
@@ -66,19 +70,21 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 4px;
         }
         .tool-btn {
             background: var(--card-bg);
             border: 1px solid var(--border);
             color: var(--text-main);
-            padding: 5px 10px;
+            padding: 5px 8px;
             border-radius: 8px;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
         }
 
         header { text-align: center; margin-bottom: 8px; }
@@ -100,11 +106,10 @@
         .countdown-khatma-info span { font-size: 0.75rem; color: var(--text-muted); display: block; }
         .countdown-badge { background: var(--primary-light); color: var(--primary); font-size: 0.75rem; font-weight: 800; padding: 4px 8px; border-radius: 8px; }
 
-        /* أزرار الأنماط الأربعة متجاورة ومرتبة */
         .mode-selector {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 4px;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
             background: var(--border);
             padding: 4px;
             border-radius: 12px;
@@ -112,17 +117,38 @@
         }
         .mode-btn {
             border: none;
-            padding: 6px 2px;
+            padding: 6px;
             border-radius: 8px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 700;
             cursor: pointer;
             background: transparent;
             color: var(--text-muted);
             transition: all 0.2s;
-            text-align: center;
         }
         .mode-btn.active { background: var(--card-bg); color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+
+        /* أزرار وضع كبار السن العملاقة والمريحة */
+        .elderly-huge-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(5, 150, 105, 0.25);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-align: center;
+        }
+        .elderly-huge-btn.secondary { background: #0284c7; }
+        .elderly-huge-btn.accent { background: #d97706; }
 
         .focus-hero-card {
             background: linear-gradient(135deg, #064e3b, #047857);
@@ -245,6 +271,7 @@
         
         #recitersModal { z-index: 250 !important; }
         #diagModal { z-index: 180 !important; }
+        #elderlyHelpModal { z-index: 220 !important; }
 
         .modal-card { background: var(--card-bg); color: var(--text-main); width: 100%; max-width: 440px; border-radius: 18px; padding: 16px; text-align: center; max-height: 94vh; display: flex; flex-direction: column; overflow-y: auto; }
 
@@ -626,8 +653,8 @@
 <div class="app-container">
     <div class="top-bar-tools">
         <button class="tool-btn" onclick="openHelpModal()">📖 شرح التطبيق والأوضاع</button>
+        <button class="tool-btn" onclick="openElderlyHelpModal()" style="background:#fef3c7; border-color:#f59e0b; color:#92400e;">👴 شرح مود كبار السن</button>
         <div style="display:flex; gap:6px;">
-            <button class="tool-btn" onclick="openDiagnosticTest()" style="background:#ecfdf5; border-color:var(--primary); color:var(--primary);">🧪 اختبار</button>
             <button class="tool-btn" id="installAppBtn" onclick="installPWA()" style="display:inline-flex;">📲 تثبيت</button>
             <button class="tool-btn" onclick="toggleTheme()" id="themeBtn">🌙 ليلي</button>
         </div>
@@ -646,32 +673,53 @@
         <div class="countdown-badge" id="khatmaPaceLabel">صفحة / يوم</div>
     </div>
 
-    <!-- أزرار الأنماط الأربعة متجاورة ومرتبة (طبيعي، مسافر، مرهق، كبار السن) -->
-    <div class="mode-selector">
+    <!-- الأشكال الأنيقة لأزرار الأنماط الثلاثة -->
+    <div class="mode-selector normal-mode-container">
         <button class="mode-btn active" id="modeNormal" onclick="setDayMode('normal')">🌿 طبيعي</button>
-        <button class="mode-btn" id="modeBusy" onclick="setDayMode('busy')">🧳 مسافر</button>
+        <button class="mode-btn" id="modeBusy" onclick="setDayMode('busy')">🧳 مسافر/مزدحم</button>
         <button class="mode-btn" id="modeTired" onclick="setDayMode('tired')">😴 مرهق</button>
-        <button class="mode-btn" id="modeElderly" onclick="setDayMode('elderly')">👴 كبار السن</button>
     </div>
 
-    <div class="focus-hero-card" id="heroCard">
-        <span class="hero-tag" id="heroTag">المهمة الحالية للتركيز</span>
-        <div class="hero-title" id="heroTitle">جاري تحميل المهمة...</div>
-        <div class="hero-desc" id="heroDesc">افتح وابدأ مباشرة دون تفكير.</div>
-        <div class="hero-actions">
-            <button class="hero-btn" id="heroMainBtn" onclick="triggerCurrentHeroAction()">ابدأ الحصن ⏱️</button>
-            <button class="hero-btn secondary" onclick="skipHeroTask()">المهمة التالية ←</button>
+    <!-- المحتوى العادي -->
+    <div class="normal-mode-container">
+        <div class="focus-hero-card" id="heroCard">
+            <span class="hero-tag" id="heroTag">المهمة الحالية للتركيز</span>
+            <div class="hero-title" id="heroTitle">جاري تحميل المهمة...</div>
+            <div class="hero-desc" id="heroDesc">افتح وابدأ مباشرة دون تفكير.</div>
+            <div class="hero-actions">
+                <button class="hero-btn" id="heroMainBtn" onclick="triggerCurrentHeroAction()">ابدأ الحصن ⏱️</button>
+                <button class="hero-btn secondary" onclick="skipHeroTask()">المهمة التالية ←</button>
+            </div>
+        </div>
+
+        <div class="progress-card">
+            <div class="progress-header">
+                <span id="motivationalText">إنجاز ورد اليوم</span>
+                <span id="progressText">0%</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
         </div>
     </div>
 
-    <div class="progress-card">
-        <div class="progress-header">
-            <span id="motivationalText">إنجاز ورد اليوم</span>
-            <span id="progressText">0%</span>
+    <!-- واجهة وضع كبار السن المبسطة والعملاقة -->
+    <div class="elderly-simple-container" style="margin-bottom: 14px;">
+        <div class="focus-hero-card" style="text-align: center; margin-bottom: 14px;">
+            <span class="hero-tag">👴 وضع كبار السن والحفظ الميسر</span>
+            <div class="hero-title" style="font-size: 1.3rem;">ورد اليوم: صفحة رقم <span id="elderlyPageNum">5</span></div>
+            <div class="hero-desc">استمع للآيات وكررها بيسر وسهولة تامة دون أي تعقيد.</div>
         </div>
-        <div class="progress-bar-bg">
-            <div class="progress-bar-fill" id="progressBar"></div>
-        </div>
+
+        <button class="elderly-huge-btn" onclick="openElderlyQuranPage()">
+            📖 تلاوة ومراجعة صفحة اليوم كاملة
+        </button>
+        <button class="elderly-huge-btn secondary" onclick="openElderlySingleAyah()">
+            🔁 التركيز على آية وتكرارها وحدها
+        </button>
+        <button class="elderly-huge-btn accent" onclick="elderlyMarkDone()">
+            ✔ تم إنجاز ورد اليوم بحمد الله
+        </button>
     </div>
 
     <div class="calendar-strip" id="calendarStrip"></div>
@@ -696,12 +744,41 @@
         <button class="btn-action settings" onclick="openSettings()" title="الإعدادات">⚙️ الإعدادات</button>
     </div>
 
-    <div class="task-list" id="tasksList"></div>
+    <div class="task-list normal-mode-container" id="tasksList"></div>
 
-    <button class="btn-next" onclick="nextDay()">✨ بارك الله فيك، أتممت ورد اليوم وانتقل للغد ←</button>
+    <button class="btn-next normal-mode-container" onclick="nextDay()">✨ بارك الله فيك، أتممت ورد اليوم وانتقل للغد ←</button>
 </div>
 
-<!-- نافذة دليل وشرح التطبيق (الشكل القديم الأصلي الجميل والمنسق بالكامل) -->
+<!-- نافذة شرح مود كبار السن المخصصة للشرح والمساعدة -->
+<div class="modal-overlay" id="elderlyHelpModal" onclick="closeElderlyHelpModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <h3 style="font-family:'Amiri', serif; font-size:1.5rem; color:var(--primary); margin-bottom:6px;">👴 دليل وشرح «مود كبار السن»</h3>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">دليل مبسط ومباشر لشرح كيفية استخدام التطبيق لكبير السن بكل سهولة</p>
+        
+        <div style="text-align:right; display:flex; flex-direction:column; gap:10px; font-size:0.85rem; line-height:1.6; color:var(--text-main);">
+            <div style="background:var(--bg); padding:10px; border-radius:10px; border:1px solid var(--border);">
+                <strong>1️⃣ كيف نفعل «مود كبار السن»؟</strong>
+                <p style="color:var(--text-muted); font-size:0.78rem;">من زر (الإعدادات ⚙️) أسفل الشاشة، قم بتفعيل مفتاح (وضع كبار السن والحفظ الميسر)، فستتحول الشاشة فوراً إلى أزرار عملاقة وواضحة جداً بدون أي زحمة أو مهام معقدة.</p>
+            </div>
+            <div style="background:var(--bg); padding:10px; border-radius:10px; border:1px solid var(--border);">
+                <strong>2️⃣ الزر الأول: «📖 تلاوة صفحة اليوم»</strong>
+                <p style="color:var(--text-muted); font-size:0.78rem;">يفتح المصحف مباشرة بخط واضح وكبير ليتلو الصفحة أو يسمعها كاملة مع الشيخ بضغطة زر واحدة.</p>
+            </div>
+            <div style="background:var(--bg); padding:10px; border-radius:10px; border:1px solid var(--border);">
+                <strong>3️⃣ الزر الثاني: «🔁 التركيز على آية وتكرارها»</strong>
+                <p style="color:var(--text-muted); font-size:0.78rem;">يختار آية معينة ويجعل الشيخ يعيدها تلقائياً (3 أو 5 مرات مثلاً) حتى يستقر حفظها وفهمها تماماً.</p>
+            </div>
+            <div style="background:var(--bg); padding:10px; border-radius:10px; border:1px solid var(--border);">
+                <strong>4️⃣ الزر الثالث: «✔ تم إنجاز ورد اليوم»</strong>
+                <p style="color:var(--text-muted); font-size:0.78rem;">بعد الانتهاء من القراءة أو الاستماع، يضغط على هذا الزر الكبير لتسجيل اليوم في التقويم مع نغمة إنجاز مبهجة.</p>
+            </div>
+        </div>
+
+        <button class="btn-close" onclick="closeElderlyHelpModal()" style="margin-top:12px;">فهمت الشرح، جزاكم الله خيراً</button>
+    </div>
+</div>
+
+<!-- نافذة دليل وشرح التطبيق العادي -->
 <div class="modal-overlay" id="helpModal" onclick="closeHelpModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
         <h3 style="font-family:'Amiri', serif; font-size:1.6rem; color:var(--primary); margin-bottom:4px;">دليل استخدام رفيق الحصون الخمسة</h3>
@@ -709,7 +786,7 @@
         
         <div class="help-search-box">
             <input type="text" id="helpSearchInput" class="help-search-input" placeholder="🔍 اكتب أي كلمة مفتاحية للبحث الفوري..." oninput="handleHelpSearch(this.value)">
-            <div class="help-search-hint">💡 اكتب أي حاجة مش فاهمها أو اسأل عن أي مصطلح (مثل: كبار السن، بلور، حدر، تحضير، ألوان) وهنساعدك فوراً.</div>
+            <div class="help-search-hint">💡 اكتب أي حاجة مش فاهمها أو اسأل عن أي مصطلح (مثل: كبار السن، تكرار، بلور، حدر) وهنساعدك فوراً.</div>
         </div>
 
         <div id="helpBoxesContainer">
@@ -726,51 +803,6 @@
                 <p>3. <strong>مراجعة البعيد:</strong> تغطية الحفظ القديم المستقر في أنابيب أسبوعية ثابتة.</p>
                 <p>4. <strong>مراجعة القريب:</strong> تثبيت آخر 20 صفحة ملاصقة حتى تستقر في الذاكرة الدائمة.</p>
                 <p>5. <strong>الحفظ الجديد:</strong> غرس المقدار اليومي المحدد بهدوء وإتقان.</p>
-            </div>
-
-            <div class="help-box" data-keywords="الحصن الثاني تحضير تكرار اسبوعي ليلي قبلي ليه متكرر ثلاث مرات خطوات">
-                <h4>🔄 لماذا ينقسم «الحصن الثاني: التحضير» إلى 3 خطوات؟</h4>
-                <p><strong>ليس خطأً لغوياً أو تكراراً غير مقصود</strong>، بل هو جوهر الحصن الثاني؛ حيث قسّمه مؤلف المنهج إلى 3 مراحل زمنية لكسر صعوبة الصفحة:</p>
-                <p>• <strong>(1) التحضير الأسبوعي:</strong> قراءة سريعة لصفحات الأسبوع القادم الـ 7 مرة واحدة يومياً لتألفها عينك مسبقاً.</p>
-                <p>• <strong>(2) التحضير الليلي:</strong> سماع صفحة الغد قبل النوم 3 مرات بتركيز مع المنشاوي لتترسخ في عقلك الباطن أثناء نومك.</p>
-                <p>• <strong>(3) التحضير القبلي:</strong> قراءة الصفحة 15 مرة حدر سريعاً قبل جلسة الحفظ مباشرة لتنطلق في لسانك بسهولة.</p>
-            </div>
-
-            <div class="help-box" data-keywords="الاوضاع مود طبيعي مسافر مزدحم مرهق سيرفايفل انقطاع تعب">
-                <h4>🎛️ ما هي فكرة الأنماط (Mode) ولماذا صممناها؟</h4>
-                <p style="margin-bottom:8px;">لأن ظروف الحياة تتغير وأكبر سبب لانقطاع الحفاظ هو العجز عن أداء الورد كاملاً عند الانشغال، أوجدنا أنماطاً للمرونة بضغطة زر:</p>
-                <div style="margin-bottom:8px;">
-                    <span class="help-mode-badge badge-normal">🌿 النمط الطبيعي:</span>
-                    <p>يومك مستقر وعندك وقت كافٍ لإنجاز الأركان الخمسة كاملة.</p>
-                </div>
-                <div style="margin-bottom:8px;">
-                    <span class="help-mode-badge badge-busy">🧳 نمط المسافر / المزدحم (Survival Mode):</span>
-                    <p>يطبق قاعدة «المراجعة مقدمة على الحفظ»؛ يلغي الحفظ الجديد والتحضير الأسبوعي تماماً، ويركز فقط على مراجعة القديم والقريب في 12 دقيقة فقط.</p>
-                </div>
-                <div>
-                    <span class="help-mode-badge badge-tired">😴 نمط المرهق (Low Energy Mode):</span>
-                    <p>إذا كنت مصدعاً أو مجهداً ذهنياً؛ يلغي التسميع والحفظ الجديد ويركز فقط على الاستماع الهادئ مع الشيخ والقراءة البصرية السريعة.</p>
-                </div>
-            </div>
-
-            <div class="help-box" data-keywords="خريطة صحة الحفظ الوان اخضر اصفر احمر رمادي تفلت درجات health score">
-                <h4>🗺️ خريطة صحة الحفظ.. كيف تعمل ومن يحدد ألوانها؟</h4>
-                <p>الخريطة لا تعتمد على التخمين، بل يقودها <strong>«مؤشر صحة الحفظ الذكي (Health Score)»</strong> الذي يتابع كل صفحة من الـ 604 صفحة كأنها كائن حي يحتاج للرعاية والتثبيت:</p>
-                <div style="margin: 8px 0;">
-                    <p>🟢 <strong>الأخضر الداكن:</strong> صفحة قوية ومستقرة، راجعتها حديثاً وثبتت في ذاكرتك.</p>
-                    <p>🟢 <strong>الأخضر الفاتح:</strong> صفحة جيدة ولا خوف عليها.</p>
-                    <p>🟡 <strong>الأصفر:</strong> تنبيه ذكي! بدأت الصفحة تضعف لمرور وقت دون مراجعتها، وتحتاج التفاتاً قريباً.</p>
-                    <p>🔴 <strong>الأحمر:</strong> إنذار تفلت! صفحة أهملتها منذ فترة طويلة ومعرضة للنسيان، اضغط عليها فوراً لمراجعتها.</p>
-                    <p>⚪ <strong>الرمادي:</strong> صفحات لم تصل إليها بعد في رحلة حفظك.</p>
-                </div>
-            </div>
-
-            <div class="help-box" data-keywords="المصحف بلور حجب للتسميع تظليل نصف ملء الشاشة سحب تقليب تكرار صوت الشيخ">
-                <h4>👁️ أدوات المصحف الشريف المدمجة</h4>
-                <p><strong>• 👈👉 التقليب بالسحب (Swipe):</strong> اسحب الشاشة يميناً أو يساراً بإصبعك للانتقال فوراً للصفحة التالية أو السابقة مثل المصحف الحقيقي.</p>
-                <p><strong>• 👁️ وضع حجب للتسميع:</strong> يغطي الصفحة بطبقة ضبابية لتختبر استحضارك غيباً، ولا تنكشف الآيات إلا بالضغط المطول عليها.</p>
-                <p><strong>• ⛶ ملء الشاشة:</strong> يخفي كل الأشرطة لتقرأ الآيات بأكبر حجم ووضوح ممكن على كامل الشاشة.</p>
-                <p><strong>• 🌓 تظليل نصف الصفحة:</strong> يحجب النصف غير المطلوب (أعلى أو أسفل) ليركز بصرك وذهنك على مقدارك اليومي فقط دون تشتت.</p>
             </div>
         </div>
 
@@ -964,6 +996,17 @@
             </select>
         </div>
 
+        <div class="input-group" style="text-align:right; margin-bottom:8px; background:#fef3c7; border-color:#f59e0b;">
+            <label style="color:#d97706; font-size:0.8rem;">👴 وضع كبار السن والحفظ الميسر:</label>
+            <label class="switch-container" for="setupElderlyMode">
+                <span style="font-size:0.8rem; color:var(--text-main); font-weight:700;">تفعيل الواجهة المبسطة والأزرار الكبيرة</span>
+                <div class="switch">
+                    <input type="checkbox" id="setupElderlyMode" onchange="toggleElderlySetting(this.checked)">
+                    <span class="slider"></span>
+                </div>
+            </label>
+        </div>
+
         <div class="input-group" style="text-align:right; margin-bottom:10px; background:#ecfdf5; border-color:var(--primary);">
             <label style="color:var(--primary); font-size:0.8rem;">🕌 تذكير الأوراد بعد الصلوات المكتوبة:</label>
             <label class="switch-container" for="setupPrayerNotifications">
@@ -997,6 +1040,7 @@
     let diagInterval = null;
     let diagRandomPage = 582;
     let isDiagRunningFromMain = false;
+    let isElderlyModeActive = false;
 
     function playSuccessChime() {
         try {
@@ -1585,6 +1629,11 @@
     }
     function closeHelpModal() { history.back(); }
 
+    function openElderlyHelpModal() {
+        openModalWithHistory('elderlyHelpModal');
+    }
+    function closeElderlyHelpModal() { history.back(); }
+
     function getUserData() {
         return JSON.parse(localStorage.getItem('quran_user_profile')) || null;
     }
@@ -1603,6 +1652,7 @@
                 dailyPace: 1,
                 timeBudget: 45,
                 prayerAlerts: false,
+                elderlyMode: false,
                 history: {},
                 pageHealth: {},
                 reciter: 'Minshawy_Murattal_128kbps',
@@ -1621,6 +1671,9 @@
         if (user.readingCurrentPage === undefined) user.readingCurrentPage = 1;
         if (!user.reciter) user.reciter = 'Minshawy_Murattal_128kbps';
 
+        isElderlyModeActive = !!user.elderlyMode;
+        applyElderlyModeUI(isElderlyModeActive);
+
         updateReciterDisplay(user.reciter);
 
         document.getElementById('currentPage').value = user.currentPage;
@@ -1632,6 +1685,26 @@
         renderCalendar();
         renderTasks();
         initPrayerTimes();
+    }
+
+    function applyElderlyModeUI(active) {
+        const body = document.body;
+        if (active) {
+            body.classList.add('elderly-simple-mode');
+        } else {
+            body.classList.remove('elderly-simple-mode');
+        }
+        const P = parseInt(document.getElementById('currentPage').value) || 5;
+        const elSpan = document.getElementById('elderlyPageNum');
+        if (elSpan) elSpan.innerText = P;
+    }
+
+    function toggleElderlySetting(enabled) {
+        isElderlyModeActive = enabled;
+        applyElderlyModeUI(enabled);
+        const user = getUserData() || {};
+        user.elderlyMode = enabled;
+        localStorage.setItem('quran_user_profile', JSON.stringify(user));
     }
 
     function getWeekNumber(d) {
@@ -1664,12 +1737,6 @@
         if (mode === 'normal') document.getElementById('modeNormal').classList.add('active');
         if (mode === 'busy') document.getElementById('modeBusy').classList.add('active');
         if (mode === 'tired') document.getElementById('modeTired').classList.add('active');
-        if (mode === 'elderly') {
-            document.getElementById('modeElderly').classList.add('active');
-            document.body.classList.add('elderly-mode');
-        } else {
-            document.body.classList.remove('elderly-mode');
-        }
         heroTaskIndex = 0;
         renderTasks();
     }
@@ -2035,6 +2102,25 @@
         openModalWithHistory('quranModal');
     }
 
+    function openElderlyQuranPage() {
+        const P = parseInt(document.getElementById('currentPage').value) || 5;
+        openQuranRange(P, P, `تلاوة ورد اليوم (${P})`);
+        switchAudioMode('page');
+    }
+
+    function openElderlySingleAyah() {
+        const P = parseInt(document.getElementById('currentPage').value) || 5;
+        openQuranRange(P, P, `تكرار وحفظ الآية (${P})`);
+        switchAudioMode('ayah');
+    }
+
+    function elderlyMarkDone() {
+        playSuccessChime();
+        const D = parseInt(document.getElementById('currentDay').value);
+        markDayDoneInHistory(D, true);
+        alert("✨ بارك الله فيك! تم تسجيل إنجاز ورد اليوم بنجاح وصعدت في درجات التقدير.");
+    }
+
     function updateQuranModalView() {
         const padded = String(activeQuranPage).padStart(3, '0');
         const img = document.getElementById('quranPageImg');
@@ -2151,6 +2237,7 @@
         document.getElementById('setupPace').value = user.dailyPace || 1;
         document.getElementById('setupTimeBudget').value = user.timeBudget || 45;
         document.getElementById('setupPrayerNotifications').checked = !!user.prayerAlerts;
+        document.getElementById('setupElderlyMode').checked = !!user.elderlyMode;
         openModalWithHistory('settingsModal');
     }
 
@@ -2164,6 +2251,7 @@
         user.dailyPace = parseFloat(document.getElementById('setupPace').value) || 1;
         user.timeBudget = parseInt(document.getElementById('setupTimeBudget').value) || 45;
         user.prayerAlerts = document.getElementById('setupPrayerNotifications').checked;
+        user.elderlyMode = document.getElementById('setupElderlyMode').checked;
         localStorage.setItem('quran_user_profile', JSON.stringify(user));
         history.back();
         initUser();
