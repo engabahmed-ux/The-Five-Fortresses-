@@ -45,7 +45,6 @@
         header h1 { font-family: 'Amiri', serif; color: var(--primary-dark); font-size: 2.1rem; margin-bottom: 2px; }
         .user-greeting { font-size: 0.9rem; color: var(--text-main); font-weight: 700; }
 
-        /* شريط نمط اليوم */
         .mode-selector {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -68,7 +67,6 @@
         }
         .mode-btn.active { background: white; color: var(--primary-dark); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
 
-        /* بطاقة «المهمة الواحدة الآن» */
         .focus-hero-card {
             background: linear-gradient(135deg, #064e3b, #047857);
             color: white;
@@ -173,12 +171,10 @@
 
         .btn-next { width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 12px; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
 
-        /* نوافذ منبثقة */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; place-items: center; z-index: 100; padding: 8px; backdrop-filter: blur(2px); }
         .modal-overlay.active { display: grid; }
         .modal-card { background: white; width: 100%; max-width: 440px; border-radius: 18px; padding: 16px; text-align: center; max-height: 94vh; display: flex; flex-direction: column; overflow-y: auto; }
 
-        /* نافذة المصحف الشريف الأصلية الكاملة */
         .quran-modal-card { 
             max-width: 480px; 
             width: 100%;
@@ -215,7 +211,6 @@
         .blur-btn { background: #f1f5f9; border: 1px solid var(--border); padding: 4px 8px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.75rem; }
         .blur-btn.active { background: #fee2e2; color: var(--danger); border-color: #fca5a5; }
 
-        /* حاوية الصورة الكاملة مع الحماية من القوائم */
         .quran-img-container {
             flex: 1;
             display: flex;
@@ -230,6 +225,7 @@
             -webkit-user-select: none;
             -webkit-touch-callout: none;
             padding: 2px;
+            min-height: 400px;
         }
 
         .quran-img-container img {
@@ -249,7 +245,6 @@
         .quran-img-container img.blurred { filter: blur(10px); }
         .quran-img-container img.blurred:active { filter: blur(0px); }
 
-        /* خريطة صحة الحفظ */
         .heatmap-grid { display: grid; grid-template-columns: repeat(20, 1fr); gap: 2px; padding: 6px; max-height: 320px; overflow-y: auto; background: #f8fafc; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 10px; }
         .heat-cell { aspect-ratio: 1; border-radius: 2px; font-size: 6px; display: grid; place-content: center; color: white; cursor: pointer; }
         .h-excellent { background-color: #047857; }
@@ -269,14 +264,12 @@
         <div class="user-greeting" id="userGreeting">مرحباً بك</div>
     </header>
 
-    <!-- محدد نمط اليوم -->
     <div class="mode-selector">
         <button class="mode-btn active" id="modeNormal" onclick="setDayMode('normal')">🌿 طبيعي</button>
         <button class="mode-btn" id="modeBusy" onclick="setDayMode('busy')">🧳 مسافر/مزدحم</button>
         <button class="mode-btn" id="modeTired" onclick="setDayMode('tired')">😴 مرهق</button>
     </div>
 
-    <!-- بطاقة «المهمة الواحدة الآن» -->
     <div class="focus-hero-card" id="heroCard">
         <span class="hero-tag" id="heroTag">المهمة الحالية للتركيز</span>
         <div class="hero-title" id="heroTitle">جاري تحميل المهمة...</div>
@@ -324,7 +317,7 @@
     <button class="btn-next" onclick="nextDay()">✨ بارك الله فيك، أتممت ورد اليوم وانتقل للغد ←</button>
 </div>
 
-<!-- نافذة خريطة صحة الحفظ (Health Score Heatmap) -->
+<!-- نافذة خريطة صحة الحفظ -->
 <div class="modal-overlay" id="heatmapModal" onclick="closeHeatmap()">
     <div class="modal-card" onclick="event.stopPropagation()">
         <h3 style="font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--primary-dark); margin-bottom: 4px;">خريطة صحة الحفظ (Health Score)</h3>
@@ -339,7 +332,7 @@
     </div>
 </div>
 
-<!-- نافذة المصحف الشريف الكاملة مع التكرار واختبار الحفظ والبلور -->
+<!-- نافذة المصحف الشريف -->
 <div class="modal-overlay" id="quranModal" onclick="closeQuranModal()">
     <div class="modal-card quran-modal-card" onclick="event.stopPropagation()">
         <div class="quran-nav">
@@ -354,7 +347,7 @@
         <div class="audio-player-container">
             <div class="audio-row">
                 <select id="modalReciterSelect" onchange="changeReciter(this.value)">
-                    <option value="Minshawy_Murattal_128kbps">محمد المنشاوي (موصى به)[span_1](start_span)[span_1](end_span)</option>
+                    <option value="Minshawy_Murattal_128kbps">محمد المنشاوي (موصى به)</option>
                     <option value="Husary_128kbps">محمود الحصري</option>
                     <option value="Hudhaify_128kbps">علي الحذيفي</option>
                     <option value="Alafasy_128kbps">مشاري العفاسي</option>
@@ -379,7 +372,7 @@
         </div>
 
         <div class="quran-img-container" oncontextmenu="return false;">
-            <img id="quranPageImg" src="" alt="صفحة المصحف" oncontextmenu="return false;" draggable="false">
+            <img id="quranPageImg" src="" alt="صفحة المصحف" oncontextmenu="return false;" draggable="false" onerror="handleImageError(this)">
         </div>
 
         <button class="btn-close" onclick="closeQuranModal()">إغلاق المصحف</button>
@@ -476,13 +469,13 @@
         if (currentMode !== 'busy' && currentMode !== 'tired') {
             tasks.push({
                 order: 1, title: "الحصن الأول: القراءة المستمرة", timeMin: 40,
-                pagesText: "جزأين من المصحف (حدر)[span_2](start_span)[span_2](end_span)", desc: "تغذية الذاكرة البصرية وتثبيت الختمة[span_3](start_span)[span_3](end_span).", range: null
+                pagesText: "جزأين من المصحف (حدر)", desc: "تغذية الذاكرة البصرية وتثبيت الختمة.", range: null
             });
             const weekIndex = Math.floor((P - 3) / 7);
             const nextWeekStart = 3 + (weekIndex + 1) * 7;
             tasks.push({
                 order: 2, title: "الحصن الثاني: التحضير الأسبوعي", timeMin: 10,
-                pagesText: `قراءة صـ ${nextWeekStart} إلى ${nextWeekStart + 6}[span_4](start_span)[span_4](end_span)`, desc: "تمهيد أسبوعي لصفحات الأسبوع القادم[span_5](start_span)[span_5](end_span).",
+                pagesText: `قراءة صـ ${nextWeekStart} إلى ${nextWeekStart + 6}`, desc: "تمهيد أسبوعي لصفحات الأسبوع القادم.",
                 range: { start: nextWeekStart, end: nextWeekStart + 6, label: "التحضير الأسبوعي" }
             });
         }
@@ -490,12 +483,12 @@
         if (currentMode !== 'busy') {
             tasks.push({
                 order: 3, title: "الحصن الثاني: التحضير الليلي", timeMin: 15,
-                pagesText: `صفحة الغد (صـ ${P + 1})[span_6](start_span)[span_6](end_span)`, desc: "سماع وقراءة متكررة قبل النوم بتركيز[span_7](start_span)[span_7](end_span).",
+                pagesText: `صفحة الغد (صـ ${P + 1})`, desc: "سماع وقراءة متكررة قبل النوم بتركيز.",
                 range: { start: P + 1, end: P + 1, label: "التحضير الليلي" }
             });
             tasks.push({
                 order: 4, title: "الحصن الثاني: التحضير القبلي", timeMin: 15,
-                pagesText: `صفحة اليوم (صـ ${P})[span_8](start_span)[span_8](end_span)`, desc: "حدر متكرر 15 مرة قبل جلسة الحفظ مباشرة[span_9](start_span)[span_9](end_span).",
+                pagesText: `صفحة اليوم (صـ ${P})`, desc: "حدر متكرر 15 مرة قبل جلسة الحفظ مباشرة.",
                 range: { start: P, end: P, label: "التحضير القبلي" }
             });
         }
@@ -508,7 +501,7 @@
                 const count = Math.min(40, available);
                 tasks.push({
                     order: 5, title: `الحصن الثالث: مراجعة البعيد`, timeMin: count,
-                    pagesText: `صـ ${tubeStart} إلى ${tubeStart + count - 1}[span_10](start_span)[span_10](end_span)`, desc: `أنبوبة يوم ${daysMap[dayIndex]} لحماية القديم[span_11](start_span)[span_11](end_span).`,
+                    pagesText: `صـ ${tubeStart} إلى ${tubeStart + count - 1}`, desc: `أنبوبة يوم ${daysMap[dayIndex]} لحماية القديم.`,
                     range: { start: tubeStart, end: tubeStart + count - 1, label: "البعيد" }
                 });
             }
@@ -519,7 +512,7 @@
             const count = (P - 1) - startNear + 1;
             tasks.push({
                 order: 6, title: "الحصن الرابع: مراجعة القريب", timeMin: count,
-                pagesText: `صـ ${startNear} إلى ${P - 1}[span_12](start_span)[span_12](end_span)`, desc: "تثبيت آخر 20 صفحة ملاصقة[span_13](start_span)[span_13](end_span).",
+                pagesText: `صـ ${startNear} إلى ${P - 1}`, desc: "تثبيت آخر 20 صفحة ملاصقة.",
                 range: { start: startNear, end: P - 1, label: "القريب" }
             });
         }
@@ -527,7 +520,7 @@
         if (currentMode === 'normal') {
             tasks.push({
                 order: 7, title: "الحصن الخامس: الحفظ الجديد", timeMin: 15,
-                pagesText: `صفحة رقم ${P}[span_14](start_span)[span_14](end_span)`, desc: "غرس الحفظ الجديد المتقن ركناً بركن[span_15](start_span)[span_15](end_span).",
+                pagesText: `صفحة رقم ${P}`, desc: "غرس الحفظ الجديد المتقن ركناً بركن.",
                 range: { start: P, end: P, label: "الجديد" }
             });
         }
@@ -574,7 +567,7 @@
         if (!generatedTasksCache.length) return;
         if (heroTaskIndex >= generatedTasksCache.length) {
             document.getElementById('heroTitle').innerText = "🎉 أتممت جميع مهام اليوم بنجاح!";
-            document.getElementById('heroDesc').innerText = "هنيئاً لك وفاءك بعهد القرآن اليوم[span_16](start_span)[span_16](end_span).";
+            document.getElementById('heroDesc').innerText = "هنيئاً لك وفاءك بعهد القرآن اليوم.";
             document.getElementById('heroMainBtn').style.display = 'none';
             return;
         }
@@ -591,7 +584,7 @@
         if (task.range) {
             openQuranRange(task.range.start, task.range.end, task.range.label);
         } else {
-            alert(`ابدأ الآن قراءة ${task.pagesText} بطريقة الحدر[span_17](start_span)[span_17](end_span).`);
+            alert(`ابدأ الآن قراءة ${task.pagesText} بطريقة الحدر.`);
         }
     }
 
@@ -712,7 +705,6 @@
 
     function closeHeatmap() { document.getElementById('heatmapModal').classList.remove('active'); }
 
-    /* نافذة المصحف والتكرار والبلور */
     function openQuranRange(start, end, label) {
         allowedMinPage = start;
         allowedMaxPage = end;
@@ -733,7 +725,10 @@
 
     function updateQuranModalView() {
         const padded = String(activeQuranPage).padStart(3, '0');
-        document.getElementById('quranPageImg').src = `https://android.quran.com/data/width_1260/page${padded}.png`;
+        const img = document.getElementById('quranPageImg');
+        img.dataset.fallbackTried = "false";
+        img.src = `https://android.quran.com/data/width_1260/page${padded}.png`;
+
         document.getElementById('quranPageTitle').innerText = `صفحة ${activeQuranPage}`;
         document.getElementById('prevPageBtn').disabled = (activeQuranPage <= allowedMinPage);
         document.getElementById('nextPageBtn').disabled = (activeQuranPage >= allowedMaxPage);
@@ -743,6 +738,14 @@
         audio.pause();
         audio.src = `https://everyayah.com/data/${reciter}/PageMp3s/Page${padded}.mp3`;
         document.getElementById('audioToggleBtn').innerText = 'تشغيل ▶';
+    }
+
+    function handleImageError(img) {
+        if (img.dataset.fallbackTried !== "true") {
+            img.dataset.fallbackTried = "true";
+            const padded = String(activeQuranPage).padStart(3, '0');
+            img.src = `https://raw.githubusercontent.com/quran/quran.com-images/master/width_1260/page${padded}.png`;
+        }
     }
 
     function changeReciter(reciterId) {
@@ -816,7 +819,6 @@
         document.getElementById('quranAudio').pause();
         resetBlur();
         document.getElementById('quranModal').classList.remove('active');
-        document.getElementById('quranPageImg').src = '';
     }
 
     function shareDirectWhatsApp() {
