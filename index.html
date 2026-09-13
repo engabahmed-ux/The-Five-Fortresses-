@@ -23,8 +23,22 @@
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
-        body { background-color: var(--bg); color: var(--text-main); padding: 16px 12px; display: flex; justify-content: center; }
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body { 
+            background-color: var(--bg); 
+            color: var(--text-main); 
+            padding: 16px 12px; 
+            display: flex; 
+            justify-content: center; 
+        }
+
         .app-container { width: 100%; max-width: 480px; }
 
         header { text-align: center; margin-bottom: 12px; }
@@ -123,35 +137,77 @@
 
         .btn-next { width: 100%; background: var(--primary); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25); }
 
-        /* Modal windows */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); display: none; place-items: center; z-index: 100; padding: 14px; backdrop-filter: blur(2px); }
+        /* نوافذ منبثقة */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; place-items: center; z-index: 100; padding: 10px; backdrop-filter: blur(2px); }
         .modal-overlay.active { display: grid; }
-        .modal-card { background: white; width: 100%; max-width: 440px; border-radius: 20px; padding: 20px; text-align: center; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; }
+        .modal-card { 
+            background: white; 
+            width: 100%; 
+            max-width: 440px; 
+            border-radius: 20px; 
+            padding: 16px; 
+            text-align: center; 
+            max-height: 94vh; 
+            display: flex; 
+            flex-direction: column; 
+            overflow-y: auto; 
+        }
 
-        .quran-modal-card { max-width: 500px; padding: 12px; }
-        .quran-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .quran-modal-card { 
+            max-width: 480px; 
+            padding: 10px; 
+            max-height: 98vh; 
+            overflow: hidden; 
+        }
+
+        .quran-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
         .quran-nav-btn { background: #f1f5f9; border: 1px solid var(--border); padding: 6px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem; }
         .quran-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
         
         .audio-player-container {
-            background: #f8fafc; border-radius: 10px; padding: 8px 10px; margin-bottom: 8px;
-            border: 1px solid var(--border); display: flex; flex-direction: column; gap: 6px; text-align: right;
+            background: #f8fafc; border-radius: 10px; padding: 6px 8px; margin-bottom: 6px;
+            border: 1px solid var(--border); display: flex; flex-direction: column; gap: 5px; text-align: right;
         }
-        .audio-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
+        .audio-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
         .audio-row select { padding: 4px 6px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.75rem; font-weight: 600; outline: none; }
-        .audio-row button { background: var(--primary); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }
+        .audio-row button { background: var(--primary); color: white; border: none; padding: 5px 12px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }
         
-        /* أداة التكرار واختبار الحفظ */
-        .quran-toolbar { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 4px 8px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.75rem; font-weight: 700; margin-bottom: 8px; }
+        .quran-toolbar { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 4px 8px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.75rem; font-weight: 700; }
         .blur-btn { background: #f1f5f9; border: 1px solid var(--border); padding: 4px 8px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.75rem; }
         .blur-btn.active { background: #fee2e2; color: var(--danger); border-color: #fca5a5; }
 
+        /* منطقة عرض المصحف ومنع القوائم */
         .quran-img-container {
-            min-height: 400px; display: flex; align-items: center; justify-content: center;
-            background: #fffcf5; border-radius: 10px; border: 1px solid #f1e9d2; overflow: hidden; position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fffcf5;
+            border-radius: 10px;
+            border: 1px solid #f1e9d2;
+            overflow: hidden;
+            position: relative;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
         }
-        .quran-img-container img { width: 100%; height: auto; display: block; transition: filter 0.2s ease; }
-        .quran-img-container img.blurred { filter: blur(9px); }
+
+        .quran-img-container img {
+            max-width: 100%;
+            max-height: 68vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+            transition: filter 0.15s ease;
+            pointer-events: auto;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        .quran-img-container img.blurred { filter: blur(10px); }
         .quran-img-container img.blurred:active { filter: blur(0px); }
 
         /* خريطة المصحف البصرية (Heatmap) */
@@ -175,13 +231,11 @@
             place-content: center;
             color: #fff;
             cursor: pointer;
-            transition: transform 0.1s;
         }
-        .heat-cell:active { transform: scale(1.3); }
         .cell-empty { background-color: #e2e8f0; color: #94a3b8; }
-        .cell-distant { background-color: #047857; } /* قديم محفوظ */
-        .cell-near { background-color: #34d399; } /* قريب ملاصق */
-        .cell-current { background-color: var(--accent); font-weight: bold; } /* جديد اليوم */
+        .cell-distant { background-color: #047857; }
+        .cell-near { background-color: #34d399; }
+        .cell-current { background-color: var(--accent); font-weight: bold; }
 
         .heatmap-legend { display: flex; justify-content: center; gap: 8px; font-size: 0.7rem; font-weight: 700; margin-bottom: 10px; flex-wrap: wrap; }
         .legend-item { display: flex; align-items: center; gap: 4px; }
@@ -198,7 +252,7 @@
         .stat-details { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
         .stat-box { background: var(--bg); padding: 10px; border-radius: 10px; border: 1px solid var(--border); }
         .stat-box strong { display: block; font-size: 1.15rem; color: var(--text-main); margin-top: 2px; }
-        .btn-close { width: 100%; background: #e2e8f0; border: none; padding: 10px; border-radius: 10px; font-weight: 700; cursor: pointer; color: var(--text-main); margin-top: 10px; }
+        .btn-close { width: 100%; background: #e2e8f0; border: none; padding: 10px; border-radius: 10px; font-weight: 700; cursor: pointer; color: var(--text-main); margin-top: 8px; }
 
         .onboarding-field { text-align: right; margin-bottom: 12px; }
         .onboarding-field label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
@@ -281,7 +335,7 @@
 
 <!-- الإعداد المبدئي وإدارة النسخ الاحتياطي -->
 <div class="modal-overlay" id="onboardingModal">
-    <div class="modal-card" style="overflow-y:auto;">
+    <div class="modal-card">
         <h3 style="font-family: 'Amiri', serif; font-size: 1.5rem; color: var(--primary-dark); margin-bottom: 4px;">إعدادات رحلتك مع القرآن</h3>
         <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">ضبط الخطة والقراء وحفظ التقدم</p>
         
@@ -310,7 +364,6 @@
 
         <button class="btn-next" onclick="saveUserProfile()" style="margin-top: 4px; margin-bottom: 12px;">حفظ ومتابعة</button>
 
-        <!-- النسخ الاحتياطي -->
         <div style="border-top: 1px solid var(--border); padding-top: 10px; display:flex; gap:6px;">
             <button class="btn-action" style="background:#475569;" onclick="exportData()">💾 تصدير نسختي</button>
             <label class="btn-action" style="background:#475569; cursor:pointer; display:grid; place-content:center;">
@@ -343,7 +396,7 @@
     </div>
 </div>
 
-<!-- المصحف مع التكرار واختبار الحفظ -->
+<!-- المصحف المحمي من القوائم المنبثقة والمعروض بالكامل -->
 <div class="modal-overlay" id="quranModal" onclick="closeQuranModal()">
     <div class="modal-card quran-modal-card" onclick="event.stopPropagation()">
         <div class="quran-nav">
@@ -377,13 +430,13 @@
                     </select>
                     <span id="loopStatus" style="color:var(--primary); font-size:0.7rem;"></span>
                 </div>
-                <button class="blur-btn" id="blurToggleBtn" onclick="toggleBlurMode()" title="اضغط لحجب الصفحة وتمرير اللمس للكشف">👁️ اختبار الحفظ</button>
+                <button class="blur-btn" id="blurToggleBtn" onclick="toggleBlurMode()">👁️ اختبار الحفظ (تغطية)</button>
             </div>
             <audio id="quranAudio" preload="none"></audio>
         </div>
 
-        <div class="quran-img-container">
-            <img id="quranPageImg" src="" alt="صفحة المصحف">
+        <div class="quran-img-container" oncontextmenu="return false;">
+            <img id="quranPageImg" src="" alt="صفحة المصحف" oncontextmenu="return false;" draggable="false">
         </div>
 
         <button class="btn-close" onclick="closeQuranModal()">إغلاق المصحف</button>
@@ -731,13 +784,11 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /* خريطة المصحف البصرية (Heatmap) */
     function openHeatmap() {
         const container = document.getElementById('heatmapContainer');
         container.innerHTML = '';
         const P = parseInt(document.getElementById('currentPage').value) || 3;
 
-        // تحديد نطاقات الحفظ لحساب الألوان
         const currentMemorizationPage = P;
         const nearStart = P > 3 ? Math.max(3, P - 20) : 0;
         const nearEnd = P - 1;
@@ -772,7 +823,6 @@
         document.getElementById('heatmapModal').classList.remove('active');
     }
 
-    /* نظام المؤقت */
     let timerInterval = null, timerRemainingSecs = 0, timerTotalSecs = 0, timerIsRunning = false;
 
     function startTaskTimer(title, minutes) {
@@ -849,7 +899,6 @@
         document.getElementById('reportModal').classList.remove('active');
     }
 
-    /* تشغيل المصحف والتكرار الذكي واختبار الحفظ */
     function openQuranRange(start, end, label) {
         allowedMinPage = start;
         allowedMaxPage = end;
@@ -860,7 +909,6 @@
         document.getElementById('modalReciterSelect').value = savedReciter;
         document.getElementById('quranRangeTitle').innerText = `نطاق الحصن: ${label}`;
 
-        // إعادة ضبط أدوات التكرار واختبار الحفظ
         document.getElementById('loopCountSelect').value = "1";
         setAudioLoop("1");
         resetBlur();
@@ -965,7 +1013,6 @@
         document.getElementById('quranPageImg').src = '';
     }
 
-    /* تصدير واستيراد البيانات */
     function exportData() {
         const data = localStorage.getItem('quran_user_profile');
         if (!data) return alert("لا توجد بيانات مسجلة حالياً.");
