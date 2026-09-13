@@ -221,7 +221,7 @@
         .modal-overlay.active { display: grid; }
         .modal-card { background: var(--card-bg); color: var(--text-main); width: 100%; max-width: 440px; border-radius: 18px; padding: 16px; text-align: center; max-height: 94vh; display: flex; flex-direction: column; overflow-y: auto; }
 
-        /* نافذة المصحف مع دعم كامل لجميع الشاشات ووضع ملء الشاشة */
+        /* نافذة المصحف */
         .quran-modal-card { 
             max-width: 480px; 
             width: 100%; 
@@ -251,7 +251,6 @@
         .blur-btn { background: var(--bg); color: var(--text-main); border: 1px solid var(--border); padding: 3px 6px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.7rem; }
         .blur-btn.active { background: #fee2e2; color: var(--danger); border-color: #fca5a5; }
 
-        /* حاوية المصحف المرنة الخالية من أي قص */
         .quran-img-container {
             flex: 1; 
             display: flex; 
@@ -293,36 +292,18 @@
         .half-mask.mask-bottom { bottom: 0; height: 50%; border-top: 2px dashed rgba(255,255,255,0.4); }
         .half-mask.mask-top { top: 0; height: 50%; border-bottom: 2px dashed rgba(255,255,255,0.4); }
 
-        /* وضع ملء الشاشة لقراءة المصحف */
         .quran-modal-card.fullscreen-mode .quran-nav,
         .quran-modal-card.fullscreen-mode .audio-player-container,
         .quran-modal-card.fullscreen-mode .btn-close-mushaf {
             display: none !important;
         }
-        .quran-modal-card.fullscreen-mode {
-            padding: 2px;
-            height: 99vh;
-            max-height: 99vh;
-        }
+        .quran-modal-card.fullscreen-mode { padding: 2px; height: 99vh; max-height: 99vh; }
         .exit-fullscreen-floating-btn {
-            display: none;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(15, 23, 42, 0.75);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 8px;
-            padding: 6px 12px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            z-index: 50;
-            cursor: pointer;
-            backdrop-filter: blur(3px);
+            display: none; position: absolute; top: 10px; left: 10px; background: rgba(15, 23, 42, 0.75);
+            color: white; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 6px 12px;
+            font-size: 0.75rem; font-weight: 700; z-index: 50; cursor: pointer; backdrop-filter: blur(3px);
         }
-        .quran-modal-card.fullscreen-mode .exit-fullscreen-floating-btn {
-            display: block;
-        }
+        .quran-modal-card.fullscreen-mode .exit-fullscreen-floating-btn { display: block; }
 
         .btn-close { width: 100%; background: var(--border); color: var(--text-main); border: none; padding: 7px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 6px; font-size: 0.8rem; }
 
@@ -334,7 +315,36 @@
         .h-danger { background-color: #ef4444; }
         .h-empty { background-color: #64748b; }
 
-        .help-box { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 10px; text-align: right; }
+        /* صندوق البحث الذكي داخل دليل الشرح */
+        .help-search-box {
+            position: sticky;
+            top: 0;
+            background: var(--card-bg);
+            padding-bottom: 8px;
+            z-index: 20;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 12px;
+        }
+        .help-search-input {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1.5px solid var(--primary);
+            outline: none;
+            background: var(--bg);
+            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .help-search-hint {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        .help-box { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 10px; text-align: right; transition: all 0.2s; }
         .help-box h4 { font-size: 0.95rem; color: var(--primary); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
         .help-box p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; margin-bottom: 4px; }
         .help-mode-badge { display: inline-block; font-size: 0.75rem; font-weight: 800; padding: 2px 8px; border-radius: 6px; margin-bottom: 4px; }
@@ -426,63 +436,81 @@
     <button class="btn-next" onclick="nextDay()">✨ بارك الله فيك، أتممت ورد اليوم وانتقل للغد ←</button>
 </div>
 
-<!-- نافذة دليل وشرح التطبيق والأوضاع -->
+<!-- نافذة دليل وشرح التطبيق المزودة بالبحث الذكي -->
 <div class="modal-overlay" id="helpModal" onclick="closeHelpModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
-        <h3 style="font-family:'Amiri', serif; font-size:1.6rem; color:var(--primary); margin-bottom:4px;">دليل استخدام رفيق الحصون الخمسة</h3>
-        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">رفيقك اليومي لحفظ كتاب الله بإتقان دون تفلت أو مشقة</p>
+        <h3 style="font-family:'Amiri', serif; font-size:1.6rem; color:var(--primary); margin-bottom:2px;">دليل استخدام رفيق الحصون الخمسة</h3>
         
-        <div class="help-box">
-            <h4>🛡️ ما هي فكرة منظومة «الحصون الخمسة»؟</h4>
-            <p>منهج علمي متقن لحفظ القرآن الكريم وتثبيته وضعه د. سعيد أبو العلا حمزة. يقوم على تقسيم الجهد إلى 5 حصون متوازية تمنع تفلت الآيات:</p>
-            <p>1. <strong>القراءة المستمرة:</strong> ورد تلاوة سريع (حدر) لتغذية الذاكرة البصرية بكامل المصحف.</p>
-            <p>2. <strong>التحضير الثلاثي:</strong> (أسبوعي + ليلي قبل النوم + قبلي قبل الحفظ مباشرة) لكسر صعوبة الصفحة.</p>
-            <p>3. <strong>مراجعة البعيد:</strong> تغطية الحفظ القديم المستقر في أنابيب أسبوعية ثابتة.</p>
-            <p>4. <strong>مراجعة القريب:</strong> تثبيت آخر 20 صفحة ملاصقة حتى تستقر في الذاكرة الدائمة.</p>
-            <p>5. <strong>الحفظ الجديد:</strong> غرس المقدار اليومي المحدد بهدوء وإتقان.</p>
+        <!-- شريط البحث الذكي داخل الدليل -->
+        <div class="help-search-box">
+            <input type="text" id="helpSearchInput" class="help-search-input" placeholder="🔍 اكتب أي كلمة مفتاحية للبحث الفوري..." oninput="handleHelpSearch(this.value)">
+            <div class="help-search-hint">💡 اكتب أي حاجة مش فاهمها أو اسأل عن أي مصطلح (مثل: بلور، حدر، تحضير، ألوان، طيران) وهنساعدك فوراً.</div>
         </div>
-
-        <div class="help-box">
-            <h4>🎛️ ما هي فكرة الأنماط (Mode) ولماذا صممناها؟</h4>
-            <p style="margin-bottom:8px;">لأن ظروف الحياة تتغير وأكبر سبب لانقطاع الحفاظ هو العجز عن أداء الورد كاملاً عند الانشغال، أوجدنا 3 أنماط للمرونة بضغطة زر:</p>
-            
-            <div style="margin-bottom:8px;">
-                <span class="help-mode-badge badge-normal">🌿 النمط الطبيعي:</span>
-                <p>يومك مستقر وعندك وقت كافٍ لإنجاز الأركان الخمسة كاملة.</p>
-            </div>
-            
-            <div style="margin-bottom:8px;">
-                <span class="help-mode-badge badge-busy">🧳 نمط المسافر / المزدحم (Survival Mode):</span>
-                <p>يطبق قاعدة «المراجعة مقدمة على الحفظ»؛ يلغي الحفظ الجديد والتحضير الأسبوعي تماماً، ويركز فقط على مراجعة القديم والقريب في 12 دقيقة فقط لتحميك من الانقطاع أو الشعور بالذنب.</p>
+        
+        <div id="helpBoxesContainer">
+            <div class="help-box" data-keywords="الحصون الخمسة فكرة المنهج سعيد ابو العلا حمزة تعريف اساسيات">
+                <h4>🛡️ ما هي فكرة منظومة «الحصون الخمسة»؟</h4>
+                <p>منهج علمي متقن لحفظ القرآن الكريم وتثبيته وضعه د. سعيد أبو العلا حمزة. يقوم على تقسيم الجهد إلى 5 حصون متوازية تمنع تفلت الآيات:</p>
+                <p>1. <strong>الحصن الأول (القراءة المستمرة):</strong> قراءة سريعة (حدر) لتغذية الذاكرة البصرية وتثبيت الختمة.</p>
+                <p>2. <strong>الحصن الثاني (التحضير الثلاثي):</strong> تمهيد الصفحة 3 مرات (أسبوعي، ليلي، وقبلي) لتسهيل الحفظ.</p>
+                <p>3. <strong>الحصن الثالث (مراجعة البعيد):</strong> حماية القديم في أنابيب أسبوعية ثابتة لضمان عدم نسيانه.</p>
+                <p>4. <strong>الحصن الرابع (مراجعة القريب):</strong> تثبيت آخر 20 صفحة ملاصقة حتى تستقر تماماً.</p>
+                <p>5. <strong>الحصن الخامس (الحفظ الجديد):</strong> غرس الورد الجديد ركناً بركن بإتقان تام.</p>
             </div>
 
-            <div>
-                <span class="help-mode-badge badge-tired">😴 نمط المرهق (Low Energy Mode):</span>
-                <p>إذا كنت مصدعاً أو مجهداً ذهنياً؛ يلغي التسميع والحفظ الجديد ويركز فقط على الاستماع الهادئ مع الشيخ والقراءة البصرية السريعة.</p>
+            <div class="help-box" data-keywords="الحصن الثاني تحضير تكرار اسبوعي ليلي قبلي ليه متكرر ثلاث مرات خطوات">
+                <h4>🔄 لماذا ينقسم «الحصن الثاني: التحضير» إلى 3 خطوات؟</h4>
+                <p><strong>ليس خطأً لغوياً أو تكراراً غير مقصود</strong>، بل هو جوهر الحصن الثاني؛ حيث قسّمه مؤلف المنهج إلى 3 مراحل زمنية لكسر صعوبة الصفحة:</p>
+                <p>• <strong>(1) التحضير الأسبوعي:</strong> قراءة سريعة لصفحات الأسبوع القادم الـ 7 مرة واحدة يومياً لتألفها عينك مسبقاً.</p>
+                <p>• <strong>(2) التحضير الليلي:</strong> سماع صفحة الغد قبل النوم 3 مرات بتركيز مع المنشاوي لتترسخ في عقلك الباطن أثناء نومك.</p>
+                <p>• <strong>(3) التحضير القبلي:</strong> قراءة الصفحة 15 مرة حدر سريعاً قبل جلسة الحفظ مباشرة لتنطلق في لسانك بسهولة.</p>
             </div>
-        </div>
 
-        <div class="help-box">
-            <h4>🗺️ خريطة صحة الحفظ.. كيف تعمل ومن يحدد ألوانها؟</h4>
-            <p>الخريطة لا تعتمد على التخمين، بل يقودها <strong>«مؤشر صحة الحفظ الذكي (Health Score)»</strong> الذي يتابع كل صفحة من الـ 604 صفحة كأنها كائن حي يحتاج للرعاية والتثبيت:</p>
-            <div style="margin: 8px 0;">
-                <p>🟢 <strong>الأخضر الداكن:</strong> صفحة قوية ومستقرة، راجعتها حديثاً وثبتت في ذاكرتك.</p>
-                <p>🟢 <strong>الأخضر الفاتح:</strong> صفحة جيدة ولا خوف عليها.</p>
-                <p>🟡 <strong>الأصفر:</strong> تنبيه ذكي! بدأت الصفحة تضعف لمرور وقت دون مراجعتها، وتحتاج التفاتاً قريباً.</p>
-                <p>🔴 <strong>الأحمر:</strong> إنذار تفلت! صفحة أهملتها منذ فترة طويلة ومعرضة للنسيان، اضغط عليها فوراً لمراجعتها.</p>
-                <p>⚪ <strong>الرمادي:</strong> صفحات لم تصل إليها بعد في رحلة حفظك.</p>
+            <div class="help-box" data-keywords="الاوضاع مود طبيعي مسافر مزدحم مرهق سيرفايفل انقطاع تعب">
+                <h4>🎛️ ما هي فكرة الأنماط (Mode) ولماذا صممناها؟</h4>
+                <p style="margin-bottom:8px;">لأن ظروف الحياة تتغير وأكبر سبب لانقطاع الحفاظ هو العجز عن أداء الورد كاملاً عند الانشغال، أوجدنا 3 أنماط للمرونة بضغطة زر:</p>
+                <div style="margin-bottom:8px;">
+                    <span class="help-mode-badge badge-normal">🌿 النمط الطبيعي:</span>
+                    <p>يومك مستقر وعندك وقت كافٍ لإنجاز الأركان الخمسة كاملة.</p>
+                </div>
+                <div style="margin-bottom:8px;">
+                    <span class="help-mode-badge badge-busy">🧳 نمط المسافر / المزدحم (Survival Mode):</span>
+                    <p>يطبق قاعدة «المراجعة مقدمة على الحفظ»؛ يلغي الحفظ الجديد والتحضير الأسبوعي، ويركز فقط على مراجعة القديم والقريب في 12 دقيقة فقط لتحميك من الانقطاع.</p>
+                </div>
+                <div>
+                    <span class="help-mode-badge badge-tired">😴 نمط المرهق (Low Energy Mode):</span>
+                    <p>إذا كنت مصدعاً أو مجهداً ذهنياً؛ يلغي التسميع ويركز فقط على الاستماع الهادئ مع الشيخ والقراءة البصرية السريعة دون ضغط.</p>
+                </div>
             </div>
-            <p><strong>من يحدد المستوى؟</strong></p>
-            <p>• <strong>المراجعة ترفع الصحة:</strong> كلما أتممت ورد القريب أو البعيد ووضعت علامة ✔️، تتحول صفحاته تلقائياً للأخضر النضر.</p>
-            <p>• <strong>الوقت يقلل الصحة:</strong> إذا مرت أيام دون مراجعة صفحة معينة، تتراجع درجتها تدريجياً من الأخضر للأصفر ثم الأحمر لتنبهك قبل فوات الأوان.</p>
-        </div>
 
-        <div class="help-box">
-            <h4>👁️ أدوات المصحف الشريف المدمجة</h4>
-            <p><strong>• ⛶ ملء الشاشة:</strong> يخفي كل الأزرار لتقرأ الآيات بأكبر حجم ووضوح ممكن.</p>
-            <p><strong>• 🌓 تظليل نصف الصفحة:</strong> يحجب النصف غير المطلوب ليركز بصرك وذهنك على مقدارك اليومي فقط.</p>
-            <p><strong>• 👁️ حجب كامل (البلور):</strong> يغطي الصفحة بطبقة ضبابية لتختبر استحضارك غيباً باللمس.</p>
-            <p><strong>• 🔁 التكرار التلقائي (Loop):</strong> يتيح لك إعادة سماع تلاوة الشيخ 3 أو 5 أو 10 مرات تلقائياً.</p>
+            <div class="help-box" data-keywords="خريطة صحة الحفظ الوان اخضر اصفر احمر رمادي تفلت درجات health score">
+                <h4>🗺️ خريطة صحة الحفظ.. كيف تعمل ومن يحدد ألوانها؟</h4>
+                <p>الخريطة يقودها <strong>«مؤشر صحة الحفظ الذكي (Health Score)»</strong> الذي يتابع كل صفحة كأنها كائن حي يحتاج للرعاية والتثبيت:</p>
+                <div style="margin: 8px 0;">
+                    <p>🟢 <strong>الأخضر الداكن:</strong> صفحة قوية ومستقرة، راجعتها حديثاً وثبتت في ذاكرتك.</p>
+                    <p>🟢 <strong>الأخضر الفاتح:</strong> صفحة جيدة ولا خوف عليها.</p>
+                    <p>🟡 <strong>الأصفر:</strong> تنبيه ذكي! بدأت الصفحة تضعف لمرور وقت دون مراجعتها، وتحتاج التفاتاً قريباً.</p>
+                    <p>🔴 <strong>الأحمر:</strong> إنذار تفلت! صفحة أهملتها منذ فترة طويلة ومعرضة للنسيان، اضغط عليها فوراً لمراجعتها.</p>
+                    <p>⚪ <strong>الرمادي:</strong> صفحات لم تصل إليها بعد في رحلة حفظك.</p>
+                </div>
+                <p><strong>من يحدد المستوى؟</strong></p>
+                <p>• <strong>المراجعة ترفع الصحة:</strong> كلما راجعت ووضعت علامة ✔️، تتحول صفحاته فوراً للأخضر النضر.</p>
+                <p>• <strong>الوقت يقلل الصحة:</strong> إذا مرت أيام دون مراجعة صفحة، تتراجع تدريجياً لتنبهك قبل أن تُنسى.</p>
+            </div>
+
+            <div class="help-box" data-keywords="المصحف بلور حجب تظليل نصف ملء الشاشة تكرار صوت الشيخ">
+                <h4>👁️ أدوات المصحف الشريف المدمجة</h4>
+                <p><strong>• ⛶ ملء الشاشة:</strong> يخفي كل الأشرطة لتقرأ الآيات بأكبر حجم ووضوح ممكن على كامل الشاشة.</p>
+                <p><strong>• 🌓 تظليل نصف الصفحة:</strong> يحجب النصف غير المطلوب (أعلى أو أسفل) ليركز بصرك على مقدار اليوم فقط دون تشتت.</p>
+                <p><strong>• 👁️ حجب كامل (البلور):</strong> يغطي الصفحة بطبقة ضبابية لتختبر استحضارك غيباً باللمس.</p>
+                <p><strong>• 🔁 التكرار التلقائي (Loop):</strong> يتيح لك إعادة سماع تلاوة الشيخ 3 أو 5 أو 10 مرات تلقائياً.</p>
+            </div>
+
+            <div class="help-box" data-keywords="عداد الايام ختمة موعد متى اختم ضياع الورد غياب فوتت تعويض">
+                <h4>👑 عداد الأيام وإذا فاتك ورد اليوم</h4>
+                <p><strong>• عداد الختمة:</strong> يحسب بدقة كم يوماً متبقياً لك لتختم القرآن بناءً على سرعتك وحفظك الحالي.</p>
+                <p><strong>• إذا فاتك يوم:</strong> التطبيق مصمم ألا يضاعف عليك الحفظ الجديد نهائياً، بل يستمر معك بنفس وتيرتك لتواصل دون تراكم أو إحباط.</p>
+            </div>
         </div>
 
         <button class="btn-close" onclick="closeHelpModal()">فهمت، جزاكم الله خيراً</button>
@@ -520,11 +548,10 @@
     </div>
 </div>
 
-<!-- نافذة المصحف الشريف المتطورة مع ملء الشاشة وتظليل النصف -->
+<!-- نافذة المصحف الشريف المتطورة -->
 <div class="modal-overlay" id="quranModal" onclick="closeQuranModal()">
     <div class="modal-card quran-modal-card" id="quranModalCard" onclick="event.stopPropagation()">
         
-        <!-- زر عائم للخروج من وضع ملء الشاشة -->
         <button class="exit-fullscreen-floating-btn" onclick="toggleMushafFullscreen()">⛶ تصغير الشاشة</button>
 
         <div class="quran-nav">
@@ -644,7 +671,6 @@
     let diagSecs = 15 * 60;
     let diagInterval = null;
 
-    /* دعم زر الرجوع في الهاتف لإغلاق النوافذ المنبثقة */
     function openModalWithHistory(modalId) {
         document.getElementById(modalId).classList.add('active');
         history.pushState({ modalOpen: modalId }, "");
@@ -667,6 +693,33 @@
             clearInterval(diagInterval);
             diagInterval = null;
         }
+    }
+
+    /* محرك البحث الذكي المرن داخل دليل الشرح */
+    function handleHelpSearch(query) {
+        const clean = query.trim().toLowerCase().replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
+        const boxes = document.querySelectorAll('#helpBoxesContainer .help-box');
+        
+        if (!clean) {
+            boxes.forEach(b => b.style.display = 'block');
+            return;
+        }
+
+        boxes.forEach(box => {
+            const text = (box.innerText + " " + (box.dataset.keywords || "")).toLowerCase().replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
+            
+            // بحث ذكي يقارن الأجزاء المشتركة
+            const words = clean.split(' ');
+            const isMatch = words.some(w => w.length > 1 && text.includes(w)) || text.includes(clean);
+
+            if (isMatch) {
+                box.style.display = 'block';
+                box.style.borderColor = 'var(--primary)';
+            } else {
+                box.style.display = 'none';
+                box.style.borderColor = 'var(--border)';
+            }
+        });
     }
 
     (function setupPWA() {
@@ -715,7 +768,11 @@
         }
     }
 
-    function openHelpModal() { openModalWithHistory('helpModal'); }
+    function openHelpModal() { 
+        document.getElementById('helpSearchInput').value = '';
+        handleHelpSearch('');
+        openModalWithHistory('helpModal'); 
+    }
     function closeHelpModal() { history.back(); }
 
     function getUserData() {
@@ -809,8 +866,11 @@
             const nextWeekStart = P + 1;
             const nextWeekEnd = nextWeekStart + weekPages - 1;
             tasks.push({
-                order: 2, title: "الحصن الثاني: التحضير الأسبوعي", timeMin: 10,
-                pagesText: `قراءة صـ ${nextWeekStart} إلى ${nextWeekEnd}`, desc: "تمهيد أسبوعي لصفحات الأسبوع القادم.",
+                order: 2, 
+                title: "الحصن الثاني (1): التحضير الأسبوعي", 
+                timeMin: 10,
+                pagesText: `قراءة صـ ${nextWeekStart} إلى ${nextWeekEnd}`, 
+                desc: "تمهيد أسبوعي لصفحات الأسبوع القادم لتألفها العين.",
                 range: { start: nextWeekStart, end: nextWeekEnd, label: "التحضير الأسبوعي" }
             });
         }
@@ -818,13 +878,19 @@
         if (currentMode !== 'busy') {
             const nextTargetPage = pace === 0.5 ? P : P + 1;
             tasks.push({
-                order: 3, title: "الحصن الثاني: التحضير الليلي", timeMin: 12,
-                pagesText: `صفحة الغد (صـ ${nextTargetPage})`, desc: "سماع وقراءة متكررة قبل النوم بتركيز.",
+                order: 3, 
+                title: "الحصن الثاني (2): التحضير الليلي", 
+                timeMin: 12,
+                pagesText: `صفحة الغد (صـ ${nextTargetPage})`, 
+                desc: "سماع وقراءة متكررة قبل النوم بتركيز لترسيخها في العقل الباطن.",
                 range: { start: nextTargetPage, end: nextTargetPage, label: "التحضير الليلي" }
             });
             tasks.push({
-                order: 4, title: "الحصن الثاني: التحضير القبلي", timeMin: 12,
-                pagesText: `صفحة اليوم (صـ ${P})`, desc: "حدر متكرر 15 مرة قبل جلسة الحفظ مباشرة.",
+                order: 4, 
+                title: "الحصن الثاني (3): التحضير القبلي", 
+                timeMin: 12,
+                pagesText: `صفحة اليوم (صـ ${P})`, 
+                desc: "حدر متكرر 15 مرة قبل جلسة الحفظ لتسهيل انطلاق اللسان.",
                 range: { start: P, end: P, label: "التحضير القبلي" }
             });
         }
@@ -837,8 +903,11 @@
             if (available > 0) {
                 const count = Math.min(40, available);
                 tasks.push({
-                    order: 5, title: `الحصن الثالث: مراجعة البعيد`, timeMin: Math.min(count, 30),
-                    pagesText: `صـ ${tubeStart} إلى ${tubeStart + count - 1}`, desc: `أنبوبة يوم ${daysMap[dayIndex]} لحماية القديم.`,
+                    order: 5, 
+                    title: `الحصن الثالث: مراجعة البعيد`, 
+                    timeMin: Math.min(count, 30),
+                    pagesText: `صـ ${tubeStart} إلى ${tubeStart + count - 1}`, 
+                    desc: `أنبوبة يوم ${daysMap[dayIndex]} لحماية الحفظ القديم من النسيان.`,
                     range: { start: tubeStart, end: tubeStart + count - 1, label: "البعيد" }
                 });
             }
@@ -848,8 +917,11 @@
             const startNear = Math.max(3, P - nearSpan);
             const count = (P - 1) - startNear + 1;
             tasks.push({
-                order: 6, title: "الحصن الرابع: مراجعة القريب", timeMin: Math.min(count, 20),
-                pagesText: `صـ ${startNear} إلى ${P - 1}`, desc: `تثبيت آخر ${nearSpan} صفحة ملاصقة.`,
+                order: 6, 
+                title: "الحصن الرابع: مراجعة القريب", 
+                timeMin: Math.min(count, 20),
+                pagesText: `صـ ${startNear} إلى ${P - 1}`, 
+                desc: `تثبيت آخر ${nearSpan} صفحة ملاصقة حتى تستقر بالذاكرة.`,
                 range: { start: startNear, end: P - 1, label: "القريب" }
             });
         }
@@ -857,8 +929,11 @@
         if (currentMode === 'normal') {
             const newLabel = pace === 0.5 ? `نصف صفحة من صـ ${P}` : pace === 2 ? `صفحتان (صـ ${P} و ${P+1})` : `صفحة رقم ${P}`;
             tasks.push({
-                order: 7, title: "الحصن الخامس: الحفظ الجديد", timeMin: 15,
-                pagesText: newLabel, desc: "غرس الحفظ الجديد المتقن ركناً بركن.",
+                order: 7, 
+                title: "الحصن الخامس: الحفظ الجديد", 
+                timeMin: 15,
+                pagesText: newLabel, 
+                desc: "غرس الحفظ الجديد المتقن ركناً بركن.",
                 range: { start: P, end: pace === 2 ? P + 1 : P, label: "الجديد" }
             });
         }
@@ -1193,7 +1268,6 @@
         btn.classList.remove('active');
     }
 
-    /* إدارة وضع ملء الشاشة */
     function toggleMushafFullscreen() {
         const card = document.getElementById('quranModalCard');
         card.classList.toggle('fullscreen-mode');
@@ -1313,7 +1387,7 @@
             alert("بارك الله في جهدك وحرصك 🌿\nتم ضبط خطتك على: نصف صفحة مع التركيز على الاستماع والتحضير لتيسير الحفظ.");
         }
         localStorage.setItem('quran_user_profile', JSON.stringify(user));
-        history.back();
+        closeDiagModal();
         initUser();
     }
 
