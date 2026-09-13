@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#059669">
-    <title>رفيق الحصون الخمسة | المساعد الذكي</title>
+    <title>الحصون الخمسة</title>
     <link rel="manifest" id="manifestPlaceholder">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Amiri:wght@700&display=swap" rel="stylesheet">
     <style>
@@ -95,11 +95,12 @@
         .input-group label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; }
         .input-group input, .input-group select { width: 100%; padding: 8px; border: 1.5px solid var(--border); border-radius: 8px; font-weight: 700; font-size: 0.95rem; outline: none; background: #fff; }
 
-        .actions-row { display: grid; grid-template-columns: 1fr 1fr auto auto; gap: 6px; margin-bottom: 14px; }
-        .btn-action { background: #1e293b; color: white; border: none; padding: 10px 6px; border-radius: 10px; font-weight: 700; font-size: 0.8rem; cursor: pointer; text-align: center; }
+        .actions-row { display: grid; grid-template-columns: 1fr 1fr 1fr auto auto; gap: 5px; margin-bottom: 14px; }
+        .btn-action { background: #1e293b; color: white; border: none; padding: 10px 4px; border-radius: 10px; font-weight: 700; font-size: 0.75rem; cursor: pointer; text-align: center; }
+        .btn-action.share { background: #25d366; color: white; }
         .btn-action.map { background: #0284c7; }
         .btn-action.reset { background: #fee2e2; color: var(--danger); border: 1px solid #fecaca; }
-        .btn-action.settings { background: #e2e8f0; color: var(--text-main); font-size: 1.1rem; width: 42px; }
+        .btn-action.settings { background: #e2e8f0; color: var(--text-main); font-size: 1.1rem; width: 40px; }
 
         .task-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
         .task-card {
@@ -153,13 +154,7 @@
             overflow-y: auto; 
         }
 
-        .quran-modal-card { 
-            max-width: 480px; 
-            padding: 10px; 
-            max-height: 98vh; 
-            overflow: hidden; 
-        }
-
+        .quran-modal-card { max-width: 480px; padding: 10px; max-height: 98vh; overflow: hidden; }
         .quran-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
         .quran-nav-btn { background: #f1f5f9; border: 1px solid var(--border); padding: 6px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem; }
         .quran-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
@@ -176,7 +171,6 @@
         .blur-btn { background: #f1f5f9; border: 1px solid var(--border); padding: 4px 8px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.75rem; }
         .blur-btn.active { background: #fee2e2; color: var(--danger); border-color: #fca5a5; }
 
-        /* منطقة عرض المصحف ومنع القوائم */
         .quran-img-container {
             flex: 1;
             display: flex;
@@ -186,7 +180,6 @@
             border-radius: 10px;
             border: 1px solid #f1e9d2;
             overflow: hidden;
-            position: relative;
             user-select: none;
             -webkit-user-select: none;
             -webkit-touch-callout: none;
@@ -201,7 +194,6 @@
             display: block;
             margin: 0 auto;
             transition: filter 0.15s ease;
-            pointer-events: auto;
             user-select: none;
             -webkit-user-select: none;
             -webkit-touch-callout: none;
@@ -210,7 +202,6 @@
         .quran-img-container img.blurred { filter: blur(10px); }
         .quran-img-container img.blurred:active { filter: blur(0px); }
 
-        /* خريطة المصحف البصرية (Heatmap) */
         .heatmap-grid {
             display: grid;
             grid-template-columns: repeat(20, 1fr);
@@ -252,7 +243,21 @@
         .stat-details { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
         .stat-box { background: var(--bg); padding: 10px; border-radius: 10px; border: 1px solid var(--border); }
         .stat-box strong { display: block; font-size: 1.15rem; color: var(--text-main); margin-top: 2px; }
+        
         .btn-close { width: 100%; background: #e2e8f0; border: none; padding: 10px; border-radius: 10px; font-weight: 700; cursor: pointer; color: var(--text-main); margin-top: 8px; }
+
+        .share-preview-box {
+            background: #f8fafc;
+            border: 1.5px dashed var(--primary);
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            text-align: right;
+            margin: 12px 0;
+            white-space: pre-wrap;
+            color: #334155;
+        }
 
         .onboarding-field { text-align: right; margin-bottom: 12px; }
         .onboarding-field label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
@@ -294,8 +299,9 @@
     </div>
 
     <div class="actions-row">
+        <button class="btn-action share" onclick="openShareModal()">📢 مشاركة الإنجاز</button>
         <button class="btn-action" onclick="openReport()">📊 التقرير</button>
-        <button class="btn-action map" onclick="openHeatmap()">🗺️ خريطة المصحف</button>
+        <button class="btn-action map" onclick="openHeatmap()">🗺️ الخريطة</button>
         <button class="btn-action reset" onclick="confirmReset()" title="تصفير الخطة">🔄</button>
         <button class="btn-action settings" onclick="openSettings()" title="الإعدادات">⚙️</button>
     </div>
@@ -303,6 +309,22 @@
     <div class="task-list" id="tasksList"></div>
 
     <button class="btn-next" onclick="nextDay()">✨ بارك الله فيك، أتممت ورد اليوم وانتقل للغد ←</button>
+</div>
+
+<!-- نافذة مشاركة الإنجاز مع الصحبة الصالحة -->
+<div class="modal-overlay" id="shareModal" onclick="closeShareModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <h3 style="font-family: 'Amiri', serif; font-size: 1.5rem; color: var(--primary-dark); margin-bottom: 4px;">بطاقة التحدي القرآني</h3>
+        <p style="font-size: 0.8rem; color: var(--text-muted);">شارك إنجازك اليوم وشجع أصحابك على تعاهد القرآن</p>
+        
+        <div class="share-preview-box" id="sharePreviewText"></div>
+
+        <div style="display:flex; gap:8px; margin-top: 4px;">
+            <button class="btn-action share" style="flex:1; padding:12px; font-size:0.9rem;" onclick="shareDirectWhatsApp()">📲 إرسال عبر واتساب</button>
+            <button class="btn-action" style="flex:1; padding:12px; font-size:0.9rem; background:#334155;" onclick="copyShareText()">📋 نسخ النص</button>
+        </div>
+        <button class="btn-close" onclick="closeShareModal()">إغلاق</button>
+    </div>
 </div>
 
 <!-- نافذة خريطة المصحف البصرية (Heatmap) -->
@@ -452,6 +474,36 @@
     let remainingLoops = 1;
     let targetLoops = 1;
 
+    // إعداد اسم التطبيق وأيقونته للـ PWA
+    (function setupPWA() {
+        const manifest = {
+            name: "الحصون الخمسة",
+            short_name: "الحصون الخمسة",
+            description: "الورد اليومي المنظم لحفظ القرآن الكريم بإتقان",
+            start_url: "./index.html",
+            display: "standalone",
+            orientation: "portrait",
+            background_color: "#f8fafc",
+            theme_color: "#059669",
+            icons: [
+                {
+                    src: "https://android.quran.com/data/width_1260/page003.png",
+                    sizes: "192x192",
+                    type: "image/png",
+                    purpose: "any maskable"
+                },
+                {
+                    src: "https://android.quran.com/data/width_1260/page003.png",
+                    sizes: "512x512",
+                    type: "image/png"
+                }
+            ]
+        };
+        const stringManifest = JSON.stringify(manifest);
+        const blob = new Blob([stringManifest], {type: 'application/json'});
+        document.getElementById('manifestPlaceholder').setAttribute('href', URL.createObjectURL(blob));
+    })();
+
     function playChime(isFinish = false) {
         try {
             if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -518,6 +570,7 @@
         user.reminderTime = reminderTime;
         user.currentDay = currentDay;
         if (!user.history) user.history = {};
+        if (user.streak === undefined) user.streak = 1;
 
         localStorage.setItem('quran_user_profile', JSON.stringify(user));
         document.getElementById('onboardingModal').classList.remove('active');
@@ -778,12 +831,58 @@
         const user = getUserData() || {};
         user.currentPage = parseInt(pInput.value);
         user.currentDay = parseInt(dInput.value);
+
+        const todayStr = new Date().toISOString().split('T')[0];
+        if (user.lastCompletedDate !== todayStr) {
+            user.streak = (user.streak || 0) + 1;
+            user.lastCompletedDate = todayStr;
+        }
+
         localStorage.setItem('quran_user_profile', JSON.stringify(user));
 
         renderTasks();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    /* نظام مشاركة الإنجاز مع الصحبة */
+    function getShareMessage() {
+        const user = getUserData() || {};
+        const name = user.name || 'صاحب القرآن';
+        const P = parseInt(document.getElementById('currentPage').value) || 3;
+        const streak = user.streak || 1;
+        const totalQuranPages = 602;
+        const completed = Math.max(0, P - 3);
+        const percent = ((completed / totalQuranPages) * 100).toFixed(1);
+
+        return `🌿 *بفضل الله وتوفيقه* 🌿\n\nأتممت ورد اليوم من منهج *الحصون الخمسة* لحفظ القرآن الكريم بإتقان.\n\n👤 القارئ: *${name}*\n📖 صفحة اليوم: *صـ ${P}*\n📊 نسبة الإنجاز من القرآن: *${percent}%* (${completed} صفحة)\n🔥 مستمر في الالتزام: *${streak} ${streak === 1 ? 'يوم' : streak === 2 ? 'يومان' : 'أيام متتالية'}*\n\nقال رسول الله ﷺ: «تَعَاهَدُوا هذا القُرْآنَ».\nانضم وتحداني في الحفظ والمراجعة عبر الرابط:\n${window.location.href}`;
+    }
+
+    function openShareModal() {
+        const text = getShareMessage();
+        document.getElementById('sharePreviewText').innerText = text;
+        document.getElementById('shareModal').classList.add('active');
+    }
+
+    function closeShareModal() {
+        document.getElementById('shareModal').classList.remove('active');
+    }
+
+    function shareDirectWhatsApp() {
+        const text = getShareMessage();
+        const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+        window.open(url, '_blank');
+    }
+
+    function copyShareText() {
+        const text = getShareMessage();
+        navigator.clipboard.writeText(text).then(() => {
+            alert("تم نسخ بطاقة الإنجاز بنجاح! يمكنك لصقها في أي تطبيق.");
+        }).catch(() => {
+            alert("يرجى نسخ النص يدوياً من المربع.");
+        });
+    }
+
+    /* خريطة المصحف البصرية (Heatmap) */
     function openHeatmap() {
         const container = document.getElementById('heatmapContainer');
         container.innerHTML = '';
@@ -823,6 +922,7 @@
         document.getElementById('heatmapModal').classList.remove('active');
     }
 
+    /* نظام المؤقت */
     let timerInterval = null, timerRemainingSecs = 0, timerTotalSecs = 0, timerIsRunning = false;
 
     function startTaskTimer(title, minutes) {
