@@ -221,6 +221,7 @@
         .modal-overlay.active { display: grid; }
         .modal-card { background: var(--card-bg); color: var(--text-main); width: 100%; max-width: 440px; border-radius: 18px; padding: 16px; text-align: center; max-height: 94vh; display: flex; flex-direction: column; overflow-y: auto; }
 
+        /* نافذة المصحف */
         .quran-modal-card { max-width: 480px; width: 100%; padding: 10px; max-height: 96vh; overflow: hidden; display: flex; flex-direction: column; }
         .quran-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
         .quran-nav-btn { background: var(--bg); color: var(--text-main); border: 1px solid var(--border); padding: 5px 12px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }
@@ -254,7 +255,7 @@
         .half-mask.mask-bottom { bottom: 0; height: 50%; border-top: 2px dashed rgba(255,255,255,0.4); }
         .half-mask.mask-top { top: 0; height: 50%; border-bottom: 2px dashed rgba(255,255,255,0.4); }
 
-        .btn-close { width: 100%; background: var(--border); color: var(--text-main); border: none; padding: 8px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 8px; }
+        .btn-close { width: 100%; background: var(--border); color: var(--text-main); border: none; padding: 10px; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 10px; font-size: 0.85rem; }
 
         .heatmap-grid { display: grid; grid-template-columns: repeat(20, 1fr); gap: 2px; padding: 6px; max-height: 320px; overflow-y: auto; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); margin-bottom: 10px; }
         .heat-cell { aspect-ratio: 1; border-radius: 2px; font-size: 6px; display: grid; place-content: center; color: white; cursor: pointer; }
@@ -263,6 +264,41 @@
         .h-warning { background-color: #f59e0b; }
         .h-danger { background-color: #ef4444; }
         .h-empty { background-color: #64748b; }
+
+        /* تنسيق بطاقات دليل الشرح الشامل */
+        .help-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+        .help-box h4 {
+            font-size: 0.95rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .help-box p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+            margin-bottom: 4px;
+        }
+        .help-mode-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-bottom: 4px;
+        }
+        .badge-normal { background: #dcfce7; color: #166534; }
+        .badge-busy { background: #e0f2fe; color: #075985; }
+        .badge-tired { background: #fef3c7; color: #92400e; }
 
         .diagnostic-card { background: var(--card-bg); text-align: center; }
         .diag-timer { font-size: 2.8rem; font-weight: 800; color: var(--primary); margin: 8px 0; font-variant-numeric: tabular-nums; }
@@ -274,7 +310,7 @@
 
 <div class="app-container">
     <div class="top-bar-tools">
-        <button class="tool-btn" onclick="openHelpModal()">📖 شرح التطبيق</button>
+        <button class="tool-btn" onclick="openHelpModal()">📖 شرح التطبيق والأوضاع</button>
         <div style="display:flex; gap:6px;">
             <button class="tool-btn" onclick="openDiagnosticTest()" style="background:#ecfdf5; border-color:var(--primary); color:var(--primary);">🧪 اختبار المستوى</button>
             <button class="tool-btn" id="installAppBtn" onclick="installPWA()" style="display:none;">📲 تثبيت</button>
@@ -346,6 +382,59 @@
     <div class="task-list" id="tasksList"></div>
 
     <button class="btn-next" onclick="nextDay()">✨ بارك الله فيك، أتممت ورد اليوم وانتقل للغد ←</button>
+</div>
+
+<!-- نافذة دليل وشرح التطبيق والأوضاع (التصميم الجميل والمنسق) -->
+<div class="modal-overlay" id="helpModal" onclick="closeHelpModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <h3 style="font-family:'Amiri', serif; font-size:1.6rem; color:var(--primary); margin-bottom:4px;">دليل استخدام رفيق الحصون الخمسة</h3>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">رفيقك اليومي لحفظ كتاب الله بإتقان دون تفلت أو مشقة</p>
+        
+        <div class="help-box">
+            <h4>🛡️ ما هي فكرة منظومة «الحصون الخمسة»؟</h4>
+            <p>منهج علمي متقن لحفظ القرآن الكريم وتثبيته وضعه د. سعيد أبو العلا حمزة. يقوم على تقسيم الجهد إلى 5 حصون متوازية تمنع تفلت الآيات:</p>
+            <p>1. <strong>القراءة المستمرة:</strong> ورد تلاوة سريع (حدر) لتغذية الذاكرة البصرية بكامل المصحف.</p>
+            <p>2. <strong>التحضير الثلاثي:</strong> (أسبوعي + ليلي قبل النوم + قبلي قبل الحفظ مباشرة) لكسر صعوبة الصفحة.</p>
+            <p>3. <strong>مراجعة البعيد:</strong> تغطية الحفظ القديم المستقر في أنابيب أسبوعية ثابتة.</p>
+            <p>4. <strong>مراجعة القريب:</strong> تثبيت آخر 20 صفحة ملاصقة حتى تستقر في الذاكرة الدائمة.</p>
+            <p>5. <strong>الحفظ الجديد:</strong> غرس المقدار اليومي المحدد بهدوء وإتقان.</p>
+        </div>
+
+        <div class="help-box">
+            <h4>🎛️ ما هي فكرة الأنماط (Mode) ولماذا صممناها؟</h4>
+            <p style="margin-bottom:8px;">لأن ظروف الحياة تتغير وأكبر سبب لانقطاع الحفاظ هو العجز عن أداء الورد كاملاً عند الانشغال، أوجدنا 3 أنماط للمرونة بضغطة زر:</p>
+            
+            <div style="margin-bottom:8px;">
+                <span class="help-mode-badge badge-normal">🌿 النمط الطبيعي:</span>
+                <p>يومك مستقر وعندك وقت كافٍ لإنجاز الأركان الخمسة كاملة.</p>
+            </div>
+            
+            <div style="margin-bottom:8px;">
+                <span class="help-mode-badge badge-busy">🧳 نمط المسافر / المزدحم (Survival Mode):</span>
+                <p>يطبق قاعدة «المراجعة مقدمة على الحفظ»؛ يلغي الحفظ الجديد والتحضير الأسبوعي تماماً، ويركز فقط على مراجعة القديم والقريب في 12 دقيقة فقط لتحميك من الانقطاع أو الشعور بالذنب.</p>
+            </div>
+
+            <div>
+                <span class="help-mode-badge badge-tired">😴 نمط المرهق (Low Energy Mode):</span>
+                <p>إذا كنت مصدعاً أو مجهداً ذهنياً؛ يلغي التسميع والحفظ الجديد ويركز فقط على الاستماع الهادئ مع الشيخ والقراءة البصرية السريعة.</p>
+            </div>
+        </div>
+
+        <div class="help-box">
+            <h4>👁️ أدوات المصحف الشريف المدمجة</h4>
+            <p><strong>• 🌓 تظليل نصف الصفحة:</strong> يحجب النصف غير المطلوب (أعلى أو أسفل) ليركز بصرك وذهنك على مقدارك اليومي فقط دون تشتت.</p>
+            <p><strong>• 👁️ حجب كامل (البلور):</strong> يغطي الصفحة بطبقة ضبابية لتختبر استحضارك غيباً، ولا تنكشف الكلمات إلا بالضغط المطول عليها بإصبعك.</p>
+            <p><strong>• 🔁 التكرار التلقائي (Loop):</strong> يتيح لك إعادة سماع تلاوة الشيخ 3 أو 5 أو 10 مرات تلقائياً لإتقان التحضير قبل النوم أو قبل الحفظ.</p>
+        </div>
+
+        <div class="help-box">
+            <h4>👑 عداد الأيام وإذا فاتك ورد اليوم</h4>
+            <p><strong>• عداد الختمة:</strong> يحسب بدقة كم يوماً متبقياً لك لتختم القرآن بناءً على مسارك وحفظك الحالي.</p>
+            <p><strong>• إذا فاتك يوم:</strong> التطبيق مصمم ألا يضاعف عليك الحفظ الجديد نهائياً، بل يستمر معك بنفس وتيرتك لتواصل دون تراكم أو إحباط.</p>
+        </div>
+
+        <button class="btn-close" onclick="closeHelpModal()">فهمت، جزاكم الله خيراً</button>
+    </div>
 </div>
 
 <!-- نافذة الاختبار التشخيصي المبدئي (15 دقيقة) -->
@@ -441,19 +530,6 @@
         </div>
         <div class="heatmap-grid" id="heatmapContainer"></div>
         <button class="btn-close" onclick="closeHeatmap()">إغلاق</button>
-    </div>
-</div>
-
-<!-- نافذة دليل وشرح التطبيق -->
-<div class="modal-overlay" id="helpModal" onclick="closeHelpModal()">
-    <div class="modal-card" onclick="event.stopPropagation()">
-        <h3 style="font-family:'Amiri', serif; font-size:1.4rem; color:var(--primary); margin-bottom:10px;">دليل استخدام رفيق الحصون الخمسة</h3>
-        <div style="text-align:right; font-size:0.85rem; line-height:1.6; color:var(--text-muted);">
-            <p><strong>• الحصن الأول (القراءة المستمرة):</strong> يمكنك الآن فتح صفحات الجزأين المقررة وتصفحها مباشرة بالمصحف.</p>
-            <p><strong>• عداد الأيام:</strong> يحسب بدقة كم يوماً متبقياً لك لتختم القرآن بناءً على مسارك وحفظك الحالي.</p>
-            <p><strong>• تظليل نصف الصفحة:</strong> يساعدك على حجب الجزء غير المطلوب لتصفية ذهنك وحفظ النصف المقرر فقط.</p>
-        </div>
-        <button class="btn-close" onclick="closeHelpModal()">فهمت، جزاكم الله خيراً</button>
     </div>
 </div>
 
@@ -573,7 +649,7 @@
             user = {
                 name: 'صاحب القرآن',
                 currentPage: 5,
-                readingCurrentPage: 1, // بداية ختمة القراءة المستمرة
+                readingCurrentPage: 1,
                 currentDay: todayDayIndex,
                 dailyPace: 1,
                 timeBudget: 45,
@@ -634,7 +710,6 @@
 
         if (currentMode !== 'busy' && currentMode !== 'tired') {
             const readingMin = budget === 30 ? 15 : budget === 45 ? 25 : 40;
-            // 40 صفحة = جزأين (أو 20 صفحة = جزء / حزب حسب الوقت)
             const pagesCount = budget === 30 ? 20 : 40;
             const readEnd = Math.min(604, readStart + pagesCount - 1);
             const readingText = `قراءة صـ ${readStart} إلى ${readEnd} (${pagesCount} ص حدر)`;
@@ -848,10 +923,9 @@
         user.currentPage = parseInt(pInput.value);
         user.currentDay = parseInt(dInput.value);
 
-        // تقدم صفحات الختمة المستمرة لليوم التالي
         const pagesReadToday = budget === 30 ? 20 : 40;
         user.readingCurrentPage = (user.readingCurrentPage || 1) + pagesReadToday;
-        if (user.readingCurrentPage > 604) user.readingCurrentPage = 1; // ختمة جديدة
+        if (user.readingCurrentPage > 604) user.readingCurrentPage = 1;
 
         localStorage.setItem('quran_user_profile', JSON.stringify(user));
 
