@@ -217,34 +217,72 @@
 
         .btn-next { width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 12px; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
 
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: none; place-items: center; z-index: 100; padding: 8px; backdrop-filter: blur(2px); }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: none; place-items: center; z-index: 100; padding: 6px; backdrop-filter: blur(2px); }
         .modal-overlay.active { display: grid; }
         .modal-card { background: var(--card-bg); color: var(--text-main); width: 100%; max-width: 440px; border-radius: 18px; padding: 16px; text-align: center; max-height: 94vh; display: flex; flex-direction: column; overflow-y: auto; }
 
-        /* نافذة المصحف */
-        .quran-modal-card { max-width: 480px; width: 100%; padding: 10px; max-height: 96vh; overflow: hidden; display: flex; flex-direction: column; }
-        .quran-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .quran-nav-btn { background: var(--bg); color: var(--text-main); border: 1px solid var(--border); padding: 5px 12px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }
+        /* نافذة المصحف مع دعم كامل لجميع الشاشات ووضع ملء الشاشة */
+        .quran-modal-card { 
+            max-width: 480px; 
+            width: 100%; 
+            padding: 6px; 
+            height: 96vh; 
+            max-height: 96vh; 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+            position: relative;
+        }
+
+        .quran-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+        .quran-nav-btn { background: var(--bg); color: var(--text-main); border: 1px solid var(--border); padding: 4px 10px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.75rem; }
         .quran-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
         .audio-player-container {
-            background: var(--bg); border-radius: 10px; padding: 6px 8px; margin-bottom: 6px;
-            border: 1px solid var(--border); display: flex; flex-direction: column; gap: 5px; text-align: right;
+            background: var(--bg); border-radius: 8px; padding: 4px 6px; margin-bottom: 4px;
+            border: 1px solid var(--border); display: flex; flex-direction: column; gap: 4px; text-align: right;
+            transition: all 0.2s ease;
         }
-        .audio-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-        .audio-row select { padding: 4px 6px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.75rem; font-weight: 600; outline: none; background: var(--card-bg); color: var(--text-main); }
-        .audio-row button { background: var(--primary); color: white; border: none; padding: 5px 12px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }
+        .audio-row { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
+        .audio-row select { padding: 3px 5px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.72rem; font-weight: 600; outline: none; background: var(--card-bg); color: var(--text-main); }
+        .audio-row button { background: var(--primary); color: white; border: none; padding: 4px 10px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.75rem; }
 
-        .quran-toolbar { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 4px 8px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.75rem; font-weight: 700; gap: 4px; }
-        .blur-btn { background: var(--bg); color: var(--text-main); border: 1px solid var(--border); padding: 4px 8px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.75rem; }
+        .quran-toolbar { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 3px 6px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.7rem; font-weight: 700; gap: 3px; }
+        .blur-btn { background: var(--bg); color: var(--text-main); border: 1px solid var(--border); padding: 3px 6px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.7rem; }
         .blur-btn.active { background: #fee2e2; color: var(--danger); border-color: #fca5a5; }
 
+        /* حاوية المصحف المرنة الخالية من أي قص */
         .quran-img-container {
-            flex: 1; display: flex; align-items: center; justify-content: center; background: var(--quran-bg);
-            border-radius: 10px; border: 1px solid var(--border); overflow: hidden; position: relative;
-            user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; padding: 2px; min-height: 380px;
+            flex: 1; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            background: var(--quran-bg);
+            border-radius: 8px; 
+            border: 1px solid var(--border); 
+            overflow: hidden; 
+            position: relative;
+            user-select: none; 
+            -webkit-user-select: none; 
+            -webkit-touch-callout: none; 
+            padding: 2px; 
+            min-height: 0; 
+            height: 100%;
         }
-        .quran-img-container img { max-width: 100%; max-height: 68vh; width: auto; height: auto; object-fit: contain; display: block; margin: 0 auto; transition: filter 0.15s ease; user-select: none; -webkit-touch-callout: none; }
+
+        .quran-img-container img { 
+            max-width: 100%; 
+            max-height: 100%; 
+            width: auto; 
+            height: auto; 
+            object-fit: contain; 
+            display: block; 
+            margin: auto; 
+            transition: filter 0.15s ease; 
+            user-select: none; 
+            -webkit-touch-callout: none; 
+        }
+
         .quran-img-container img.blurred { filter: blur(10px); }
         .quran-img-container img.blurred:active { filter: blur(0px); }
 
@@ -255,7 +293,38 @@
         .half-mask.mask-bottom { bottom: 0; height: 50%; border-top: 2px dashed rgba(255,255,255,0.4); }
         .half-mask.mask-top { top: 0; height: 50%; border-bottom: 2px dashed rgba(255,255,255,0.4); }
 
-        .btn-close { width: 100%; background: var(--border); color: var(--text-main); border: none; padding: 10px; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 10px; font-size: 0.85rem; }
+        /* وضع ملء الشاشة لقراءة المصحف */
+        .quran-modal-card.fullscreen-mode .quran-nav,
+        .quran-modal-card.fullscreen-mode .audio-player-container,
+        .quran-modal-card.fullscreen-mode .btn-close-mushaf {
+            display: none !important;
+        }
+        .quran-modal-card.fullscreen-mode {
+            padding: 2px;
+            height: 99vh;
+            max-height: 99vh;
+        }
+        .exit-fullscreen-floating-btn {
+            display: none;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(15, 23, 42, 0.75);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 50;
+            cursor: pointer;
+            backdrop-filter: blur(3px);
+        }
+        .quran-modal-card.fullscreen-mode .exit-fullscreen-floating-btn {
+            display: block;
+        }
+
+        .btn-close { width: 100%; background: var(--border); color: var(--text-main); border: none; padding: 7px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 6px; font-size: 0.8rem; }
 
         .heatmap-grid { display: grid; grid-template-columns: repeat(20, 1fr); gap: 2px; padding: 6px; max-height: 320px; overflow-y: auto; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); margin-bottom: 10px; }
         .heat-cell { aspect-ratio: 1; border-radius: 2px; font-size: 6px; display: grid; place-content: center; color: white; cursor: pointer; }
@@ -265,37 +334,10 @@
         .h-danger { background-color: #ef4444; }
         .h-empty { background-color: #64748b; }
 
-        /* تنسيق بطاقات دليل الشرح الشامل والملون */
-        .help-box {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 10px;
-            text-align: right;
-        }
-        .help-box h4 {
-            font-size: 0.95rem;
-            color: var(--primary);
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .help-box p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            line-height: 1.55;
-            margin-bottom: 4px;
-        }
-        .help-mode-badge {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 800;
-            padding: 2px 8px;
-            border-radius: 6px;
-            margin-bottom: 4px;
-        }
+        .help-box { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 10px; text-align: right; }
+        .help-box h4 { font-size: 0.95rem; color: var(--primary); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .help-box p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; margin-bottom: 4px; }
+        .help-mode-badge { display: inline-block; font-size: 0.75rem; font-weight: 800; padding: 2px 8px; border-radius: 6px; margin-bottom: 4px; }
         .badge-normal { background: #dcfce7; color: #166534; }
         .badge-busy { background: #e0f2fe; color: #075985; }
         .badge-tired { background: #fef3c7; color: #92400e; }
@@ -384,7 +426,7 @@
     <button class="btn-next" onclick="nextDay()">✨ بارك الله فيك، أتممت ورد اليوم وانتقل للغد ←</button>
 </div>
 
-<!-- نافذة دليل وشرح التطبيق والأوضاع (التصميم الجميل والمنسق) -->
+<!-- نافذة دليل وشرح التطبيق والأوضاع -->
 <div class="modal-overlay" id="helpModal" onclick="closeHelpModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
         <h3 style="font-family:'Amiri', serif; font-size:1.6rem; color:var(--primary); margin-bottom:4px;">دليل استخدام رفيق الحصون الخمسة</h3>
@@ -420,11 +462,9 @@
             </div>
         </div>
 
-        <!-- بطاقة شرح خريطة صحة الحفظ الملونة -->
         <div class="help-box">
             <h4>🗺️ خريطة صحة الحفظ.. كيف تعمل ومن يحدد ألوانها؟</h4>
             <p>الخريطة لا تعتمد على التخمين، بل يقودها <strong>«مؤشر صحة الحفظ الذكي (Health Score)»</strong> الذي يتابع كل صفحة من الـ 604 صفحة كأنها كائن حي يحتاج للرعاية والتثبيت:</p>
-
             <div style="margin: 8px 0;">
                 <p>🟢 <strong>الأخضر الداكن:</strong> صفحة قوية ومستقرة، راجعتها حديثاً وثبتت في ذاكرتك.</p>
                 <p>🟢 <strong>الأخضر الفاتح:</strong> صفحة جيدة ولا خوف عليها.</p>
@@ -432,24 +472,17 @@
                 <p>🔴 <strong>الأحمر:</strong> إنذار تفلت! صفحة أهملتها منذ فترة طويلة ومعرضة للنسيان، اضغط عليها فوراً لمراجعتها.</p>
                 <p>⚪ <strong>الرمادي:</strong> صفحات لم تصل إليها بعد في رحلة حفظك.</p>
             </div>
-
             <p><strong>من يحدد المستوى؟</strong></p>
             <p>• <strong>المراجعة ترفع الصحة:</strong> كلما أتممت ورد القريب أو البعيد ووضعت علامة ✔️، تتحول صفحاته تلقائياً للأخضر النضر.</p>
-            <p>• <strong>الوقت يقلل الصحة (عامل التفلت):</strong> إذا مرت أيام دون مراجعة صفحة معينة، تتراجع درجتها تدريجياً من الأخضر للأصفر ثم الأحمر لتنبهك قبل فوات الأوان.</p>
-            <p>• <strong>لمسة واحدة للإنقاذ:</strong> أي نقطة صفراء أو حمراء تراها في الخريطة، اضغط عليها مباشرة لتفتح لك الصفحة فوراً وتراجعها وتعود خضراء كما كانت!</p>
+            <p>• <strong>الوقت يقلل الصحة:</strong> إذا مرت أيام دون مراجعة صفحة معينة، تتراجع درجتها تدريجياً من الأخضر للأصفر ثم الأحمر لتنبهك قبل فوات الأوان.</p>
         </div>
 
         <div class="help-box">
             <h4>👁️ أدوات المصحف الشريف المدمجة</h4>
-            <p><strong>• 🌓 تظليل نصف الصفحة:</strong> يحجب النصف غير المطلوب (أعلى أو أسفل) ليركز بصرك وذهنك على مقدارك اليومي فقط دون تشتت.</p>
-            <p><strong>• 👁️ حجب كامل (البلور):</strong> يغطي الصفحة بطبقة ضبابية لتختبر استحضارك غيباً، ولا تنكشف الكلمات إلا بالضغط المطول عليها بإصبعك.</p>
-            <p><strong>• 🔁 التكرار التلقائي (Loop):</strong> يتيح لك إعادة سماع تلاوة الشيخ 3 أو 5 أو 10 مرات تلقائياً لإتقان التحضير قبل النوم أو قبل الحفظ.</p>
-        </div>
-
-        <div class="help-box">
-            <h4>👑 عداد الأيام وإذا فاتك ورد اليوم</h4>
-            <p><strong>• عداد الختمة:</strong> يحسب بدقة كم يوماً متبقياً لك لتختم القرآن بناءً على مسارك وحفظك الحالي.</p>
-            <p><strong>• إذا فاتك يوم:</strong> التطبيق مصمم ألا يضاعف عليك الحفظ الجديد نهائياً، بل يستمر معك بنفس وتيرتك لتواصل دون تراكم أو إحباط.</p>
+            <p><strong>• ⛶ ملء الشاشة:</strong> يخفي كل الأزرار لتقرأ الآيات بأكبر حجم ووضوح ممكن.</p>
+            <p><strong>• 🌓 تظليل نصف الصفحة:</strong> يحجب النصف غير المطلوب ليركز بصرك وذهنك على مقدارك اليومي فقط.</p>
+            <p><strong>• 👁️ حجب كامل (البلور):</strong> يغطي الصفحة بطبقة ضبابية لتختبر استحضارك غيباً باللمس.</p>
+            <p><strong>• 🔁 التكرار التلقائي (Loop):</strong> يتيح لك إعادة سماع تلاوة الشيخ 3 أو 5 أو 10 مرات تلقائياً.</p>
         </div>
 
         <button class="btn-close" onclick="closeHelpModal()">فهمت، جزاكم الله خيراً</button>
@@ -487,14 +520,18 @@
     </div>
 </div>
 
-<!-- نافذة المصحف الشريف -->
+<!-- نافذة المصحف الشريف المتطورة مع ملء الشاشة وتظليل النصف -->
 <div class="modal-overlay" id="quranModal" onclick="closeQuranModal()">
-    <div class="modal-card quran-modal-card" onclick="event.stopPropagation()">
+    <div class="modal-card quran-modal-card" id="quranModalCard" onclick="event.stopPropagation()">
+        
+        <!-- زر عائم للخروج من وضع ملء الشاشة -->
+        <button class="exit-fullscreen-floating-btn" onclick="toggleMushafFullscreen()">⛶ تصغير الشاشة</button>
+
         <div class="quran-nav">
             <button class="quran-nav-btn" id="nextPageBtn" onclick="changeQuranPage(1)">التالي ←</button>
             <div style="display:flex; flex-direction:column; align-items:center;">
-                <strong id="quranPageTitle" style="color:var(--primary); font-size:0.95rem;">صفحة</strong>
-                <small id="quranRangeTitle" style="font-size:0.7rem; color:var(--text-muted);"></small>
+                <strong id="quranPageTitle" style="color:var(--primary); font-size:0.9rem;">صفحة</strong>
+                <small id="quranRangeTitle" style="font-size:0.65rem; color:var(--text-muted);"></small>
             </div>
             <button class="quran-nav-btn" id="prevPageBtn" onclick="changeQuranPage(-1)">→ السابق</button>
         </div>
@@ -511,18 +548,19 @@
                 <button id="audioToggleBtn" onclick="toggleAudioRecitation()">تشغيل ▶</button>
             </div>
             <div class="quran-toolbar">
-                <div style="display:flex; align-items:center; gap:4px;">
-                    <span>🔁 تكرار:</span>
+                <div style="display:flex; align-items:center; gap:2px;">
+                    <span>🔁</span>
                     <select id="loopCountSelect" style="padding:2px 4px; border-radius:4px; border:1px solid var(--border); background:var(--card-bg); color:var(--text-main);" onchange="setAudioLoop(this.value)">
                         <option value="1">1</option>
                         <option value="3">3</option>
                         <option value="5">5</option>
                         <option value="10">10</option>
                     </select>
-                    <span id="loopStatus" style="color:var(--primary); font-size:0.7rem;"></span>
+                    <span id="loopStatus" style="color:var(--primary); font-size:0.65rem;"></span>
                 </div>
-                <button class="blur-btn" id="maskToggleBtn" onclick="cycleHalfMask()" title="تظليل النصف">🌓 تظليل النصف</button>
-                <button class="blur-btn" id="blurToggleBtn" onclick="toggleBlurMode()">👁️ حجب كامل</button>
+                <button class="blur-btn" id="maskToggleBtn" onclick="cycleHalfMask()" title="تظليل النصف">🌓 نصف</button>
+                <button class="blur-btn" id="blurToggleBtn" onclick="toggleBlurMode()">👁️ حجب</button>
+                <button class="blur-btn" style="background:#0284c7; color:white; border-color:#0284c7;" onclick="toggleMushafFullscreen()" title="ملء الشاشة">⛶ ملء الشاشة</button>
             </div>
             <audio id="quranAudio" preload="none"></audio>
         </div>
@@ -533,7 +571,7 @@
             <div class="half-mask mask-top" id="maskTop">تم إنجازه بالأمس ✔️</div>
         </div>
 
-        <button class="btn-close" onclick="closeQuranModal()">إغلاق المصحف</button>
+        <button class="btn-close btn-close-mushaf" onclick="closeQuranModal()">إغلاق المصحف</button>
     </div>
 </div>
 
@@ -606,6 +644,31 @@
     let diagSecs = 15 * 60;
     let diagInterval = null;
 
+    /* دعم زر الرجوع في الهاتف لإغلاق النوافذ المنبثقة */
+    function openModalWithHistory(modalId) {
+        document.getElementById(modalId).classList.add('active');
+        history.pushState({ modalOpen: modalId }, "");
+    }
+
+    window.addEventListener('popstate', (e) => {
+        closeAllModals(false);
+    });
+
+    function closeAllModals(triggerHistory = true) {
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.classList.remove('active');
+        });
+        const audio = document.getElementById('quranAudio');
+        if (audio) audio.pause();
+        resetBlur();
+        resetHalfMask();
+        exitMushafFullscreen();
+        if (diagInterval) {
+            clearInterval(diagInterval);
+            diagInterval = null;
+        }
+    }
+
     (function setupPWA() {
         const manifest = {
             name: "الحصون الخمسة", short_name: "الحصون الخمسة", start_url: "./index.html", display: "standalone",
@@ -652,8 +715,8 @@
         }
     }
 
-    function openHelpModal() { document.getElementById('helpModal').classList.add('active'); }
-    function closeHelpModal() { document.getElementById('helpModal').classList.remove('active'); }
+    function openHelpModal() { openModalWithHistory('helpModal'); }
+    function closeHelpModal() { history.back(); }
 
     function getUserData() {
         return JSON.parse(localStorage.getItem('quran_user_profile')) || null;
@@ -982,10 +1045,10 @@
             };
             container.appendChild(cell);
         }
-        document.getElementById('heatmapModal').classList.add('active');
+        openModalWithHistory('heatmapModal');
     }
 
-    function closeHeatmap() { document.getElementById('heatmapModal').classList.remove('active'); }
+    function closeHeatmap() { history.back(); }
 
     function openQuranRange(start, end, label) {
         allowedMinPage = start;
@@ -1001,9 +1064,10 @@
         setAudioLoop("1");
         resetBlur();
         resetHalfMask();
+        exitMushafFullscreen();
 
         updateQuranModalView();
-        document.getElementById('quranModal').classList.add('active');
+        openModalWithHistory('quranModal');
     }
 
     function updateQuranModalView() {
@@ -1115,7 +1179,7 @@
         } else {
             maskBottom.style.display = 'none';
             maskTop.style.display = 'none';
-            btn.innerText = '🌓 تظليل النصف';
+            btn.innerText = '🌓 نصف';
             btn.classList.remove('active');
         }
     }
@@ -1125,8 +1189,19 @@
         document.getElementById('maskBottom').style.display = 'none';
         document.getElementById('maskTop').style.display = 'none';
         const btn = document.getElementById('maskToggleBtn');
-        btn.innerText = '🌓 تظليل النصف';
+        btn.innerText = '🌓 نصف';
         btn.classList.remove('active');
+    }
+
+    /* إدارة وضع ملء الشاشة */
+    function toggleMushafFullscreen() {
+        const card = document.getElementById('quranModalCard');
+        card.classList.toggle('fullscreen-mode');
+    }
+
+    function exitMushafFullscreen() {
+        const card = document.getElementById('quranModalCard');
+        if (card) card.classList.remove('fullscreen-mode');
     }
 
     function changeQuranPage(delta) {
@@ -1137,12 +1212,7 @@
         }
     }
 
-    function closeQuranModal() {
-        document.getElementById('quranAudio').pause();
-        resetBlur();
-        resetHalfMask();
-        document.getElementById('quranModal').classList.remove('active');
-    }
+    function closeQuranModal() { history.back(); }
 
     function shareDirectWhatsApp() {
         const user = getUserData() || {};
@@ -1160,10 +1230,10 @@
         document.getElementById('setupReadingPage').value = user.readingCurrentPage || 1;
         document.getElementById('setupPace').value = user.dailyPace || 1;
         document.getElementById('setupTimeBudget').value = user.timeBudget || 45;
-        document.getElementById('settingsModal').classList.add('active');
+        openModalWithHistory('settingsModal');
     }
 
-    function closeSettings() { document.getElementById('settingsModal').classList.remove('active'); }
+    function closeSettings() { history.back(); }
 
     function saveSettings() {
         const user = getUserData() || {};
@@ -1173,26 +1243,24 @@
         user.dailyPace = parseFloat(document.getElementById('setupPace').value) || 1;
         user.timeBudget = parseInt(document.getElementById('setupTimeBudget').value) || 45;
         localStorage.setItem('quran_user_profile', JSON.stringify(user));
-        document.getElementById('settingsModal').classList.remove('active');
+        history.back();
         initUser();
     }
 
     function openDiagnosticTest() {
-        closeSettings();
+        if (document.getElementById('settingsModal').classList.contains('active')) {
+            document.getElementById('settingsModal').classList.remove('active');
+        }
         document.getElementById('diagStage1').style.display = 'block';
         document.getElementById('diagStage2').style.display = 'none';
         diagSecs = 15 * 60;
         diagPeekCount = 0;
         document.getElementById('diagPeekCount').innerText = "0";
         updateDiagTimerDisplay();
-        document.getElementById('diagModal').classList.add('active');
+        openModalWithHistory('diagModal');
     }
 
-    function closeDiagModal() {
-        clearInterval(diagInterval);
-        diagInterval = null;
-        document.getElementById('diagModal').classList.remove('active');
-    }
+    function closeDiagModal() { history.back(); }
 
     function toggleDiagTimer() {
         const btn = document.getElementById('diagTimerToggleBtn');
@@ -1245,7 +1313,7 @@
             alert("بارك الله في جهدك وحرصك 🌿\nتم ضبط خطتك على: نصف صفحة مع التركيز على الاستماع والتحضير لتيسير الحفظ.");
         }
         localStorage.setItem('quran_user_profile', JSON.stringify(user));
-        closeDiagModal();
+        history.back();
         initUser();
     }
 
