@@ -229,9 +229,14 @@
 
         .btn-next { width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 12px; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
 
+        /* طبقات النوافذ المنبثقة مع تنظيم الـ Z-Index بدقة */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: none; place-items: center; z-index: 100; padding: 6px; backdrop-filter: blur(2px); }
         .modal-overlay.active { display: grid; }
-        .modal-card { background: var(--card-bg); color: var(--text-main); width: 100%; max-width: 440px; border-radius: 18px; padding: 16px; text-align: center; max-height: 94vh; display: flex; flex-direction: column; overflow-y: auto; z-index: 110; }
+        
+        /* نافذة اختيار القراء بطبقة أعلى لتستجيب للضغط فوراً */
+        #recitersModal { z-index: 250 !important; }
+
+        .modal-card { background: var(--card-bg); color: var(--text-main); width: 100%; max-width: 440px; border-radius: 18px; padding: 16px; text-align: center; max-height: 94vh; display: flex; flex-direction: column; overflow-y: auto; }
 
         .quran-modal-card { 
             max-width: 480px; 
@@ -243,6 +248,7 @@
             display: flex; 
             flex-direction: column; 
             position: relative;
+            z-index: 100;
         }
 
         .quran-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
@@ -300,9 +306,9 @@
             flex: 1;
             background: var(--card-bg);
             border: 1px solid var(--border);
-            padding: 4px 8px;
+            padding: 6px 10px;
             border-radius: 6px;
-            font-size: 0.75rem;
+            font-size: 0.78rem;
             font-weight: 700;
             cursor: pointer;
             display: flex;
@@ -811,8 +817,8 @@
         <div class="audio-studio-box">
             <div class="reciter-header-row">
                 <div class="reciter-badge-btn" onclick="openRecitersModal()">
-                    <span id="currentReciterLabel" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:280px;">الشيخ محمد صديق المنشاوي</span>
-                    <span>🔍 تغيير</span>
+                    <span id="currentReciterLabel" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:280px;">القارئ: محمد صديق المنشاوي</span>
+                    <span style="color:var(--primary);">🔍 تغيير</span>
                 </div>
             </div>
 
@@ -828,7 +834,7 @@
                         <option value="0">جاري تحميل آيات الصفحة...</option>
                     </select>
                     <div class="loop-selector-inline">
-                        <span>تكرار الآية:</span>
+                        <span>تكرار:</span>
                         <select id="ayahLoopSelect" class="loop-select" onchange="setAyahLoopTarget(this.value)">
                             <option value="1">1 مرة</option>
                             <option value="2">2 مرات</option>
@@ -1279,7 +1285,7 @@
         }
     }
 
-    /* إيماءات اللمس والسحب الانسيابي (صححنا الاتجاه: السحب لليمين يتقدم، ولليسار يعود) */
+    /* إيماءات اللمس والسحب الانسيابي الصحيحة (السحب لليمين يتقدم، ولليسار يعود) */
     (function setupSmoothSwipe() {
         const container = document.getElementById('quranSwipeContainer');
         const img = document.getElementById('quranPageImg');
@@ -1310,7 +1316,7 @@
             img.style.transition = 'transform 0.22s cubic-bezier(0.25, 1, 0.5, 1)';
 
             if (diffX > threshold) {
-                // سحب لليمين -> الصفحة التالية (لأن المصحف يمين لليسار)
+                // سحب لليمين -> الصفحة التالية
                 if (activeQuranPage < allowedMaxPage) {
                     img.style.transform = 'translateX(100%)';
                     setTimeout(() => {
