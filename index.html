@@ -21,6 +21,18 @@
             --border: #e2e8f0;
             --radius: 16px;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --quran-bg: #fffcf5;
+        }
+
+        /* الثيم الليلي Dark Mode */
+        body.dark-mode {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --primary-light: #064e3b;
+            --quran-bg: #1e293b;
         }
 
         * { 
@@ -37,19 +49,40 @@
             padding: 14px 10px; 
             display: flex; 
             justify-content: center; 
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .app-container { width: 100%; max-width: 480px; }
 
+        .top-bar-tools {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .tool-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
         header { text-align: center; margin-bottom: 10px; }
-        header h1 { font-family: 'Amiri', serif; color: var(--primary-dark); font-size: 2.1rem; margin-bottom: 2px; }
+        header h1 { font-family: 'Amiri', serif; color: var(--primary); font-size: 2.1rem; margin-bottom: 2px; }
         .user-greeting { font-size: 0.9rem; color: var(--text-main); font-weight: 700; }
 
         .mode-selector {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 6px;
-            background: #e2e8f0;
+            background: var(--border);
             padding: 4px;
             border-radius: 12px;
             margin-bottom: 12px;
@@ -65,7 +98,7 @@
             color: var(--text-muted);
             transition: all 0.2s;
         }
-        .mode-btn.active { background: white; color: var(--primary-dark); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .mode-btn.active { background: var(--card-bg); color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 
         .focus-hero-card {
             background: linear-gradient(135deg, #064e3b, #047857);
@@ -96,8 +129,8 @@
             background: var(--card-bg); padding: 12px 14px; border-radius: var(--radius);
             box-shadow: var(--shadow); margin-bottom: 12px; border: 1px solid var(--border);
         }
-        .progress-header { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--primary-dark); }
-        .progress-bar-bg { width: 100%; height: 8px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
+        .progress-header { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--primary); }
+        .progress-bar-bg { width: 100%; height: 8px; background: var(--border); border-radius: 10px; overflow: hidden; }
         .progress-bar-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s ease; }
 
         .calendar-strip {
@@ -120,23 +153,23 @@
             flex-direction: column;
             align-items: center;
             gap: 2px;
-            background: #f8fafc;
+            background: var(--bg);
         }
-        .cal-day.today { border: 1.5px solid var(--primary); background: #f0fdf4; }
-        .cal-status { width: 16px; height: 16px; border-radius: 50%; display: grid; place-content: center; font-size: 0.65rem; background: #e2e8f0; color: transparent; }
+        .cal-day.today { border: 1.5px solid var(--primary); background: var(--primary-light); }
+        .cal-status { width: 16px; height: 16px; border-radius: 50%; display: grid; place-content: center; font-size: 0.65rem; background: var(--border); color: transparent; }
         .cal-status.done { background: var(--primary); color: white; font-weight: bold; }
 
         .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
         .input-group { background: var(--card-bg); padding: 8px 10px; border-radius: 10px; border: 1px solid var(--border); }
         .input-group label { display: block; font-size: 0.7rem; font-weight: 700; color: var(--text-muted); margin-bottom: 2px; }
-        .input-group input, .input-group select { width: 100%; padding: 6px; border: 1px solid var(--border); border-radius: 6px; font-weight: 700; font-size: 0.9rem; outline: none; }
+        .input-group input, .input-group select { width: 100%; padding: 6px; border: 1px solid var(--border); border-radius: 6px; font-weight: 700; font-size: 0.9rem; outline: none; background: var(--card-bg); color: var(--text-main); }
 
         .actions-row { display: grid; grid-template-columns: 1fr 1fr 1fr auto auto; gap: 5px; margin-bottom: 14px; }
         .btn-action { background: #1e293b; color: white; border: none; padding: 8px 4px; border-radius: 8px; font-weight: 700; font-size: 0.75rem; cursor: pointer; text-align: center; }
-        .btn-action.imam { background: #6b21a8; }
         .btn-action.map { background: #0284c7; }
         .btn-action.share { background: #25d366; }
-        .btn-action.settings { background: #e2e8f0; color: var(--text-main); font-size: 1rem; width: 36px; }
+        .btn-action.airplane { background: #475569; }
+        .btn-action.settings { background: var(--border); color: var(--text-main); font-size: 1rem; width: 36px; }
 
         .task-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
         .task-card {
@@ -145,25 +178,25 @@
             display: flex; gap: 10px; align-items: flex-start; transition: all 0.2s;
         }
         .task-card.active-target { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(5,150,105,0.2); }
-        .task-card.completed { background: #f1f5f9; opacity: 0.65; }
+        .task-card.completed { opacity: 0.55; }
 
         .checkbox-wrapper { margin-top: 2px; }
         .checkbox-wrapper input {
-            appearance: none; width: 26px; height: 26px; border: 2px solid #cbd5e1;
-            border-radius: 50%; cursor: pointer; display: grid; place-content: center; background: #fff;
+            appearance: none; width: 26px; height: 26px; border: 2px solid var(--border);
+            border-radius: 50%; cursor: pointer; display: grid; place-content: center; background: var(--card-bg);
         }
         .checkbox-wrapper input:checked { background: var(--primary); border-color: var(--primary); }
         .checkbox-wrapper input:checked::before { content: '✔'; color: white; font-weight: bold; font-size: 13px; }
 
         .task-content { flex: 1; min-width: 0; }
         .task-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
-        .task-title { font-weight: 700; font-size: 0.9rem; color: var(--primary-dark); }
-        .task-time { font-size: 0.7rem; background: var(--primary-light); color: var(--primary-dark); padding: 1px 6px; border-radius: 10px; font-weight: 700; }
+        .task-title { font-weight: 700; font-size: 0.9rem; color: var(--primary); }
+        .task-time { font-size: 0.7rem; background: var(--primary-light); color: var(--primary); padding: 1px 6px; border-radius: 10px; font-weight: 700; }
         .task-pages { font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 2px; }
         .task-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.3; margin-bottom: 6px; }
 
         .quran-btn {
-            display: inline-flex; align-items: center; gap: 4px; background: #f8fafc; color: var(--text-main);
+            display: inline-flex; align-items: center; gap: 4px; background: var(--bg); color: var(--text-main);
             font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border);
             cursor: pointer;
         }
@@ -171,94 +204,65 @@
 
         .btn-next { width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 12px; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
 
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; place-items: center; z-index: 100; padding: 8px; backdrop-filter: blur(2px); }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: none; place-items: center; z-index: 100; padding: 8px; backdrop-filter: blur(2px); }
         .modal-overlay.active { display: grid; }
-        .modal-card { background: white; width: 100%; max-width: 440px; border-radius: 18px; padding: 16px; text-align: center; max-height: 94vh; display: flex; flex-direction: column; overflow-y: auto; }
+        .modal-card { background: var(--card-bg); color: var(--text-main); width: 100%; max-width: 440px; border-radius: 18px; padding: 16px; text-align: center; max-height: 94vh; display: flex; flex-direction: column; overflow-y: auto; }
 
-        .quran-modal-card { 
-            max-width: 480px; 
-            width: 100%;
-            padding: 10px; 
-            max-height: 96vh; 
-            overflow: hidden; 
-            display: flex;
-            flex-direction: column;
-        }
-        
+        /* نافذة المصحف */
+        .quran-modal-card { max-width: 480px; width: 100%; padding: 10px; max-height: 96vh; overflow: hidden; display: flex; flex-direction: column; }
         .quran-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .quran-nav-btn { background: #f1f5f9; border: 1px solid var(--border); padding: 5px 12px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }
+        .quran-nav-btn { background: var(--bg); color: var(--text-main); border: 1px solid var(--border); padding: 5px 12px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }
         .quran-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
         .audio-player-container {
-            background: #f8fafc; border-radius: 10px; padding: 6px 8px; margin-bottom: 6px;
+            background: var(--bg); border-radius: 10px; padding: 6px 8px; margin-bottom: 6px;
             border: 1px solid var(--border); display: flex; flex-direction: column; gap: 5px; text-align: right;
         }
         .audio-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-        .audio-row select { padding: 4px 6px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.75rem; font-weight: 600; outline: none; }
+        .audio-row select { padding: 4px 6px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.75rem; font-weight: 600; outline: none; background: var(--card-bg); color: var(--text-main); }
         .audio-row button { background: var(--primary); color: white; border: none; padding: 5px 12px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }
 
-        .quran-toolbar { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            background: #fff; 
-            padding: 4px 8px; 
-            border-radius: 8px; 
-            border: 1px solid var(--border); 
-            font-size: 0.75rem; 
-            font-weight: 700; 
-        }
-        .blur-btn { background: #f1f5f9; border: 1px solid var(--border); padding: 4px 8px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.75rem; }
+        .quran-toolbar { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 4px 8px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.75rem; font-weight: 700; }
+        .blur-btn { background: var(--bg); color: var(--text-main); border: 1px solid var(--border); padding: 4px 8px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.75rem; }
         .blur-btn.active { background: #fee2e2; color: var(--danger); border-color: #fca5a5; }
 
         .quran-img-container {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #fffcf5;
-            border-radius: 10px;
-            border: 1px solid #f1e9d2;
-            overflow: hidden;
-            position: relative;
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none;
-            padding: 2px;
-            min-height: 400px;
+            flex: 1; display: flex; align-items: center; justify-content: center; background: var(--quran-bg);
+            border-radius: 10px; border: 1px solid var(--border); overflow: hidden; position: relative;
+            user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; padding: 2px; min-height: 380px;
         }
-
-        .quran-img-container img {
-            max-width: 100%;
-            max-height: 68vh;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            display: block;
-            margin: 0 auto;
-            transition: filter 0.15s ease;
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none;
-        }
-
+        .quran-img-container img { max-width: 100%; max-height: 68vh; width: auto; height: auto; object-fit: contain; display: block; margin: 0 auto; transition: filter 0.15s ease; user-select: none; -webkit-touch-callout: none; }
         .quran-img-container img.blurred { filter: blur(10px); }
         .quran-img-container img.blurred:active { filter: blur(0px); }
 
-        .heatmap-grid { display: grid; grid-template-columns: repeat(20, 1fr); gap: 2px; padding: 6px; max-height: 320px; overflow-y: auto; background: #f8fafc; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 10px; }
+        /* خريطة صحة الحفظ */
+        .heatmap-grid { display: grid; grid-template-columns: repeat(20, 1fr); gap: 2px; padding: 6px; max-height: 320px; overflow-y: auto; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); margin-bottom: 10px; }
         .heat-cell { aspect-ratio: 1; border-radius: 2px; font-size: 6px; display: grid; place-content: center; color: white; cursor: pointer; }
         .h-excellent { background-color: #047857; }
         .h-good { background-color: #10b981; }
         .h-warning { background-color: #f59e0b; }
         .h-danger { background-color: #ef4444; }
-        .h-empty { background-color: #cbd5e1; color: #64748b; }
+        .h-empty { background-color: #64748b; }
 
-        .btn-close { width: 100%; background: #e2e8f0; border: none; padding: 8px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 8px; }
+        .btn-close { width: 100%; background: var(--border); color: var(--text-main); border: none; padding: 8px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 8px; }
+
+        /* صندوق الشرح */
+        .help-section { text-align: right; margin-bottom: 14px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .help-section h4 { color: var(--primary); font-size: 0.95rem; margin-bottom: 4px; }
+        .help-section p { font-size: 0.8rem; line-height: 1.5; color: var(--text-muted); }
     </style>
 </head>
 <body>
 
 <div class="app-container">
+    <div class="top-bar-tools">
+        <button class="tool-btn" onclick="openHelpModal()">📖 شرح التطبيق والأوضاع</button>
+        <div style="display:flex; gap:6px;">
+            <button class="tool-btn" id="installAppBtn" onclick="installPWA()" style="display:none; background:#ecfdf5; border-color:var(--primary); color:var(--primary);">📲 تثبيت التطبيق</button>
+            <button class="tool-btn" onclick="toggleTheme()" id="themeBtn">🌙 ليلي</button>
+        </div>
+    </div>
+
     <header>
         <h1>الحصون الخمسة</h1>
         <div class="user-greeting" id="userGreeting">مرحباً بك</div>
@@ -307,8 +311,9 @@
     </div>
 
     <div class="actions-row">
-        <button class="btn-action map" onclick="openHeatmap()">🗺️ صحة الحفظ</button>
+        <button class="btn-action map" onclick="openHeatmap()">🗺️ الخريطة</button>
         <button class="btn-action share" onclick="shareDirectWhatsApp()">📢 إرسال</button>
+        <button class="btn-action airplane" onclick="triggerAirplaneModePrompt()">✈️ عزل الإشعارات</button>
         <button class="btn-action settings" onclick="openSettings()" title="الإعدادات">⚙️</button>
     </div>
 
@@ -317,14 +322,46 @@
     <button class="btn-next" onclick="nextDay()">✨ بارك الله فيك، أتممت ورد اليوم وانتقل للغد ←</button>
 </div>
 
+<!-- نافذة دليل وشرح التطبيق والأوضاع -->
+<div class="modal-overlay" id="helpModal" onclick="closeHelpModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <h3 style="font-family:'Amiri', serif; font-size:1.4rem; color:var(--primary); margin-bottom:10px;">دليل استخدام رفيق الحصون الخمسة</h3>
+        
+        <div class="help-section">
+            <h4>🛡️ ما هي فكرة منظومة الحصون الخمسة؟</h4>
+            <p>منهج علمي متقن وضعه د. سعيد أبو العلا حمزة لحل معضلة النسيان وتفلت القرآن. يقسم جهدك إلى 5 حصون متوازية: القراءة المستمرة، التحضير المسبق، مراجعة القديم (البعيد)، مراجعة الجديد (القريب)، وغرس الحفظ الجديد.</p>
+        </div>
+
+        <div class="help-section">
+            <h4>🎛️ لماذا وضعنا أنماط اليوم (طبيعي / مسافر / مرهق)؟</h4>
+            <p><strong>• 🌿 النمط الطبيعي:</strong> يومك مستقر وعندك وقت لإنجاز كامل الأركان الخمسة.<br>
+            <strong>• 🧳 نمط المسافر / المزدحم:</strong> يطبق قاعدة «المراجعة أولى من الحفظ»؛ يلغي الحفظ الجديد ويركز فقط على مراجعة القديم والقريب في 12 دقيقة لتحميك من تراكم الورد أو الانقطاع.<br>
+            <strong>• 😴 نمط المرهق:</strong> إذا كنت مصدعاً أو مجهداً؛ يلغي التسميع الشاق ويركز فقط على السماع الهادئ والقراءة البصرية السريعة.</p>
+        </div>
+
+        <div class="help-section">
+            <h4>👁️ أزرار المصحف (البلور والتكرار)</h4>
+            <p><strong>• زر الحجب (البلور):</strong> يغطي الصفحة بطبقة ضبابية، لتختبر استحضارك غيباً، ولا تنكشف الكلمات إلا بالضغط المطول عليها بإصبعك.<br>
+            <strong>• التكرار (Loop):</strong> يتيح لك إعادة سماع تلاوة الشيخ 3 أو 5 أو 10 مرات تلقائياً لإتقان التحضير قبل النوم أو قبل الحفظ.</p>
+        </div>
+
+        <div class="help-section">
+            <h4>✈️ زر عزل الإشعارات</h4>
+            <p>بضغطة واحدة يوجهك لتشغيل وضع الطيران أو كتم الإشعارات لتجلس في خلوة تامة مع القرآن دون مقاطعة رسائل وتطبيقات الهاتف.</p>
+        </div>
+
+        <button class="btn-close" onclick="closeHelpModal()">فهمت، جزاكم الله خيراً</button>
+    </div>
+</div>
+
 <!-- نافذة خريطة صحة الحفظ -->
 <div class="modal-overlay" id="heatmapModal" onclick="closeHeatmap()">
     <div class="modal-card" onclick="event.stopPropagation()">
-        <h3 style="font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--primary-dark); margin-bottom: 4px;">خريطة صحة الحفظ (Health Score)</h3>
+        <h3 style="font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--primary); margin-bottom: 4px;">خريطة صحة الحفظ (Health Score)</h3>
         <div style="display:flex; justify-content:center; gap:8px; font-size:0.65rem; margin-bottom:8px;">
-            <span>🟢 90%+ مستقر</span>
-            <span>🟢 70%+ جيد</span>
-            <span>🟡 50%+ يحتاج مدارسة</span>
+            <span>🟢 مستقر</span>
+            <span>🟢 جيد</span>
+            <span>🟡 يحتاج مدارسة</span>
             <span>🔴 ضعيف</span>
         </div>
         <div class="heatmap-grid" id="heatmapContainer"></div>
@@ -338,7 +375,7 @@
         <div class="quran-nav">
             <button class="quran-nav-btn" id="nextPageBtn" onclick="changeQuranPage(1)">التالي ←</button>
             <div style="display:flex; flex-direction:column; align-items:center;">
-                <strong id="quranPageTitle" style="color:var(--primary-dark); font-size:0.95rem;">صفحة</strong>
+                <strong id="quranPageTitle" style="color:var(--primary); font-size:0.95rem;">صفحة</strong>
                 <small id="quranRangeTitle" style="font-size:0.7rem; color:var(--text-muted);"></small>
             </div>
             <button class="quran-nav-btn" id="prevPageBtn" onclick="changeQuranPage(-1)">→ السابق</button>
@@ -358,7 +395,7 @@
             <div class="quran-toolbar">
                 <div style="display:flex; align-items:center; gap:4px;">
                     <span>🔁 التكرار:</span>
-                    <select id="loopCountSelect" style="padding:2px 4px; border-radius:4px; border:1px solid var(--border);" onchange="setAudioLoop(this.value)">
+                    <select id="loopCountSelect" style="padding:2px 4px; border-radius:4px; border:1px solid var(--border); background:var(--card-bg); color:var(--text-main);" onchange="setAudioLoop(this.value)">
                         <option value="1">مرة واحدة</option>
                         <option value="3">3 مرات</option>
                         <option value="5">5 مرات</option>
@@ -382,7 +419,7 @@
 <!-- الإعدادات -->
 <div class="modal-overlay" id="settingsModal">
     <div class="modal-card">
-        <h3 style="font-family:'Amiri', serif; font-size:1.4rem; color:var(--primary-dark); margin-bottom:8px;">الإعدادات الشخصية</h3>
+        <h3 style="font-family:'Amiri', serif; font-size:1.4rem; color:var(--primary); margin-bottom:8px;">الإعدادات الشخصية</h3>
         <div class="input-group" style="text-align:right; margin-bottom:8px;">
             <label>اسمك الكريم:</label>
             <input type="text" id="setupName">
@@ -406,7 +443,9 @@
     let generatedTasksCache = [];
     let remainingLoops = 1;
     let targetLoops = 1;
+    let deferredPrompt = null;
 
+    // تسجيل وتفعيل تثبيت الـ PWA
     (function setupPWA() {
         const manifest = {
             name: "الحصون الخمسة", short_name: "الحصون الخمسة", start_url: "./index.html", display: "standalone",
@@ -415,13 +454,68 @@
         };
         const blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
         document.getElementById('manifestPlaceholder').setAttribute('href', URL.createObjectURL(blob));
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const btn = document.getElementById('installAppBtn');
+            if (btn) btn.style.display = 'inline-flex';
+        });
     })();
+
+    function installPWA() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choice) => {
+                if (choice.outcome === 'accepted') {
+                    document.getElementById('installAppBtn').style.display = 'none';
+                }
+                deferredPrompt = null;
+            });
+        } else {
+            alert("لتثبيت التطبيق على هاتفك:\n• في أندرويد (Chrome): اضغط على خيارات المتصفح (الثلاث نقاط) واختر 'تثبيت التطبيق' أو 'Add to Home screen'.\n• في آيفون (Safari): اضغط على زر المشاركة ثم 'إضافة إلى الشاشة الرئيسية'.");
+        }
+    }
+
+    // تبديل الوضع الليلي / النهاري
+    function toggleTheme() {
+        const body = document.body;
+        const btn = document.getElementById('themeBtn');
+        body.classList.toggle('dark-mode');
+        const isDark = body.classList.contains('dark-mode');
+        btn.innerText = isDark ? '☀️ نهاري' : '🌙 ليلي';
+        localStorage.setItem('quran_theme', isDark ? 'dark' : 'light');
+    }
+
+    function loadTheme() {
+        const saved = localStorage.getItem('quran_theme');
+        if (saved === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeBtn').innerText = '☀️ نهاري';
+        }
+    }
+
+    // محاكاة وضع الطيران وعزل التنبيهات
+    function triggerAirplaneModePrompt() {
+        // محاولة توجيه أندرويد لصفحة إعدادات الطيران أو الشبكة
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        if (isAndroid) {
+            window.location.href = "intent:#Intent;action=android.settings.AIRPLANE_MODE_SETTINGS;end";
+        }
+        setTimeout(() => {
+            alert("🌿 لعزل نفسك تماماً أثناء الحفظ:\nقم الآن بسحب شريط الإشعارات من أعلى الهاتف وفعّل «وضع الطيران ✈️» أو «عدم الإزعاج».");
+        }, 300);
+    }
+
+    function openHelpModal() { document.getElementById('helpModal').classList.add('active'); }
+    function closeHelpModal() { document.getElementById('helpModal').classList.remove('active'); }
 
     function getUserData() {
         return JSON.parse(localStorage.getItem('quran_user_profile')) || null;
     }
 
     function initUser() {
+        loadTheme();
         let user = getUserData();
         const todayDayIndex = (new Date().getDay() + 1) % 7;
 
