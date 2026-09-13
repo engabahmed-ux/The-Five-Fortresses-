@@ -24,7 +24,7 @@
         .app-container { width: 100%; max-width: 480px; }
 
         header { text-align: center; margin-bottom: 16px; }
-        header h1 { font-family: 'Amiri', serif; color: var(--primary-dark); font-size: 2rem; margin-bottom: 2px; }
+        header h1 { font-family: 'Amiri', serif; color: var(--primary-dark); font-size: 2.1rem; margin-bottom: 2px; }
         header p { font-size: 0.85rem; color: var(--text-muted); }
 
         .progress-card {
@@ -66,23 +66,32 @@
         .task-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 8px; }
 
         .quran-btn {
-            display: inline-flex; align-items: center; gap: 4px; background: #f8fafc; color: var(--text-main);
-            text-decoration: none; font-size: 0.8rem; font-weight: 700;
-            padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border);
+            display: inline-flex; align-items: center; gap: 6px; background: #f8fafc; color: var(--text-main);
+            font-size: 0.8rem; font-weight: 700; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border);
+            cursor: pointer; transition: background 0.2s;
         }
-        .quran-btn:active { background: var(--primary); color: white; }
+        .quran-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
 
         .btn-next { width: 100%; background: var(--primary); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25); }
 
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; place-items: center; z-index: 100; padding: 16px; }
+        /* نوافذ منبثقة */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); display: none; place-items: center; z-index: 100; padding: 14px; backdrop-filter: blur(2px); }
         .modal-overlay.active { display: grid; }
-        .modal-card { background: white; width: 100%; max-width: 380px; border-radius: 20px; padding: 22px; text-align: center; }
+        .modal-card { background: white; width: 100%; max-width: 420px; border-radius: 20px; padding: 20px; text-align: center; }
+
+        /* نافذة المصحف */
+        .quran-modal-card { max-width: 500px; padding: 14px; }
+        .quran-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .quran-nav-btn { background: #f1f5f9; border: 1px solid var(--border); padding: 6px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem; }
+        .quran-img-container { min-height: 440px; display: flex; align-items: center; justify-content: center; background: #fffcf5; border-radius: 10px; border: 1px solid #f1e9d2; overflow: hidden; position: relative; }
+        .quran-img-container img { width: 100%; height: auto; display: block; }
+        
         .stat-circle { width: 110px; height: 110px; border-radius: 50%; margin: 0 auto 16px; display: grid; place-items: center; font-size: 1.3rem; font-weight: bold; color: var(--primary-dark); }
         .stat-circle span { background: white; width: 85px; height: 85px; border-radius: 50%; display: grid; place-items: center; }
         .stat-details { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
         .stat-box { background: var(--bg); padding: 10px; border-radius: 10px; border: 1px solid var(--border); }
         .stat-box strong { display: block; font-size: 1.15rem; color: var(--text-main); margin-top: 2px; }
-        .btn-close { width: 100%; background: #e2e8f0; border: none; padding: 10px; border-radius: 10px; font-weight: bold; cursor: pointer; color: var(--text-main); }
+        .btn-close { width: 100%; background: #e2e8f0; border: none; padding: 10px; border-radius: 10px; font-weight: 700; cursor: pointer; color: var(--text-main); }
     </style>
 </head>
 <body>
@@ -90,7 +99,7 @@
 <div class="app-container">
     <header>
         <h1>الحصون الخمسة</h1>
-        <p>الورد اليومي المنظم حسب القواعد النبوية</p>
+        <p>الورد اليومي المنظم لحفظ القرآن بإتقان</p>
     </header>
 
     <div class="progress-card">
@@ -124,9 +133,9 @@
     <button class="btn-next" onclick="nextDay()">✨ أتممت اليوم وانتقل للغد ←</button>
 </div>
 
-<!-- شاشة التقرير -->
-<div class="modal-overlay" id="reportModal">
-    <div class="modal-card">
+<!-- نافذة تقرير التقدم -->
+<div class="modal-overlay" id="reportModal" onclick="closeReport()">
+    <div class="modal-card" onclick="event.stopPropagation()">
         <h3 style="margin-bottom: 12px; font-family: 'Amiri', serif; font-size: 1.4rem;">رحلتك مع القرآن</h3>
         <div class="stat-circle" id="reportCircle">
             <span id="reportPercent">0%</span>
@@ -145,12 +154,31 @@
     </div>
 </div>
 
+<!-- نافذة عرض المصحف الشريف كصفحة مصورة -->
+<div class="modal-overlay" id="quranModal" onclick="closeQuranModal()">
+    <div class="modal-card quran-modal-card" onclick="event.stopPropagation()">
+        <div class="quran-nav">
+            <button class="quran-nav-btn" onclick="changeQuranPage(1)">التالي ←</button>
+            <strong id="quranPageTitle" style="color: var(--primary-dark); font-size: 1rem;">صفحة</strong>
+            <button class="quran-nav-btn" onclick="changeQuranPage(-1)">→ السابق</button>
+        </div>
+
+        <div class="quran-img-container">
+            <img id="quranPageImg" src="" alt="صفحة المصحف">
+        </div>
+
+        <button class="btn-close" style="margin-top: 12px;" onclick="closeQuranModal()">إغلاق المصحف</button>
+    </div>
+</div>
+
 <script>
     const daysMap = ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
+    let activeQuranPage = 3;
 
     function generateTasks(P, dayIndex) {
         let tasks = [];
 
+        // 1. الحصن الأول
         tasks.push({
             order: 1,
             title: "الحصن الأول: القراءة المستمرة",
@@ -160,15 +188,20 @@
             quranLink: null
         });
 
+        // 2. الحصن الثاني: التحضير الأسبوعي
+        const weekIndex = Math.floor((P - 3) / 7);
+        const nextWeekStart = 3 + (weekIndex + 1) * 7;
+        const nextWeekEnd = nextWeekStart + 6;
         tasks.push({
             order: 2,
             title: "الحصن الثاني: التحضير الأسبوعي",
             time: "10 د",
-            pagesText: `قراءة الصفحات ${3 + (Math.floor((P - 3) / 7) + 1) * 7} إلى ${3 + (Math.floor((P - 3) / 7) + 1) * 7 + 6}`,
+            pagesText: `قراءة الصفحات ${nextWeekStart} إلى ${nextWeekEnd}`,
             desc: "قراءة سريعة لصفحات الأسبوع القادم بواقع مرة واحدة.",
-            quranLink: 3 + (Math.floor((P - 3) / 7) + 1) * 7
+            quranLink: nextWeekStart
         });
 
+        // 3. الحصن الثاني: التحضير الليلي
         tasks.push({
             order: 3,
             title: "الحصن الثاني: التحضير الليلي",
@@ -178,6 +211,7 @@
             quranLink: P + 1
         });
 
+        // 4. الحصن الثاني: التحضير القبلي
         tasks.push({
             order: 4,
             title: "الحصن الثاني: التحضير القبلي",
@@ -187,6 +221,7 @@
             quranLink: P
         });
 
+        // 5. الحصن الثالث: مراجعة البعيد (الأنابيب)
         let distantPool = P > 23 ? (P - 20) - 3 : 0;
         if (distantPool > 0) {
             const tubeStart = 3 + (dayIndex * 40);
@@ -198,12 +233,13 @@
                     title: `الحصن الثالث: مراجعة البعيد`,
                     time: `${pagesToday} د`,
                     pagesText: `صـ ${tubeStart} إلى ${tubeStart + pagesToday - 1} (${pagesToday} ص)`,
-                    desc: `أنبوبة يوم ${daysMap[dayIndex]} لمراجعة المحفوظ القديم.`,
+                    desc: `أنبوبة يوم ${daysMap[dayIndex]} لمراجعة المحفوظ القديم المستقر.`,
                     quranLink: tubeStart
                 });
             }
         }
 
+        // 6. الحصن الرابع: مراجعة القريب
         if (P > 3) {
             const startNear = Math.max(3, P - 20);
             const endNear = P - 1;
@@ -213,11 +249,12 @@
                 title: "الحصن الرابع: مراجعة القريب",
                 time: `${count} د`,
                 pagesText: `صـ ${startNear} إلى ${endNear} (${count} ص)`,
-                desc: "مراجعة الصفحات العشرين الملاصقة لليوم.",
+                desc: "مراجعة الصفحات العشرين الملاصقة لليوم لتثبيتها.",
                 quranLink: startNear
             });
         }
 
+        // 7. الحصن الخامس: الحفظ الجديد
         tasks.push({
             order: 7,
             title: "الحصن الخامس: الحفظ الجديد",
@@ -240,7 +277,7 @@
 
         tasks.forEach(task => {
             let quranBtnHtml = task.quranLink ? 
-                `<a href="https://quran.com/page/${task.quranLink}" target="_blank" rel="noopener" class="quran-btn">📖 فتح صـ ${task.quranLink} بالمصحف</a>` : 
+                `<button type="button" class="quran-btn" onclick="openQuranPage(${task.quranLink})">📖 فتح صـ ${task.quranLink} بالمصحف</button>` : 
                 '';
 
             const card = document.createElement('div');
@@ -292,9 +329,10 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    /* تقرير التقدم */
     function openReport() {
         const P = parseInt(document.getElementById('currentPage').value) || 3;
-        const totalQuranPages = 602;
+        const totalQuranPages = 602; // ص 3 إلى 604
         let completed = Math.max(0, P - 3);
         let remaining = totalQuranPages - completed;
         let percent = ((completed / totalQuranPages) * 100).toFixed(1);
@@ -309,6 +347,33 @@
 
     function closeReport() {
         document.getElementById('reportModal').classList.remove('active');
+    }
+
+    /* عرض المصحف الشريف والتقليب */
+    function openQuranPage(pageNumber) {
+        activeQuranPage = parseInt(pageNumber);
+        updateQuranModalView();
+        document.getElementById('quranModal').classList.add('active');
+    }
+
+    function updateQuranModalView() {
+        const padded = String(activeQuranPage).padStart(3, '0');
+        const imgUrl = `https://android.quran.com/data/width_1260/page${padded}.png`;
+        document.getElementById('quranPageImg').src = imgUrl;
+        document.getElementById('quranPageTitle').innerText = `صفحة رقم ${activeQuranPage}`;
+    }
+
+    function changeQuranPage(delta) {
+        const target = activeQuranPage + delta;
+        if (target >= 1 && target <= 604) {
+            activeQuranPage = target;
+            updateQuranModalView();
+        }
+    }
+
+    function closeQuranModal() {
+        document.getElementById('quranModal').classList.remove('active');
+        document.getElementById('quranPageImg').src = '';
     }
 
     document.getElementById('currentPage').addEventListener('input', renderTasks);
