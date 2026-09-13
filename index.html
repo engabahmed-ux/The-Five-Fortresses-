@@ -207,8 +207,9 @@
         .checkbox-wrapper input {
             appearance: none; width: 26px; height: 26px; border: 2px solid var(--border);
             border-radius: 50%; cursor: pointer; display: grid; place-content: center; background: var(--card-bg);
+            transition: all 0.2s;
         }
-        .checkbox-wrapper input:checked { background: var(--primary); border-color: var(--primary); }
+        .checkbox-wrapper input:checked { background: var(--primary); border-color: var(--primary); transform: scale(1.1); }
         .checkbox-wrapper input:checked::before { content: '✔'; color: white; font-weight: bold; font-size: 13px; }
         .checkbox-wrapper input:disabled { opacity: 0.4; cursor: not-allowed; background: #e2e8f0; }
 
@@ -670,7 +671,7 @@
         </div>
         <div class="input-group">
             <label>اليوم الحالي:</label>
-            <select id="currentDay">
+            <select id="currentDay" onchange="onDaySelectChange()">
                 <option value="0">السبت</option><option value="1">الأحد</option><option value="2">الإثنين</option>
                 <option value="3">الثلاثاء</option><option value="4">الأربعاء</option><option value="5">الخميس</option><option value="6">الجمعة</option>
             </select>
@@ -701,17 +702,7 @@
         <div id="helpBoxesContainer">
             <div class="help-box" data-keywords="الحصون الخمسة فكرة المنهج سعيد ابو العلا حمزة تعريف اساسيات">
                 <h4>🛡️ ما هي فكرة منظومة «الحصون الخمسة»؟</h4>
-                <p>منهج علمي متقن لحفظ القرآن الكريم وتثبيته وضعه د. سعيد أبو العلا حمزة. يقوم على تقسيم الجهد إلى 5 حصون متوازية تمنع تفلت الآيات:</p>
-                <p>1. <strong>الحصن الأول (القراءة المستمرة):</strong> قراءة سريعة (حدر) لتغذية الذاكرة البصرية وتثبيت الختمة.</p>
-                <p>2. <strong>الحصن الثاني (التحضير الثلاثي):</strong> تمهيد الصفحة 3 مرات (أسبوعي، ليلي، وقبلي) لتسهيل الحفظ.</p>
-                <p>3. <strong>الحصن الثالث (مراجعة البعيد):</strong> حماية القديم في أنابيب أسبوعية ثابتة لضمان عدم نسيانه.</p>
-                <p>4. <strong>الحصن الرابع (مراجعة القريب):</strong> تثبيت آخر 20 صفحة ملاصقة حتى تستقر تماماً.</p>
-                <p>5. <strong>الحصن الخامس (الحفظ الجديد):</strong> غرس الورد الجديد ركناً بركن بإتقان تام.</p>
-            </div>
-
-            <div class="help-box" data-keywords="اختبار تحديد المستوى عشوائي أول أربعة أجزاء عم تبارك قد سمع المجادلة">
-                <h4>🧪 اختبار تحديد المستوى الأنسب لك</h4>
-                <p>يختار لك التطبيق عشوائياً صفحة من أول 4 أجزاء الأولى (عمّ، تبارك، قد سمع، والمجادلة) لتختبر قدرتك في 15 دقيقة، ثم تظهر لك نتائج التقييم (كامل، نصف، قليل) ليحدد سرعتك اليومية المناسبة.</p>
+                <p>منهج علمي متقن لحفظ القرآن الكريم وتثبيته وضعه د. سعيد أبو العلا حمزة. يقوم على تقسيم الجهد إلى 5 حصون متوازية تمنع تفلت الآيات.</p>
             </div>
         </div>
 
@@ -729,9 +720,9 @@
     </div>
 </div>
 
-<!-- نافذة الاختبار التشخيصي المبدئي (15 دقيقة مع صفحة عشوائية والرجوع للمؤقت) -->
-<div class="modal-overlay" id="diagModal">
-    <div class="modal-card diagnostic-card">
+<!-- نافذة الاختبار التشخيصي المبدئي (مع عدم الإغلاق الكامل والإبقاء عليها في الخلفية) -->
+<div class="modal-overlay" id="diagModal" style="z-index: 180;">
+    <div class="modal-card diagnostic-card" onclick="event.stopPropagation()">
         <h3 style="font-family:'Amiri', serif; font-size:1.5rem; color:var(--primary); margin-bottom:4px;">🧪 اختبار تحديد المستوى الأنسب لك</h3>
         <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:8px;">اخترنا لك عشوائياً صفحة من أول 4 أجزاء (صـ <span id="diagTargetPageNum">562</span>). احفظها خلال المؤقت ثم انتقل للتسميع.</p>
         
@@ -761,7 +752,7 @@
 </div>
 
 <!-- نافذة المصحف الشريف المتطورة -->
-<div class="modal-overlay" id="quranModal" onclick="closeQuranModal()">
+<div class="modal-overlay" id="quranModal" onclick="closeQuranModal()" style="z-index: 200;">
     <div class="modal-card quran-modal-card" id="quranModalCard" onclick="event.stopPropagation()">
         
         <button class="exit-fullscreen-floating-btn" onclick="toggleMushafFullscreen()">⛶ تصغير الشاشة</button>
@@ -936,15 +927,32 @@
     let diagPeekCount = 0;
     let diagSecs = 15 * 60;
     let diagInterval = null;
-    let diagRandomPage = 582; // صفحة افتراضية للاختبار العشوائي ضمن أول 4 أجزاء
+    let diagRandomPage = 582;
+    let isDiagRunningFromMain = false;
 
-    /* قائمة القراء المعتمدين */
+    /* تأثير صوتي لطيف للإنجاز عند الضغط على المهام */
+    function playSuccessChime() {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(587.33, ctx.currentTime); // نغمة D5
+            osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1); // نغمة A5
+            gain.gain.setValueAtTime(0.15, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.4);
+        } catch (e) {}
+    }
+
     const ALL_RECITERS = [
         { id: "Minshawy_Murattal_128kbps", name: "محمد صديق المنشاوي (مرتل - موصى به)" },
         { id: "Minshawy_Mujawwad_192kbps", name: "محمد صديق المنشاوي (مجود)" },
         { id: "Husary_128kbps", name: "محمود خليل الحصري (مرتل)" },
         { id: "Husary_Muallim_128kbps", name: "محمود خليل الحصري (المصحف المعلم)" },
-        { id: "Husary_128kbps_Mujawwad", name: "محمود خليل الحصري (مجود)" },
         { id: "Abdul_Basit_Murattal_192kbps", name: "عبد الباسط عبد الصمد (مرتل)" },
         { id: "Abdul_Basit_Mujawwad_128kbps", name: "عبد الباسط عبد الصمد (مجود)" },
         { id: "Hudhaify_128kbps", name: "علي بن عبد الرحمن الحذيفي" },
@@ -1031,11 +1039,8 @@
         document.getElementById('ayahPlayBtn').innerText = '▶ تشغيل الآية';
         document.getElementById('pagePlayBtn').innerText = '▶ تشغيل الصفحة كاملة';
 
-        if (mode === 'ayah') {
-            loadAyahAudioSource();
-        } else {
-            loadPageAudioSource();
-        }
+        if (mode === 'ayah') loadAyahAudioSource();
+        else loadPageAudioSource();
     }
 
     async function loadPageAyahsData(page) {
@@ -1247,7 +1252,7 @@
         }
     }
 
-    /* إيماءات اللمس والسحب الانسيابي (السحب لليمين يتقدم، ولليسار يعود) */
+    /* إيماءات السحب الصحيحة */
     (function setupSmoothSwipe() {
         const container = document.getElementById('quranSwipeContainer');
         const img = document.getElementById('quranPageImg');
@@ -1313,7 +1318,6 @@
         });
     })();
 
-    /* جلب مواقيت الصلاة ونظام التنبيهات */
     let prayerTimesCache = null;
 
     async function initPrayerTimes() {
@@ -1408,6 +1412,24 @@
     });
 
     function closeAllModals(triggerHistory = true) {
+        // لا تغلق نافذة الاختبار لو كنا فتحنا المصحف فوقها مؤقتاً
+        const quranModal = document.getElementById('quranModal');
+        if (quranModal.classList.contains('active')) {
+            quranModal.classList.remove('active');
+            const audio = document.getElementById('quranAudio');
+            if (audio) audio.pause();
+            resetBlur();
+            resetHalfMask();
+            exitMushafFullscreen();
+            
+            // إذا كانت نافذة الاختبار الأساسية مفتوحة في الخلفية، أظهرها مجدداً
+            if (isDiagRunningFromMain) {
+                document.getElementById('diagModal').classList.add('active');
+                isDiagRunningFromMain = false;
+            }
+            return;
+        }
+
         document.querySelectorAll('.modal-overlay').forEach(modal => {
             modal.classList.remove('active');
         });
@@ -1759,6 +1781,7 @@
 
     function toggleTask(cb, idx) {
         if (cb.checked) {
+            playSuccessChime(); // تشغيل الصوت اللطيف عند إنجاز المهمة
             if (idx === heroTaskIndex) heroTaskIndex++;
             const task = generatedTasksCache[idx];
             if (task && task.range) {
@@ -1780,13 +1803,27 @@
         document.getElementById('progressText').innerText = `${percent}%`;
 
         if (percent === 100) {
-            const user = getUserData() || {};
-            const todayStr = new Date().toISOString().split('T')[0];
-            if (!user.history) user.history = {};
-            user.history[todayStr] = true;
-            localStorage.setItem('quran_user_profile', JSON.stringify(user));
-            renderCalendar();
+            markCurrentDayDoneInHistory();
         }
+    }
+
+    function markCurrentDayDoneInHistory() {
+        const user = getUserData() || {};
+        const currentDayIndex = parseInt(document.getElementById('currentDay').value);
+        const dayKey = `day_${currentDayIndex}`;
+        
+        if (!user.history) user.history = {};
+        user.history[dayKey] = true;
+        localStorage.setItem('quran_user_profile', JSON.stringify(user));
+        renderCalendar();
+    }
+
+    function onDaySelectChange() {
+        const user = getUserData() || {};
+        user.currentDay = parseInt(document.getElementById('currentDay').value);
+        localStorage.setItem('quran_user_profile', JSON.stringify(user));
+        renderCalendar();
+        renderTasks();
     }
 
     function renderCalendar() {
@@ -1794,20 +1831,15 @@
         strip.innerHTML = '';
         const user = getUserData() || {};
         const history = user.history || {};
-        const now = new Date();
-        const currentDayOfWeek = (now.getDay() + 1) % 7;
-        const startOfWeek = new Date(now);
-        startOfWeek.setDate(now.getDate() - currentDayOfWeek);
+        const selectedDayIndex = parseInt(document.getElementById('currentDay').value);
 
         for (let i = 0; i < 7; i++) {
-            const d = new Date(startOfWeek);
-            d.setDate(startOfWeek.getDate() + i);
-            const dateKey = d.toISOString().split('T')[0];
-            const isDone = !!history[dateKey];
-            const isToday = i === currentDayOfWeek;
+            const dayKey = `day_${i}`;
+            const isDone = !!history[dayKey];
+            const isSelected = i === selectedDayIndex;
 
             const dayBox = document.createElement('div');
-            dayBox.className = `cal-day ${isToday ? 'today' : ''}`;
+            dayBox.className = `cal-day ${isSelected ? 'today' : ''}`;
             dayBox.innerHTML = `
                 <span>${daysMap[i]}</span>
                 <span class="cal-status ${isDone ? 'done' : ''}">${isDone ? '✔' : ''}</span>
@@ -1817,6 +1849,8 @@
     }
 
     function nextDay() {
+        playSuccessChime();
+        markCurrentDayDoneInHistory();
         const user = getUserData() || {};
         const pace = user.dailyPace || 1;
         const budget = user.timeBudget || 45;
@@ -1886,6 +1920,14 @@
         exitMushafFullscreen();
 
         updateQuranModalView();
+        
+        // إذا كنا نفتح المصحف من نافذة الاختبار، نخفي نافذة الاختبار مؤقتاً لنضمن عدم ضياعها
+        const diagModal = document.getElementById('diagModal');
+        if (diagModal.classList.contains('active')) {
+            diagModal.classList.remove('active');
+            isDiagRunningFromMain = true;
+        }
+
         openModalWithHistory('quranModal');
     }
 
@@ -1921,7 +1963,7 @@
         img.classList.toggle('blurred');
         btn.classList.toggle('active');
         
-        if (document.getElementById('diagModal').classList.contains('active')) {
+        if (document.getElementById('diagModal').classList.contains('active') || isDiagRunningFromMain) {
             diagPeekCount++;
             document.getElementById('diagPeekCount').innerText = diagPeekCount;
         }
@@ -2028,7 +2070,6 @@
         if (document.getElementById('settingsModal').classList.contains('active')) {
             document.getElementById('settingsModal').classList.remove('active');
         }
-        // اختيار صفحة عشوائية ضمن أول 80 صفحة (أول 4 أجزاء: عم، تبارك، قد سمع، قد أفلح)
         diagRandomPage = Math.floor(Math.random() * 75) + 3; 
         document.getElementById('diagTargetPageNum').innerText = diagRandomPage;
 
@@ -2044,7 +2085,6 @@
     function closeDiagModal() { history.back(); }
 
     function openDiagTestQuranPage() {
-        // فتح صفحة الاختبار مع السماح بالرجوع لنافذة المؤقت والتسميع
         openQuranRange(diagRandomPage, diagRandomPage, `صفحة الاختبار (${diagRandomPage})`);
     }
 
@@ -2108,13 +2148,6 @@
         user.currentPage = parseInt(document.getElementById('currentPage').value) || 3;
         localStorage.setItem('quran_user_profile', JSON.stringify(user));
         updateKhatmaCountdown(user.currentPage, user.dailyPace || 1);
-        renderTasks();
-    });
-
-    document.getElementById('currentDay').addEventListener('change', () => {
-        const user = getUserData() || {};
-        user.currentDay = parseInt(document.getElementById('currentDay').value);
-        localStorage.setItem('quran_user_profile', JSON.stringify(user));
         renderTasks();
     });
 
