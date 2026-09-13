@@ -233,12 +233,13 @@
         .modal-overlay.active { display: grid; }
         .modal-card { background: var(--card-bg); color: var(--text-main); width: 100%; max-width: 440px; border-radius: 18px; padding: 16px; text-align: center; max-height: 94vh; display: flex; flex-direction: column; overflow-y: auto; }
 
+        /* نافذة المصحف الشريف المتطورة */
         .quran-modal-card { 
             max-width: 480px; 
             width: 100%; 
             padding: 6px; 
-            height: 96vh; 
-            max-height: 96vh; 
+            height: 97vh; 
+            max-height: 97vh; 
             overflow: hidden; 
             display: flex; 
             flex-direction: column; 
@@ -249,46 +250,174 @@
         .quran-nav-btn { background: var(--bg); color: var(--text-main); border: 1px solid var(--border); padding: 4px 10px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.75rem; }
         .quran-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-        .audio-player-container {
-            background: var(--bg); border-radius: 8px; padding: 4px 6px; margin-bottom: 4px;
-            border: 1px solid var(--border); display: flex; flex-direction: column; gap: 4px; text-align: right;
-            transition: all 0.2s ease;
+        /* شريط أدوات المصحف المستقل والنظيف */
+        .quran-view-toolbar {
+            display: flex;
+            justify-content: space-between;
+            gap: 6px;
+            margin-bottom: 4px;
         }
-        .audio-row { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
-        
-        .reciter-select-wrap {
+        .view-tool-btn {
+            flex: 1;
+            padding: 5px 8px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text-main);
+            cursor: pointer;
+            text-align: center;
+        }
+        .view-tool-btn.active {
+            background: #fee2e2;
+            color: var(--danger);
+            border-color: #fca5a5;
+        }
+        .view-tool-btn.primary-tool {
+            background: #0284c7;
+            color: white;
+            border-color: #0284c7;
+        }
+
+        /* ستوديو الصوت والتكرار المنظم */
+        .audio-studio-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 6px 8px;
+            margin-bottom: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            text-align: right;
+        }
+
+        .reciter-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 6px;
+        }
+        .reciter-badge-btn {
+            flex: 1;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-main);
+        }
+
+        /* تبويبات اختيار وضع التكرار */
+        .repeat-mode-tabs {
+            display: flex;
+            background: var(--border);
+            padding: 2px;
+            border-radius: 8px;
+            gap: 2px;
+        }
+        .repeat-tab-btn {
+            flex: 1;
+            padding: 4px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            cursor: pointer;
+            background: transparent;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+        .repeat-tab-btn.active {
+            background: var(--card-bg);
+            color: var(--primary);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* لوحة التحكم بالآية والتكرار */
+        .repeat-control-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            background: var(--card-bg);
+            padding: 6px 8px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .ayah-selector-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+        }
+        .ayah-select {
+            flex: 1;
+            padding: 4px 6px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: var(--bg);
+            color: var(--text-main);
+            outline: none;
+        }
+        .loop-selector-inline {
             display: flex;
             align-items: center;
             gap: 4px;
-            flex: 1;
-            min-width: 0;
+            font-size: 0.72rem;
+            font-weight: 700;
         }
-        .reciter-select-wrap select {
-            flex: 1;
-            min-width: 0;
-            padding: 4px 6px;
+        .loop-select {
+            padding: 3px 6px;
             border-radius: 6px;
             border: 1px solid var(--border);
             font-size: 0.72rem;
-            font-weight: 600;
-            outline: none;
-            background: var(--card-bg);
+            font-weight: 700;
+            background: var(--bg);
             color: var(--text-main);
         }
-        .btn-search-reciter {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 4px 6px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.75rem;
+
+        .player-action-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4px;
+            margin-top: 2px;
         }
+        .ctrl-btn {
+            flex: 1;
+            padding: 5px 6px;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text-main);
+            text-align: center;
+        }
+        .ctrl-btn.play-highlight {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            flex: 1.4;
+        }
+        .ctrl-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-        .audio-row button.play-btn { background: var(--primary); color: white; border: none; padding: 4px 10px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.75rem; }
-
-        .quran-toolbar { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 3px 6px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.7rem; font-weight: 700; gap: 3px; }
-        .blur-btn { background: var(--bg); color: var(--text-main); border: 1px solid var(--border); padding: 3px 6px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 0.7rem; }
-        .blur-btn.active { background: #fee2e2; color: var(--danger); border-color: #fca5a5; }
+        .playback-status-badge {
+            font-size: 0.7rem;
+            color: var(--primary);
+            font-weight: 800;
+            text-align: center;
+            margin-top: 2px;
+        }
 
         .quran-img-container {
             flex: 1; 
@@ -334,7 +463,8 @@
         .half-mask.mask-top { top: 0; height: 50%; border-bottom: 2px dashed rgba(255,255,255,0.4); }
 
         .quran-modal-card.fullscreen-mode .quran-nav,
-        .quran-modal-card.fullscreen-mode .audio-player-container,
+        .quran-modal-card.fullscreen-mode .quran-view-toolbar,
+        .quran-modal-card.fullscreen-mode .audio-studio-box,
         .quran-modal-card.fullscreen-mode .btn-close-mushaf {
             display: none !important;
         }
@@ -445,7 +575,6 @@
         .diag-score-btn { width: 100%; padding: 10px; margin-bottom: 6px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text-main); font-weight: 700; cursor: pointer; text-align: right; font-size: 0.85rem; }
         .diag-score-btn:hover { border-color: var(--primary); background: var(--primary-light); }
 
-        /* نافذة البحث عن الشيوخ */
         .reciters-search-input {
             width: 100%;
             padding: 8px 10px;
@@ -566,7 +695,7 @@
         
         <div class="help-search-box">
             <input type="text" id="helpSearchInput" class="help-search-input" placeholder="🔍 اكتب أي كلمة مفتاحية للبحث الفوري..." oninput="handleHelpSearch(this.value)">
-            <div class="help-search-hint">💡 اكتب أي حاجة مش فاهمها أو اسأل عن أي مصطلح (مثل: بلور، حدر، تحضير، ألوان، مقفول، صلاة، تكرار) وهنساعدك فوراً.</div>
+            <div class="help-search-hint">💡 اكتب أي حاجة مش فاهمها أو اسأل عن أي مصطلح (مثل: تكرار الآية، بلور، حدر، تحضير، ألوان، مقفول، صلاة) وهنساعدك فوراً.</div>
         </div>
         
         <div id="helpBoxesContainer">
@@ -580,18 +709,16 @@
                 <p>5. <strong>الحصن الخامس (الحفظ الجديد):</strong> غرس الورد الجديد ركناً بركن بإتقان تام.</p>
             </div>
 
-            <div class="help-box" data-keywords="الحصن الثالث الرابع مقفول ليه مش ظاهر متى يبدا بداية الحفظ">
-                <h4>🔒 لماذا يظهر الحصن الثالث أو الرابع مقفولاً في البداية؟</h4>
-                <p><strong>• الحصن الرابع (مراجعة القريب):</strong> هو مراجعة آخر 20 صفحة ملاصقة؛ فإذا كنت في أول صفحات سورة البقرة، لا توجد صفحات سابقة لمراجعتها بعد، ويبدأ فور وصولك للصفحة 4 تلقائياً.</p>
-                <p>• <strong>الحصن الثالث (مراجعة البعيد):</strong> هو مراجعة الحفظ القديم في أنابيب أسبوعية، ويبدأ تلقائياً بعد حفظ أول جزء تقريباً (تجاوز الصفحة 23) لأنه قبل ذلك لا يوجد حفظ قديم مستقر.</p>
+            <div class="help-box" data-keywords="تكرار الاية تكرار الصفحة كيف اكرر الاية تلقين اعادة">
+                <h4>🔁 كيفية تكرار الآية نفسها وتكرار الصفحة</h4>
+                <p><strong>• وضع تكرار آية محددة:</strong> يتيح لك اختيار أي آية من الصفحة الحالية بالاسم والرقم، وتكرارها وحدها (3، 5، 10 مرات أو مستمر) مع إمكانية إعادتها بضغطة زر والتنقل بين آيات الصفحة.</p>
+                <p><strong>• وضع تكرار الصفحة كاملة:</strong> يقرأ الشيخ تلاوة الصفحة بالكامل ويعيدها تلقائياً بالعدد الذي تحدده لترسيخ التحضير البصري والسمعي.</p>
             </div>
 
-            <div class="help-box" data-keywords="الحصن الثاني تحضير تكرار اسبوعي ليلي قبلي ليه متكرر ثلاث مرات خطوات">
-                <h4>🔄 لماذا ينقسم «الحصن الثاني: التحضير» إلى 3 خطوات؟</h4>
-                <p><strong>ليس خطأً لغوياً</strong> بل هو جوهر الحصن الثاني؛ حيث قسّمه المؤلف إلى 3 مراحل زمنية لكسر صعوبة الصفحة:</p>
-                <p>• <strong>(1) التحضير الأسبوعي:</strong> قراءة سريعة لصفحات الأسبوع القادم الـ 7 مرة واحدة يومياً لتألفها عينك مسبقاً.</p>
-                <p>• <strong>(2) التحضير الليلي:</strong> سماع صفحة الغد قبل النوم 3 مرات بتركيز مع المنشاوي لتترسخ في عقلك الباطن أثناء نومك.</p>
-                <p>• <strong>(3) التحضير القبلي:</strong> قراءة الصفحة 15 مرة حدر سريعاً قبل جلسة الحفظ مباشرة لتنطلق في لسانك بسهولة.</p>
+            <div class="help-box" data-keywords="الحصن الثالث الرابع مقفول ليه مش ظاهر متى يبدا بداية الحفظ">
+                <h4>🔒 لماذا يظهر الحصن الثالث أو الرابع مقفولاً في البداية؟</h4>
+                <p><strong>• الحصن الرابع (مراجعة القريب):</strong> يبدأ تلقائياً عند وصولك للصفحة 4 لعدم وجود صفحات سابقة قبل ذلك.</p>
+                <p>• <strong>الحصن الثالث (مراجعة البعيد):</strong> يبدأ تلقائياً بعد حفظ أول جزء تقريباً (تجاوز الصفحة 23) لحماية القديم في أنابيب أسبوعية.</p>
             </div>
 
             <div class="help-box" data-keywords="الاوضاع مود طبيعي مسافر مزدحم مرهق سيرفايفل انقطاع تعب">
@@ -603,36 +730,19 @@
                 </div>
                 <div style="margin-bottom:8px;">
                     <span class="help-mode-badge badge-busy">🧳 نمط المسافر / المزدحم (Survival Mode):</span>
-                    <p>يطبق قاعدة «المراجعة مقدمة على الحفظ»؛ يلغي الحفظ الجديد والتحضير الأسبوعي، ويركز فقط على مراجعة القديم والقريب في 12 دقيقة فقط لتحميك من الانقطاع.</p>
+                    <p>يطبق قاعدة «المراجعة مقدمة على الحفظ»؛ يلغي الحفظ الجديد ويركز فقط على مراجعة القديم والقريب في 12 دقيقة فقط.</p>
                 </div>
                 <div>
                     <span class="help-mode-badge badge-tired">😴 نمط المرهق (Low Energy Mode):</span>
-                    <p>إذا كنت مصدعاً أو مجهداً ذهنياً؛ يلغي التسميع ويركز فقط على الاستماع الهادئ مع الشيخ والقراءة البصرية السريعة دون ضغط.</p>
+                    <p>يركز فقط على الاستماع الهادئ مع الشيخ والقراءة البصرية السريعة دون ضغط ذهني.</p>
                 </div>
             </div>
 
-            <div class="help-box" data-keywords="تنبيهات اشعارات مواقيت الصلاة بعد الصلاة اذان فجر ظهر عصر مغرب عشاء">
-                <h4>🕌 تذكير الأوراد بعد الصلوات المكتوبة</h4>
-                <p>خير عادة لحافظ القرآن هي ربط ورده بالصلاة؛ التطبيق يرسل لك تنبيهاً تشجيعياً بعد كل أذان يسألك: <em>«تقبل الله صلاتك.. صليت؟ يلا نبدأ ورد ما بعد الصلاة»</em> لتقسم حصونك براحة تامة دون أن تشعر بثقل الوقت.</p>
-            </div>
-
-            <div class="help-box" data-keywords="خريطة صحة الحفظ الوان اخضر اصفر احمر رمادي تفلت درجات health score">
-                <h4>🗺️ خريطة صحة الحفظ.. كيف تعمل ومن يحدد ألوانها؟</h4>
-                <p>الخريطة يقودها <strong>«مؤشر صحة الحفظ الذكي (Health Score)»</strong> الذي يتابع كل صفحة كأنها كائن حي يحتاج للرعاية والتثبيت:</p>
-                <div style="margin: 8px 0;">
-                    <p>🟢 <strong>الأخضر الداكن:</strong> صفحة قوية ومستقرة، راجعتها حديثاً وثبتت في ذاكرتك.</p>
-                    <p>🟢 <strong>الأخضر الفاتح:</strong> صفحة جيدة ولا خوف عليها.</p>
-                    <p>🟡 <strong>الأصفر:</strong> تنبيه ذكي! بدأت الصفحة تضعف لمرور وقت دون مراجعتها، وتحتاج التفاتاً قريباً.</p>
-                    <p>🔴 <strong>الأحمر:</strong> إنذار تفلت! صفحة أهملتها منذ فترة طويلة ومعرضة للنسيان، اضغط عليها فوراً لمراجعتها.</p>
-                    <p>⚪ <strong>الرمادي:</strong> صفحات لم تصل إليها بعد في رحلة حفظك.</p>
-                </div>
-            </div>
-
-            <div class="help-box" data-keywords="المصحف بلور حجب للتسميع تظليل نصف ملء الشاشة سحب تقليب تكرار صوت الشيخ اعادة الاية">
-                <h4>👁️ أدوات المصحف وتكرار الصفحة والآية</h4>
-                <p><strong>• 🔁 تكرار الصفحة:</strong> يمكنك تكرار الصفحة 1 أو 3 أو 5 أو 10 مرات أو لانهائي ♾️ لترسيخ التحضير.</p>
-                <p><strong>• ↺ تكرار الآية (10 ثوانٍ):</strong> زر سريع في مشغل الصوت يعيدك 10 ثوانٍ للخلف لتكرار نفس الآية مع الشيخ حتى تتقنها.</p>
-                <p><strong>• 🔍 بحث الشيوخ:</strong> اضغط على زر العدسة في مشغل الصوت للبحث السريع عن أي قارئ تريده من بين كبار القراء المعتمدين.</p>
+            <div class="help-box" data-keywords="المصحف بلور حجب للتسميع تظليل نصف ملء الشاشة سحب تقليب">
+                <h4>👁️ أدوات المصحف الشريف المدمجة</h4>
+                <p><strong>• 👈👉 السحب الانسيابي:</strong> اسحب الصفحة بإصبعك يميناً أو يساراً لتنتقل للصفحة التالية أو السابقة بنعومة.</p>
+                <p><strong>• 👁️ وضع حجب للتسميع:</strong> يغطي الصفحة بطبقة ضبابية لتختبر استحضارك غيباً باللمس.</p>
+                <p><strong>• 🌓 تظليل نصف الصفحة:</strong> يحجب النصف غير المقرر اليوم لتصفية تركيزك البصري.</p>
             </div>
         </div>
 
@@ -681,12 +791,13 @@
     </div>
 </div>
 
-<!-- نافذة المصحف الشريف المتطورة -->
+<!-- نافذة المصحف الشريف المتطورة مع مشغل التكرار المنظم للآية والصفحة -->
 <div class="modal-overlay" id="quranModal" onclick="closeQuranModal()">
     <div class="modal-card quran-modal-card" id="quranModalCard" onclick="event.stopPropagation()">
         
         <button class="exit-fullscreen-floating-btn" onclick="toggleMushafFullscreen()">⛶ تصغير الشاشة</button>
 
+        <!-- شريط التنقل العلوي بين الصفحات -->
         <div class="quran-nav">
             <button class="quran-nav-btn" id="nextPageBtn" onclick="changeQuranPage(1)">التالي ←</button>
             <div style="display:flex; flex-direction:column; align-items:center;">
@@ -696,35 +807,83 @@
             <button class="quran-nav-btn" id="prevPageBtn" onclick="changeQuranPage(-1)">→ السابق</button>
         </div>
 
-        <div class="audio-player-container">
-            <div class="audio-row">
-                <div class="reciter-select-wrap">
-                    <select id="modalReciterSelect" onchange="changeReciter(this.value)"></select>
-                    <button class="btn-search-reciter" onclick="openRecitersModal()" title="بحث عن قارئ">🔍</button>
+        <!-- شريط أدوات المصحف المستقل والنظيف -->
+        <div class="quran-view-toolbar">
+            <button class="view-tool-btn" id="blurToggleBtn" onclick="toggleBlurMode()">👁️ وضع حجب للتسميع</button>
+            <button class="view-tool-btn" id="maskToggleBtn" onclick="cycleHalfMask()">🌓 تظليل النصف</button>
+            <button class="view-tool-btn primary-tool" onclick="toggleMushafFullscreen()">⛶ ملء الشاشة</button>
+        </div>
+
+        <!-- ستوديو الصوت والتكرار المنظم والواضح -->
+        <div class="audio-studio-box">
+            <!-- سطر القارئ والبحث -->
+            <div class="reciter-header-row">
+                <div class="reciter-badge-btn" onclick="openRecitersModal()" title="اضغط لتغيير القارئ">
+                    <span id="currentReciterLabel" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:280px;">الشيخ محمد صديق المنشاوي</span>
+                    <span>🔍 تغيير</span>
                 </div>
-                <button class="play-btn" id="audioToggleBtn" onclick="toggleAudioRecitation()">تشغيل ▶</button>
             </div>
-            <div class="quran-toolbar">
-                <div style="display:flex; align-items:center; gap:2px;">
-                    <span>🔁</span>
-                    <select id="loopCountSelect" style="padding:2px 4px; border-radius:4px; border:1px solid var(--border); background:var(--card-bg); color:var(--text-main);" onchange="setAudioLoop(this.value)">
-                        <option value="1">1</option>
-                        <option value="3">3</option>
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="999">♾️ لانهائي</option>
+
+            <!-- تبويبات التبديل بين تكرار آية وتكرار الصفحة -->
+            <div class="repeat-mode-tabs">
+                <button class="repeat-tab-btn active" id="tabModeAyah" onclick="switchAudioMode('ayah')">📖 تكرار آية محددة</button>
+                <button class="repeat-tab-btn" id="tabModePage" onclick="switchAudioMode('page')">📄 تكرار الصفحة كاملة</button>
+            </div>
+
+            <!-- لوحة التحكم بتكرار الآية -->
+            <div class="repeat-control-panel" id="panelAyahControls">
+                <div class="ayah-selector-row">
+                    <select id="pageAyahsSelect" class="ayah-select" onchange="onAyahSelectChange(this.value)">
+                        <option value="0">جاري تحميل آيات الصفحة...</option>
                     </select>
-                    <span id="loopStatus" style="color:var(--primary); font-size:0.65rem;"></span>
+                    <div class="loop-selector-inline">
+                        <span>تكرار:</span>
+                        <select id="ayahLoopSelect" class="loop-select" onchange="setAyahLoopTarget(this.value)">
+                            <option value="1">1</option>
+                            <option value="3" selected>3</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="999">♾️ لانهائي</option>
+                        </select>
+                    </div>
                 </div>
-                <!-- زر إعادة 10 ثوانٍ لتكرار الآية الحالية -->
-                <button class="blur-btn" onclick="rewindAudio(10)" title="إعادة الآية الحالية (10 ثوانٍ للخلف)">↺ 10 ث</button>
-                <button class="blur-btn" id="maskToggleBtn" onclick="cycleHalfMask()" title="تظليل النصف">🌓 نصف</button>
-                <button class="blur-btn" id="blurToggleBtn" onclick="toggleBlurMode()">👁️ وضع حجب للتسميع</button>
-                <button class="blur-btn" style="background:#0284c7; color:white; border-color:#0284c7;" onclick="toggleMushafFullscreen()" title="ملء الشاشة">⛶ ملء الشاشة</button>
+
+                <div class="player-action-buttons">
+                    <button class="ctrl-btn" id="prevAyahBtn" onclick="stepAyah(-1)">⏮ السابقة</button>
+                    <button class="ctrl-btn play-highlight" id="ayahPlayBtn" onclick="toggleAyahPlay()">▶ تشغيل الآية</button>
+                    <button class="ctrl-btn" id="nextAyahBtn" onclick="stepAyah(1)">التالية ⏭</button>
+                    <button class="ctrl-btn" onclick="restartCurrentAyah()" title="إعادة تشغيل الآية من بدايتها">↺ إعادة</button>
+                </div>
+                <div class="playback-status-badge" id="ayahLoopStatusBadge">مرات تكرار الآية: 1 من 3</div>
             </div>
+
+            <!-- لوحة التحكم بتكرار الصفحة كاملة -->
+            <div class="repeat-control-panel" id="panelPageControls" style="display:none;">
+                <div class="ayah-selector-row">
+                    <span style="font-size:0.75rem; font-weight:700;">تلاوة الصفحة كاملة:</span>
+                    <div class="loop-selector-inline">
+                        <span>مرات التكرار:</span>
+                        <select id="pageLoopSelect" class="loop-select" onchange="setPageLoopTarget(this.value)">
+                            <option value="1">مرة واحدة</option>
+                            <option value="3" selected>3 مرات</option>
+                            <option value="5">5 مرات</option>
+                            <option value="10">10 مرات</option>
+                            <option value="999">♾️ لانهائي</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="player-action-buttons">
+                    <button class="ctrl-btn play-highlight" id="pagePlayBtn" onclick="togglePagePlay()">▶ تشغيل الصفحة كاملة</button>
+                    <button class="ctrl-btn" onclick="restartPageAudio()">↺ من البداية</button>
+                </div>
+                <div class="playback-status-badge" id="pageLoopStatusBadge">تكرار الصفحة: 1 من 3</div>
+            </div>
+
             <audio id="quranAudio" preload="none"></audio>
         </div>
 
+        <!-- حاوية المصحف الشريف -->
         <div class="quran-img-container" id="quranSwipeContainer" oncontextmenu="return false;">
             <img id="quranPageImg" src="" alt="صفحة المصحف" oncontextmenu="return false;" draggable="false" onerror="handleImageError(this)">
             <div class="half-mask mask-bottom" id="maskBottom">متروك لورد الغد ⏳</div>
@@ -809,17 +968,15 @@
     let currentMode = 'normal';
     let heroTaskIndex = 0;
     let generatedTasksCache = [];
-    let remainingLoops = 1;
-    let targetLoops = 1;
     let deferredPrompt = null;
     let currentMaskState = 0;
     let diagPeekCount = 0;
     let diagSecs = 15 * 60;
     let diagInterval = null;
 
-    /* قائمة القراء الضخمة المعتمدة السحابية */
+    /* قائمة القراء المعتمدين */
     const ALL_RECITERS = [
-        { id: "Minshawy_Murattal_128kbps", name: "محمد صديق المنشاوي (مرتل - موصى به للحفظ)" },
+        { id: "Minshawy_Murattal_128kbps", name: "محمد صديق المنشاوي (مرتل - موصى به)" },
         { id: "Minshawy_Mujawwad_192kbps", name: "محمد صديق المنشاوي (مجود)" },
         { id: "Husary_128kbps", name: "محمود خليل الحصري (مرتل)" },
         { id: "Husary_Muallim_128kbps", name: "محمود خليل الحصري (المصحف المعلم)" },
@@ -847,16 +1004,22 @@
         { id: "Fares_Abbad_64kbps", name: "فارس عباد" }
     ];
 
-    function populateRecitersSelect(selectedId) {
-        const select = document.getElementById('modalReciterSelect');
-        select.innerHTML = '';
-        ALL_RECITERS.forEach(r => {
-            const opt = document.createElement('option');
-            opt.value = r.id;
-            opt.innerText = r.name;
-            if (r.id === selectedId) opt.selected = true;
-            select.appendChild(opt);
-        });
+    /* إدارة الصوت والتكرار الذكي */
+    let audioPlaybackMode = 'ayah'; // 'ayah' أو 'page'
+    let pageAyahsList = [];
+    let currentAyahIndex = 0;
+    
+    let targetAyahLoops = 3;
+    let currentAyahLoopCount = 1;
+
+    let targetPageLoops = 3;
+    let currentPageLoopCount = 1;
+
+    let cachedPagesAyahs = {};
+
+    function updateReciterDisplay(reciterId) {
+        const r = ALL_RECITERS.find(x => x.id === reciterId) || ALL_RECITERS[0];
+        document.getElementById('currentReciterLabel').innerText = `القارئ: ${r.name}`;
     }
 
     function openRecitersModal() {
@@ -878,7 +1041,7 @@
         });
 
         if (!matches.length) {
-            list.innerHTML = '<div style="font-size:0.8rem; color:var(--text-muted); padding:10px;">لا يوجد قارئ مطابق للاسم.</div>';
+            list.innerHTML = '<div style="font-size:0.8rem; color:var(--text-muted); padding:10px;">لا يوجد قارئ بهذا الاسم.</div>';
             return;
         }
 
@@ -888,20 +1051,241 @@
             item.innerText = r.name;
             item.onclick = () => {
                 changeReciter(r.id);
-                document.getElementById('modalReciterSelect').value = r.id;
                 closeRecitersModal();
             };
             list.appendChild(item);
         });
     }
 
-    /* إعادة 10 ثوانٍ لتكرار الآية الحالية */
-    function rewindAudio(seconds) {
+    function switchAudioMode(mode) {
+        audioPlaybackMode = mode;
         const audio = document.getElementById('quranAudio');
-        if (audio) {
-            audio.currentTime = Math.max(0, audio.currentTime - seconds);
-            if (audio.paused) audio.play();
-            document.getElementById('audioToggleBtn').innerText = 'إيقاف ⏸';
+        audio.pause();
+
+        document.getElementById('tabModeAyah').classList.toggle('active', mode === 'ayah');
+        document.getElementById('tabModePage').classList.toggle('active', mode === 'page');
+
+        document.getElementById('panelAyahControls').style.display = mode === 'ayah' ? 'flex' : 'none';
+        document.getElementById('panelPageControls').style.display = mode === 'page' ? 'flex' : 'none';
+
+        document.getElementById('ayahPlayBtn').innerText = '▶ تشغيل الآية';
+        document.getElementById('pagePlayBtn').innerText = '▶ تشغيل الصفحة كاملة';
+
+        if (mode === 'ayah') {
+            loadAyahAudioSource();
+        } else {
+            loadPageAudioSource();
+        }
+    }
+
+    /* جلب وتحديث آيات الصفحة الحالية */
+    async function loadPageAyahsData(page) {
+        const select = document.getElementById('pageAyahsSelect');
+        select.innerHTML = '<option>جاري جلب آيات الصفحة...</option>';
+
+        if (cachedPagesAyahs[page]) {
+            pageAyahsList = cachedPagesAyahs[page];
+            renderAyahsSelect();
+            return;
+        }
+
+        try {
+            const res = await fetch(`https://api.alquran.cloud/v1/page/${page}/quran-uthmani`);
+            const data = await res.json();
+            if (data && data.data && data.data.ayahs) {
+                pageAyahsList = data.data.ayahs;
+                cachedPagesAyahs[page] = pageAyahsList;
+                renderAyahsSelect();
+            }
+        } catch (e) {
+            select.innerHTML = '<option value="0">تعذر جلب الآيات - تأكد من اتصال الإنترنت</option>';
+        }
+    }
+
+    function renderAyahsSelect() {
+        const select = document.getElementById('pageAyahsSelect');
+        select.innerHTML = '';
+        currentAyahIndex = 0;
+
+        pageAyahsList.forEach((a, idx) => {
+            const opt = document.createElement('option');
+            opt.value = idx;
+            const preview = a.text.split(' ').slice(0, 5).join(' ');
+            opt.innerText = `آية ${a.numberInSurah} (${a.surah.name}) - ${preview}...`;
+            select.appendChild(opt);
+        });
+
+        currentAyahLoopCount = 1;
+        updateAyahLoopBadge();
+        updateAyahNavButtons();
+        if (audioPlaybackMode === 'ayah') loadAyahAudioSource();
+    }
+
+    function onAyahSelectChange(index) {
+        currentAyahIndex = parseInt(index);
+        currentAyahLoopCount = 1;
+        updateAyahLoopBadge();
+        updateAyahNavButtons();
+        loadAyahAudioSource();
+        const audio = document.getElementById('quranAudio');
+        audio.play();
+        document.getElementById('ayahPlayBtn').innerText = '⏸ إيقاف الآية';
+    }
+
+    function stepAyah(delta) {
+        const nextIdx = currentAyahIndex + delta;
+        if (nextIdx >= 0 && nextIdx < pageAyahsList.length) {
+            document.getElementById('pageAyahsSelect').value = nextIdx;
+            onAyahSelectChange(nextIdx);
+        }
+    }
+
+    function updateAyahNavButtons() {
+        document.getElementById('prevAyahBtn').disabled = (currentAyahIndex <= 0);
+        document.getElementById('nextAyahBtn').disabled = (currentAyahIndex >= pageAyahsList.length - 1);
+    }
+
+    function setAyahLoopTarget(val) {
+        targetAyahLoops = parseInt(val);
+        currentAyahLoopCount = 1;
+        updateAyahLoopBadge();
+    }
+
+    function updateAyahLoopBadge() {
+        const badge = document.getElementById('ayahLoopStatusBadge');
+        if (targetAyahLoops === 999) {
+            badge.innerText = `تكرار الآية: (تكرار مستمر ♾️ حتى توقفه)`;
+        } else {
+            badge.innerText = `مرات تكرار الآية: (${currentAyahLoopCount} من ${targetAyahLoops})`;
+        }
+    }
+
+    function setPageLoopTarget(val) {
+        targetPageLoops = parseInt(val);
+        currentPageLoopCount = 1;
+        updatePageLoopBadge();
+    }
+
+    function updatePageLoopBadge() {
+        const badge = document.getElementById('pageLoopStatusBadge');
+        if (targetPageLoops === 999) {
+            badge.innerText = `تكرار الصفحة: (تكرار مستمر ♾️)`;
+        } else {
+            badge.innerText = `تكرار الصفحة: (${currentPageLoopCount} من ${targetPageLoops})`;
+        }
+    }
+
+    function loadAyahAudioSource() {
+        if (!pageAyahsList.length) return;
+        const ayah = pageAyahsList[currentAyahIndex];
+        const user = getUserData() || {};
+        const reciter = user.reciter || 'Minshawy_Murattal_128kbps';
+        
+        const surahPad = String(ayah.surah.number).padStart(3, '0');
+        const ayahPad = String(ayah.numberInSurah).padStart(3, '0');
+        const url = `https://everyayah.com/data/${reciter}/${surahPad}${ayahPad}.mp3`;
+
+        const audio = document.getElementById('quranAudio');
+        audio.src = url;
+    }
+
+    function loadPageAudioSource() {
+        const user = getUserData() || {};
+        const reciter = user.reciter || 'Minshawy_Murattal_128kbps';
+        const pagePad = String(activeQuranPage).padStart(3, '0');
+        const url = `https://everyayah.com/data/${reciter}/PageMp3s/Page${pagePad}.mp3`;
+
+        const audio = document.getElementById('quranAudio');
+        audio.src = url;
+    }
+
+    function toggleAyahPlay() {
+        const audio = document.getElementById('quranAudio');
+        const btn = document.getElementById('ayahPlayBtn');
+        if (audio.paused) {
+            if (!audio.src || !audio.src.includes('.mp3')) loadAyahAudioSource();
+            audio.play();
+            btn.innerText = '⏸ إيقاف الآية';
+        } else {
+            audio.pause();
+            btn.innerText = '▶ تشغيل الآية';
+        }
+    }
+
+    function restartCurrentAyah() {
+        const audio = document.getElementById('quranAudio');
+        audio.currentTime = 0;
+        audio.play();
+        document.getElementById('ayahPlayBtn').innerText = '⏸ إيقاف الآية';
+    }
+
+    function togglePagePlay() {
+        const audio = document.getElementById('quranAudio');
+        const btn = document.getElementById('pagePlayBtn');
+        if (audio.paused) {
+            loadPageAudioSource();
+            audio.play();
+            btn.innerText = '⏸ إيقاف الصفحة';
+        } else {
+            audio.pause();
+            btn.innerText = '▶ تشغيل الصفحة كاملة';
+        }
+    }
+
+    function restartPageAudio() {
+        const audio = document.getElementById('quranAudio');
+        audio.currentTime = 0;
+        audio.play();
+        document.getElementById('pagePlayBtn').innerText = '⏸ إيقاف الصفحة';
+    }
+
+    /* إدارة نهاية الصوت وتكرار الآية والصفحة تلقائياً */
+    function setupAudioEvents() {
+        const audio = document.getElementById('quranAudio');
+        audio.onended = () => {
+            if (audioPlaybackMode === 'ayah') {
+                if (targetAyahLoops === 999) {
+                    audio.currentTime = 0;
+                    audio.play();
+                } else if (currentAyahLoopCount < targetAyahLoops) {
+                    currentAyahLoopCount++;
+                    updateAyahLoopBadge();
+                    audio.currentTime = 0;
+                    audio.play();
+                } else {
+                    currentAyahLoopCount = 1;
+                    updateAyahLoopBadge();
+                    document.getElementById('ayahPlayBtn').innerText = '▶ تشغيل الآية';
+                }
+            } else {
+                if (targetPageLoops === 999) {
+                    audio.currentTime = 0;
+                    audio.play();
+                } else if (currentPageLoopCount < targetPageLoops) {
+                    currentPageLoopCount++;
+                    updatePageLoopBadge();
+                    audio.currentTime = 0;
+                    audio.play();
+                } else {
+                    currentPageLoopCount = 1;
+                    updatePageLoopBadge();
+                    document.getElementById('pagePlayBtn').innerText = '▶ تشغيل الصفحة كاملة';
+                }
+            }
+        };
+    }
+
+    function changeReciter(reciterId) {
+        const user = getUserData() || {};
+        user.reciter = reciterId;
+        localStorage.setItem('quran_user_profile', JSON.stringify(user));
+        updateReciterDisplay(reciterId);
+        if (audioPlaybackMode === 'ayah') {
+            loadAyahAudioSource();
+            document.getElementById('ayahPlayBtn').innerText = '▶ تشغيل الآية';
+        } else {
+            loadPageAudioSource();
+            document.getElementById('pagePlayBtn').innerText = '▶ تشغيل الصفحة كاملة';
         }
     }
 
@@ -1185,7 +1569,7 @@
         if (user.readingCurrentPage === undefined) user.readingCurrentPage = 1;
         if (!user.reciter) user.reciter = 'Minshawy_Murattal_128kbps';
 
-        populateRecitersSelect(user.reciter);
+        updateReciterDisplay(user.reciter);
 
         document.getElementById('currentPage').value = user.currentPage;
         document.getElementById('currentDay').value = user.currentDay !== undefined ? user.currentDay : todayDayIndex;
@@ -1537,13 +1921,8 @@
         allowedMaxPage = end;
         activeQuranPage = start;
 
-        const user = getUserData() || {};
-        const savedReciter = user.reciter || 'Minshawy_Murattal_128kbps';
-        document.getElementById('modalReciterSelect').value = savedReciter;
         document.getElementById('quranRangeTitle').innerText = `نطاق الحصن: ${label}`;
 
-        document.getElementById('loopCountSelect').value = "1";
-        setAudioLoop("1");
         resetBlur();
         resetHalfMask();
         exitMushafFullscreen();
@@ -1562,11 +1941,13 @@
         document.getElementById('prevPageBtn').disabled = (activeQuranPage <= allowedMinPage);
         document.getElementById('nextPageBtn').disabled = (activeQuranPage >= allowedMaxPage);
 
-        const reciter = document.getElementById('modalReciterSelect').value;
+        // إيقاف أي صوت شغال وتجهيز الآيات
         const audio = document.getElementById('quranAudio');
         audio.pause();
-        audio.src = `https://everyayah.com/data/${reciter}/PageMp3s/Page${padded}.mp3`;
-        document.getElementById('audioToggleBtn').innerText = 'تشغيل ▶';
+        document.getElementById('ayahPlayBtn').innerText = '▶ تشغيل الآية';
+        document.getElementById('pagePlayBtn').innerText = '▶ تشغيل الصفحة كاملة';
+
+        loadPageAyahsData(activeQuranPage);
     }
 
     function handleImageError(img) {
@@ -1575,56 +1956,6 @@
             const padded = String(activeQuranPage).padStart(3, '0');
             img.src = `https://raw.githubusercontent.com/quran/quran.com-images/master/width_1260/page${padded}.png`;
         }
-    }
-
-    function changeReciter(reciterId) {
-        const user = getUserData() || {};
-        user.reciter = reciterId;
-        localStorage.setItem('quran_user_profile', JSON.stringify(user));
-        updateQuranModalView();
-    }
-
-    function setAudioLoop(val) {
-        targetLoops = parseInt(val);
-        remainingLoops = targetLoops;
-        updateLoopStatusUI();
-    }
-
-    function updateLoopStatusUI() {
-        const statusEl = document.getElementById('loopStatus');
-        if (targetLoops === 999) {
-            statusEl.innerText = '(♾️ مستمر)';
-        } else if (targetLoops > 1) {
-            statusEl.innerText = `(${remainingLoops})`;
-        } else {
-            statusEl.innerText = '';
-        }
-    }
-
-    function setupAudioEvents() {
-        const audio = document.getElementById('quranAudio');
-        audio.onended = () => {
-            if (targetLoops === 999) {
-                audio.currentTime = 0;
-                audio.play();
-            } else if (remainingLoops > 1) {
-                remainingLoops--;
-                updateLoopStatusUI();
-                audio.currentTime = 0;
-                audio.play();
-            } else {
-                remainingLoops = targetLoops;
-                updateLoopStatusUI();
-                document.getElementById('audioToggleBtn').innerText = 'تشغيل ▶';
-            }
-        };
-    }
-
-    function toggleAudioRecitation() {
-        const audio = document.getElementById('quranAudio');
-        const btn = document.getElementById('audioToggleBtn');
-        if (audio.paused) { audio.play(); btn.innerText = 'إيقاف ⏸'; }
-        else { audio.pause(); btn.innerText = 'تشغيل ▶'; }
     }
 
     function toggleBlurMode() {
@@ -1666,7 +1997,7 @@
         } else {
             maskBottom.style.display = 'none';
             maskTop.style.display = 'none';
-            btn.innerText = '🌓 نصف';
+            btn.innerText = '🌓 تظليل النصف';
             btn.classList.remove('active');
         }
     }
@@ -1676,7 +2007,7 @@
         document.getElementById('maskBottom').style.display = 'none';
         document.getElementById('maskTop').style.display = 'none';
         const btn = document.getElementById('maskToggleBtn');
-        btn.innerText = '🌓 نصف';
+        btn.innerText = '🌓 تظليل النصف';
         btn.classList.remove('active');
     }
 
@@ -1801,7 +2132,7 @@
             alert("بارك الله في جهدك وحرصك 🌿\nتم ضبط خطتك على: نصف صفحة مع التركيز على الاستماع والتحضير لتيسير الحفظ.");
         }
         localStorage.setItem('quran_user_profile', JSON.stringify(user));
-        history.back();
+        closeDiagModal();
         initUser();
     }
 
