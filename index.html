@@ -34,6 +34,13 @@
             --quran-bg: #1e293b;
         }
 
+        body.elderly-mode {
+            font-size: 1.15rem;
+        }
+        body.elderly-mode .task-title { font-size: 1.1rem !important; }
+        body.elderly-mode .task-pages { font-size: 1rem !important; }
+        body.elderly-mode .task-desc { font-size: 0.9rem !important; }
+
         * { 
             box-sizing: border-box; 
             margin: 0; 
@@ -94,8 +101,8 @@
 
         .mode-selector {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 6px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
             background: var(--border);
             padding: 4px;
             border-radius: 12px;
@@ -103,14 +110,15 @@
         }
         .mode-btn {
             border: none;
-            padding: 6px;
+            padding: 5px 2px;
             border-radius: 8px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
             cursor: pointer;
             background: transparent;
             color: var(--text-muted);
             transition: all 0.2s;
+            text-align: center;
         }
         .mode-btn.active { background: var(--card-bg); color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 
@@ -638,8 +646,9 @@
 
     <div class="mode-selector">
         <button class="mode-btn active" id="modeNormal" onclick="setDayMode('normal')">🌿 طبيعي</button>
-        <button class="mode-btn" id="modeBusy" onclick="setDayMode('busy')">🧳 مسافر/مزدحم</button>
+        <button class="mode-btn" id="modeBusy" onclick="setDayMode('busy')">🧳 مسافر</button>
         <button class="mode-btn" id="modeTired" onclick="setDayMode('tired')">😴 مرهق</button>
+        <button class="mode-btn" id="modeElderly" onclick="setDayMode('elderly')">👴 كبار السن</button>
     </div>
 
     <div class="focus-hero-card" id="heroCard">
@@ -689,7 +698,7 @@
     <button class="btn-next" onclick="nextDay()">✨ بارك الله فيك، أتممت ورد اليوم وانتقل للغد ←</button>
 </div>
 
-<!-- نافذة دليل وشرح التطبيق (بشكلها الأصلي المنسق بالكامل) -->
+<!-- نافذة دليل وشرح التطبيق -->
 <div class="modal-overlay" id="helpModal" onclick="closeHelpModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
         <h3 style="font-family:'Amiri', serif; font-size:1.6rem; color:var(--primary); margin-bottom:4px;">دليل استخدام رفيق الحصون الخمسة</h3>
@@ -701,6 +710,11 @@
         </div>
 
         <div id="helpBoxesContainer">
+            <div class="help-box" data-keywords="كبار السن ميسر حفظ ضعيف استماع تلقين">
+                <h4>👴 وضع كبار السن (الحفظ الميسر والمنشغلين)</h4>
+                <p>مخصص لمن يعاني من ضعف الذاكرة أو ضيق الوقت الشديد؛ يلغي الحفظ الجديد المجهد ويحول التطبيق إلى جلسة استماع وتلاوة هادئة لصفحة واحدة يومياً مع التكرار والسكينة دون أي ضغط.</p>
+            </div>
+
             <div class="help-box" data-keywords="الحصون الخمسة فكرة المنهج سعيد ابو العلا حمزة تعريف اساسيات">
                 <h4>🛡️ ما هي فكرة منظومة «الحصون الخمسة»؟</h4>
                 <p>منهج علمي متقن لحفظ القرآن الكريم وتثبيته وضعه د. سعيد أبو العلا حمزة. يقوم على تقسيم الجهد إلى 5 حصون متوازية تمنع تفلت الآيات:</p>
@@ -755,7 +769,7 @@
                 <h4>👁️ أدوات المصحف الشريف المدمجة</h4>
                 <p><strong>• 👈👉 التقليب بالسحب (Swipe):</strong> اسحب الشاشة يميناً أو يساراً بإصبعك للانتقال فوراً للصفحة التالية أو السابقة مثل المصحف الحقيقي.</p>
                 <p><strong>• 👁️ وضع حجب للتسميع:</strong> يغطي الصفحة بطبقة ضبابية لتختبر استحضارك غيباً، ولا تنكشف الآيات إلا بالضغط المطول عليها.</p>
-                <p><strong>• ⛶ ملء الشاشة:</strong> يخفي كل الأشرطة لتقرأ الآيات بأكبر حجم وضوح ممكن على كامل الشاشة.</p>
+                <p><strong>• ⛶ ملء الشاشة:</strong> يخفي كل الأشرطة لتقرأ الآيات بأكبر حجم ووضوح ممكن على كامل الشاشة.</p>
                 <p><strong>• 🌓 تظليل نصف الصفحة:</strong> يحجب النصف غير المطلوب (أعلى أو أسفل) ليركز بصرك وذهنك على مقدارك اليومي فقط دون تشتت.</p>
             </div>
         </div>
@@ -1651,6 +1665,12 @@
         if (mode === 'normal') document.getElementById('modeNormal').classList.add('active');
         if (mode === 'busy') document.getElementById('modeBusy').classList.add('active');
         if (mode === 'tired') document.getElementById('modeTired').classList.add('active');
+        if (mode === 'elderly') {
+            document.getElementById('modeElderly').classList.add('active');
+            document.body.classList.add('elderly-mode');
+        } else {
+            document.body.classList.remove('elderly-mode');
+        }
         heroTaskIndex = 0;
         renderTasks();
     }
@@ -1661,6 +1681,18 @@
         const budget = user.timeBudget || 45;
         const readStart = user.readingCurrentPage || 1;
         let tasks = [];
+
+        if (currentMode === 'elderly') {
+            tasks.push({
+                order: 1,
+                title: "وضع كبار السن: الاستماع والتلاوة الهادئة",
+                timeMin: 15,
+                pagesText: `صفحة اليوم رقم (صـ ${P})`,
+                desc: "استماع هادئ وتلاوة بصرية ميسرة بدون ضغط حفظ أو تسميع.",
+                range: { start: P, end: P, label: `صفحة الحفظ (${P})` }
+            });
+            return tasks;
+        }
 
         if (currentMode !== 'busy' && currentMode !== 'tired') {
             const readingMin = budget === 30 ? 15 : budget === 45 ? 25 : 40;
@@ -2144,7 +2176,7 @@
         user.readingCurrentPage = parseInt(document.getElementById('setupReadingPage').value) || 1;
         user.dailyPace = parseFloat(document.getElementById('setupPace').value) || 1;
         user.timeBudget = parseInt(document.getElementById('setupTimeBudget').value) || 45;
-        user.prayerAlerts = document.getElementById('setupPrayerNotifications'].checked;
+        user.prayerAlerts = document.getElementById('setupPrayerNotifications').checked;
         localStorage.setItem('quran_user_profile', JSON.stringify(user));
         history.back();
         initUser();
