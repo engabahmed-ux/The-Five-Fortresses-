@@ -34,17 +34,12 @@
             --quran-bg: #1e293b;
         }
 
-        /* نمط كبار السن والبساطة المطلقة */
-        body.elderly-mode .normal-mode-section { display: none !important; }
-        body:not(.elderly-mode) .elderly-mode-section { display: none !important; }
-
         body.elderly-mode {
-            font-size: 1.25rem;
-            background-color: #fffbeb;
+            font-size: 1.15rem;
         }
-        body.dark-mode.elderly-mode {
-            background-color: #1e293b;
-        }
+        body.elderly-mode .task-title { font-size: 1.1rem !important; }
+        body.elderly-mode .task-pages { font-size: 1rem !important; }
+        body.elderly-mode .task-desc { font-size: 0.9rem !important; }
 
         * { 
             box-sizing: border-box; 
@@ -75,9 +70,9 @@
             background: var(--card-bg);
             border: 1px solid var(--border);
             color: var(--text-main);
-            padding: 6px 12px;
+            padding: 5px 10px;
             border-radius: 8px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 700;
             cursor: pointer;
             display: flex;
@@ -86,23 +81,46 @@
         }
 
         header { text-align: center; margin-bottom: 8px; }
-        header h1 { font-family: 'Amiri', serif; color: var(--primary); font-size: 2.2rem; margin-bottom: 2px; }
-        .user-greeting { font-size: 0.95rem; color: var(--text-main); font-weight: 700; }
+        header h1 { font-family: 'Amiri', serif; color: var(--primary); font-size: 2.1rem; margin-bottom: 2px; }
+        .user-greeting { font-size: 0.9rem; color: var(--text-main); font-weight: 700; }
 
         .countdown-khatma-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 10px 14px;
+            padding: 8px 12px;
             margin-bottom: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: var(--shadow);
         }
-        .countdown-khatma-info strong { color: var(--primary); font-size: 1.1rem; }
-        .countdown-khatma-info span { font-size: 0.8rem; color: var(--text-muted); display: block; }
-        .countdown-badge { background: var(--primary-light); color: var(--primary); font-size: 0.8rem; font-weight: 800; padding: 4px 10px; border-radius: 8px; }
+        .countdown-khatma-info strong { color: var(--primary); font-size: 1.05rem; }
+        .countdown-khatma-info span { font-size: 0.75rem; color: var(--text-muted); display: block; }
+        .countdown-badge { background: var(--primary-light); color: var(--primary); font-size: 0.75rem; font-weight: 800; padding: 4px 8px; border-radius: 8px; }
+
+        /* الأشكال القديمة الأنيقة لأزرار الأنماط */
+        .mode-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+            background: var(--border);
+            padding: 4px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+        .mode-btn {
+            border: none;
+            padding: 6px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            background: transparent;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+        .mode-btn.active { background: var(--card-bg); color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 
         .focus-hero-card {
             background: linear-gradient(135deg, #064e3b, #047857);
@@ -112,46 +130,22 @@
             box-shadow: 0 8px 16px -2px rgba(5, 150, 105, 0.25);
             margin-bottom: 14px;
         }
-        .hero-tag { font-size: 0.75rem; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px; }
-        .hero-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 4px; }
-        .hero-desc { font-size: 0.9rem; opacity: 0.9; line-height: 1.4; margin-bottom: 12px; }
+        .hero-tag { font-size: 0.7rem; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 12px; display: inline-block; margin-bottom: 6px; }
+        .hero-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 4px; }
+        .hero-desc { font-size: 0.8rem; opacity: 0.9; line-height: 1.4; margin-bottom: 12px; }
         .hero-actions { display: flex; gap: 8px; }
         .hero-btn {
             flex: 1;
             background: white;
             color: var(--primary-dark);
             border: none;
-            padding: 12px;
+            padding: 10px;
             border-radius: 10px;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             cursor: pointer;
         }
-
-        /* أزرار وضع كبار السن العملاقة الواضحة */
-        .elderly-big-btn {
-            width: 100%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 18px;
-            border-radius: 16px;
-            font-size: 1.25rem;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 6px 12px rgba(5, 150, 105, 0.3);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: transform 0.1s;
-        }
-        .elderly-big-btn:active { transform: scale(0.98); }
-        .elderly-big-btn.secondary-action {
-            background: #0284c7;
-            box-shadow: 0 6px 12px rgba(2, 132, 199, 0.3);
-        }
+        .hero-btn.secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); }
 
         .progress-card {
             background: var(--card-bg); padding: 12px 14px; border-radius: var(--radius);
@@ -207,6 +201,16 @@
         .task-card.active-target { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(5,150,105,0.2); }
         .task-card.completed { opacity: 0.6; background: var(--primary-light); border-color: var(--primary); }
 
+        .task-card.locked-card {
+            background: rgba(241, 245, 249, 0.6);
+            border: 1px dashed #cbd5e1;
+            opacity: 0.75;
+        }
+        body.dark-mode .task-card.locked-card {
+            background: rgba(30, 41, 59, 0.4);
+            border-color: #475569;
+        }
+
         .checkbox-wrapper { margin-top: 2px; }
         .checkbox-wrapper input {
             appearance: none; width: 26px; height: 26px; border: 2px solid var(--border);
@@ -215,10 +219,12 @@
         }
         .checkbox-wrapper input:checked { background: var(--primary); border-color: var(--primary); transform: scale(1.1); }
         .checkbox-wrapper input:checked::before { content: '✔'; color: white; font-weight: bold; font-size: 13px; }
+        .checkbox-wrapper input:disabled { opacity: 0.4; cursor: not-allowed; background: #e2e8f0; }
 
         .task-content { flex: 1; min-width: 0; }
         .task-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
         .task-title { font-weight: 700; font-size: 0.9rem; color: var(--primary); }
+        .task-title.locked-title { color: var(--text-muted); }
         .task-time { font-size: 0.7rem; background: var(--primary-light); color: var(--primary); padding: 1px 6px; border-radius: 10px; font-weight: 700; }
         .task-pages { font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 2px; }
         .task-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.3; margin-bottom: 6px; }
@@ -489,6 +495,7 @@
         .h-danger { background-color: #ef4444; }
         .h-empty { background-color: #64748b; }
 
+        /* شريط البحث في دليل الاستخدام */
         .help-search-box {
             position: sticky;
             top: 0;
@@ -617,7 +624,7 @@
 
 <div class="app-container">
     <div class="top-bar-tools">
-        <button class="tool-btn" onclick="openHelpModal()">📖 دليل الاستخدام</button>
+        <button class="tool-btn" onclick="openHelpModal()">📖 شرح التطبيق والأوضاع</button>
         <div style="display:flex; gap:6px;">
             <button class="tool-btn" onclick="openDiagnosticTest()" style="background:#ecfdf5; border-color:var(--primary); color:var(--primary);">🧪 اختبار</button>
             <button class="tool-btn" id="installAppBtn" onclick="installPWA()" style="display:inline-flex;">📲 تثبيت</button>
@@ -638,45 +645,31 @@
         <div class="countdown-badge" id="khatmaPaceLabel">صفحة / يوم</div>
     </div>
 
-    <!-- أزرار الأنماط مع وضع كبار السن المباشر -->
+    <!-- الأشكال القديمة الأنيقة لثلاثة أزرار الأنماط -->
     <div class="mode-selector">
         <button class="mode-btn active" id="modeNormal" onclick="setDayMode('normal')">🌿 طبيعي</button>
-        <button class="mode-btn" id="modeBusy" onclick="setDayMode('busy')">🧳 مسافر</button>
+        <button class="mode-btn" id="modeBusy" onclick="setDayMode('busy')">🧳 مسافر/مزدحم</button>
         <button class="mode-btn" id="modeTired" onclick="setDayMode('tired')">😴 مرهق</button>
-        <button class="mode-btn" id="modeElderly" onclick="setDayMode('elderly')">👴 كبار السن</button>
     </div>
 
-    <!-- المحتوى العادي يظهر في النمط العادي -->
-    <div class="normal-mode-section">
-        <div class="focus-hero-card" id="heroCard">
-            <span class="hero-tag" id="heroTag">المهمة الحالية للتركيز</span>
-            <div class="hero-title" id="heroTitle">جاري تحميل المهمة...</div>
-            <div class="hero-desc" id="heroDesc">افتح وابدأ مباشرة دون تفكير.</div>
-            <div class="hero-actions">
-                <button class="hero-btn" id="heroMainBtn" onclick="triggerCurrentHeroAction()">ابدأ الحصن ⏱️</button>
-                <button class="hero-btn secondary" onclick="skipHeroTask()">المهمة التالية ←</button>
-            </div>
-        </div>
-
-        <div class="progress-card">
-            <div class="progress-header">
-                <span id="motivationalText">إنجاز ورد اليوم</span>
-                <span id="progressText">0%</span>
-            </div>
-            <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="progressBar"></div>
-            </div>
+    <div class="focus-hero-card" id="heroCard">
+        <span class="hero-tag" id="heroTag">المهمة الحالية للتركيز</span>
+        <div class="hero-title" id="heroTitle">جاري تحميل المهمة...</div>
+        <div class="hero-desc" id="heroDesc">افتح وابدأ مباشرة دون تفكير.</div>
+        <div class="hero-actions">
+            <button class="hero-btn" id="heroMainBtn" onclick="triggerCurrentHeroAction()">ابدأ الحصن ⏱️</button>
+            <button class="hero-btn secondary" onclick="skipHeroTask()">المهمة التالية ←</button>
         </div>
     </div>
 
-    <!-- المحتوى الخاص بوضع كبار السن والبساطة المطلقة (أزرار عملاقة وواضحة) -->
-    <div class="elderly-mode-section" style="margin-bottom: 14px;">
-        <button class="elderly-big-btn" onclick="openElderlyQuran()">
-            📖 تلاوة ومراجعة صفحة اليوم (صـ <span id="elderlyPageNum">5</span>)
-        </button>
-        <button class="elderly-big-btn secondary-action" onclick="elderlyMarkDone()">
-            ✔ تم إنجاز ورد اليوم بحمد الله
-        </button>
+    <div class="progress-card">
+        <div class="progress-header">
+            <span id="motivationalText">إنجاز ورد اليوم</span>
+            <span id="progressText">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
     </div>
 
     <div class="calendar-strip" id="calendarStrip"></div>
@@ -695,18 +688,18 @@
         </div>
     </div>
 
-    <div class="actions-row normal-mode-section">
+    <div class="actions-row">
         <button class="btn-action map" onclick="openHeatmap()">🗺️ الخريطة</button>
         <button class="btn-action share" onclick="shareDirectWhatsApp()">📢 إرسال</button>
         <button class="btn-action settings" onclick="openSettings()" title="الإعدادات">⚙️ الإعدادات</button>
     </div>
 
-    <div class="task-list normal-mode-section" id="tasksList"></div>
+    <div class="task-list" id="tasksList"></div>
 
-    <button class="btn-next normal-mode-section" onclick="nextDay()">✨ بارك الله فيك، أتممت ورد اليوم وانتقل للغد ←</button>
+    <button class="btn-next" onclick="nextDay()">✨ بارك الله فيك، أتممت ورد اليوم وانتقل للغد ←</button>
 </div>
 
-<!-- نافذة دليل وشرح التطبيق -->
+<!-- نافذة دليل وشرح التطبيق (الشكل القديم الأصلي الجميل والمنسق بالكامل) -->
 <div class="modal-overlay" id="helpModal" onclick="closeHelpModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
         <h3 style="font-family:'Amiri', serif; font-size:1.6rem; color:var(--primary); margin-bottom:4px;">دليل استخدام رفيق الحصون الخمسة</h3>
@@ -714,18 +707,66 @@
         
         <div class="help-search-box">
             <input type="text" id="helpSearchInput" class="help-search-input" placeholder="🔍 اكتب أي كلمة مفتاحية للبحث الفوري..." oninput="handleHelpSearch(this.value)">
-            <div class="help-search-hint">💡 اكتب أي حاجة مش فاهمها أو اسأل عن أي مصطلح (مثل: كبار السن، بلور، حدر، تحضير) وهنساعدك فوراً.</div>
+            <div class="help-search-hint">💡 اكتب أي حاجة مش فاهمها أو اسأل عن أي مصطلح (مثل: بلور، حدر، تحضير، ألوان، صلاة) وهنساعدك فوراً.</div>
         </div>
 
         <div id="helpBoxesContainer">
-            <div class="help-box" data-keywords="كبار السن ميسر حفظ ضعيف استماع تلقين بسيط">
-                <h4>👴 وضع كبار السن (البساطة المطلقة)</h4>
-                <p>مخصص لمن يحب البساطة؛ يزيل كل التعقيدات ويمنحك زرين عملاقين فقط: (فتح المصحف للتلاوة) و(تم إنجاز الورد)، مع خطوط كبيرة ومريحة للغاية.</p>
-            </div>
-
             <div class="help-box" data-keywords="الحصون الخمسة فكرة المنهج سعيد ابو العلا حمزة تعريف اساسيات">
                 <h4>🛡️ ما هي فكرة منظومة «الحصون الخمسة»؟</h4>
-                <p>منهج علمي متقن لحفظ القرآن الكريم وتثبيته وضعه د. سعيد أبو العلا حمزة يقوم على تقسيم الجهد إلى حصون متوازية.</p>
+                <p>منهج علمي متقن لحفظ القرآن الكريم وتثبيته وضعه د. سعيد أبو العلا حمزة. يقوم على تقسيم الجهد إلى 5 حصون متوازية تمنع تفلت الآيات:</p>
+                <p>1. <strong>القراءة المستمرة:</strong> ورد تلاوة سريع (حدر) لتغذية الذاكرة البصرية بكامل المصحف.</p>
+                <p>2. <strong>التحضير الثلاثي:</strong> (أسبوعي + ليلي قبل النوم + قبلي قبل الحفظ مباشرة) لكسر صعوبة الصفحة.</p>
+                <p>3. <strong>مراجعة البعيد:</strong> تغطية الحفظ القديم المستقر في أنابيب أسبوعية ثابتة.</p>
+                <p>4. <strong>مراجعة القريب:</strong> تثبيت آخر 20 صفحة ملاصقة حتى تستقر في الذاكرة الدائمة.</p>
+                <p>5. <strong>الحفظ الجديد:</strong> غرس المقدار اليومي المحدد بهدوء وإتقان.</p>
+            </div>
+
+            <div class="help-box" data-keywords="الحصن الثاني تحضير تكرار اسبوعي ليلي قبلي ليه متكرر ثلاث مرات خطوات">
+                <h4>🔄 لماذا ينقسم «الحصن الثاني: التحضير» إلى 3 خطوات؟</h4>
+                <p><strong>ليس خطأً لغوياً أو تكراراً غير مقصود</strong>، بل هو جوهر الحصن الثاني؛ حيث قسّمه مؤلف المنهج إلى 3 مراحل زمنية لكسر صعوبة الصفحة:</p>
+                <p>• <strong>(1) التحضير الأسبوعي:</strong> قراءة سريعة لصفحات الأسبوع القادم الـ 7 مرة واحدة يومياً لتألفها عينك مسبقاً.</p>
+                <p>• <strong>(2) التحضير الليلي:</strong> سماع صفحة الغد قبل النوم 3 مرات بتركيز مع المنشاوي لتترسخ في عقلك الباطن أثناء نومك.</p>
+                <p>• <strong>(3) التحضير القبلي:</strong> قراءة الصفحة 15 مرة حدر سريعاً قبل جلسة الحفظ مباشرة لتنطلق في لسانك بسهولة.</p>
+            </div>
+
+            <div class="help-box" data-keywords="الاوضاع مود طبيعي مسافر مزدحم مرهق سيرفايفل انقطاع تعب">
+                <h4>🎛️ ما هي فكرة الأنماط (Mode) ولماذا صممناها؟</h4>
+                <p style="margin-bottom:8px;">لأن ظروف الحياة تتغير وأكبر سبب لانقطاع الحفاظ هو العجز عن أداء الورد كاملاً عند الانشغال، أوجدنا 3 أنماط للمرونة بضغطة زر:</p>
+                <div style="margin-bottom:8px;">
+                    <span class="help-mode-badge badge-normal">🌿 النمط الطبيعي:</span>
+                    <p>يومك مستقر وعندك وقت كافٍ لإنجاز الأركان الخمسة كاملة.</p>
+                </div>
+                <div style="margin-bottom:8px;">
+                    <span class="help-mode-badge badge-busy">🧳 نمط المسافر / المزدحم (Survival Mode):</span>
+                    <p>يطبق قاعدة «المراجعة مقدمة على الحفظ»؛ يلغي الحفظ الجديد والتحضير الأسبوعي تماماً، ويركز فقط على مراجعة القديم والقريب في 12 دقيقة فقط لتحميك من الانقطاع أو الشعور بالذنب.</p>
+                </div>
+                <div>
+                    <span class="help-mode-badge badge-tired">😴 نمط المرهق (Low Energy Mode):</span>
+                    <p>إذا كنت مصدعاً أو مجهداً ذهنياً؛ يلغي التسميع والحفظ الجديد ويركز فقط على الاستماع الهادئ مع الشيخ والقراءة البصرية السريعة.</p>
+                </div>
+            </div>
+
+            <div class="help-box" data-keywords="خريطة صحة الحفظ الوان اخضر اصفر احمر رمادي تفلت درجات health score">
+                <h4>🗺️ خريطة صحة الحفظ.. كيف تعمل ومن يحدد ألوانها؟</h4>
+                <p>الخريطة لا تعتمد على التخمين، بل يقودها <strong>«مؤشر صحة الحفظ الذكي (Health Score)»</strong> الذي يتابع كل صفحة من الـ 604 صفحة كأنها كائن حي يحتاج للرعاية والتثبيت:</p>
+                <div style="margin: 8px 0;">
+                    <p>🟢 <strong>الأخضر الداكن:</strong> صفحة قوية ومستقرة، راجعتها حديثاً وثبتت في ذاكرتك.</p>
+                    <p>🟢 <strong>الأخضر الفاتح:</strong> صفحة جيدة ولا خوف عليها.</p>
+                    <p>🟡 <strong>الأصفر:</strong> تنبيه ذكي! بدأت الصفحة تضعف لمرور وقت دون مراجعتها، وتحتاج التفاتاً قريباً.</p>
+                    <p>🔴 <strong>الأحمر:</strong> إنذار تفلت! صفحة أهملتها منذ فترة طويلة ومعرضة للنسيان، اضغط عليها فوراً لمراجعتها.</p>
+                    <p>⚪ <strong>الرمادي:</strong> صفحات لم تصل إليها بعد في رحلة حفظك.</p>
+                </div>
+                <p><strong>من يحدد المستوى؟</strong></p>
+                <p>• <strong>المراجعة ترفع الصحة:</strong> كلما أتممت ورد القريب أو البعيد ووضعت علامة ✔️، تتحول صفحاته تلقائياً للأخضر النضر.</p>
+                <p>• <strong>الوقت يقلل الصحة:</strong> إذا مرت أيام دون مراجعة صفحة معينة، تتراجع درجتها تدريجياً من الأخضر للأصفر ثم الأحمر لتنبهك قبل فوات الأوان.</p>
+            </div>
+
+            <div class="help-box" data-keywords="المصحف بلور حجب للتسميع تظليل نصف ملء الشاشة سحب تقليب تكرار صوت الشيخ">
+                <h4>👁️ أدوات المصحف الشريف المدمجة</h4>
+                <p><strong>• 👈👉 التقليب بالسحب (Swipe):</strong> اسحب الشاشة يميناً أو يساراً بإصبعك للانتقال فوراً للصفحة التالية أو السابقة مثل المصحف الحقيقي.</p>
+                <p><strong>• 👁️ وضع حجب للتسميع:</strong> يغطي الصفحة بطبقة ضبابية لتختبر استحضارك غيباً، ولا تنكشف الآيات إلا بالضغط المطول عليها.</p>
+                <p><strong>• ⛶ ملء الشاشة:</strong> يخفي كل الأشرطة لتقرأ الآيات بأكبر حجم ووضوح ممكن على كامل الشاشة.</p>
+                <p><strong>• 🌓 تظليل نصف الصفحة:</strong> يحجب النصف غير المطلوب (أعلى أو أسفل) ليركز بصرك وذهنك على مقدارك اليومي فقط دون تشتت.</p>
             </div>
         </div>
 
@@ -1619,26 +1660,8 @@
         if (mode === 'normal') document.getElementById('modeNormal').classList.add('active');
         if (mode === 'busy') document.getElementById('modeBusy').classList.add('active');
         if (mode === 'tired') document.getElementById('modeTired').classList.add('active');
-        if (mode === 'elderly') {
-            document.getElementById('modeElderly').classList.add('active');
-            document.body.classList.add('elderly-mode');
-        } else {
-            document.body.classList.remove('elderly-mode');
-        }
         heroTaskIndex = 0;
         renderTasks();
-    }
-
-    function openElderlyQuran() {
-        const P = parseInt(document.getElementById('currentPage').value) || 3;
-        openQuranRange(P, P, `تلاوة ورد اليوم (${P})`);
-    }
-
-    function elderlyMarkDone() {
-        playSuccessChime();
-        const D = parseInt(document.getElementById('currentDay').value);
-        markDayDoneInHistory(D, true);
-        alert("✨ بارك الله فيك! تم تسجيل إنجاز ورد اليوم بنجاح.");
     }
 
     function generateTasks(P, dayIndex) {
@@ -1647,11 +1670,6 @@
         const budget = user.timeBudget || 45;
         const readStart = user.readingCurrentPage || 1;
         let tasks = [];
-
-        if (currentMode === 'elderly') {
-            document.getElementById('elderlyPageNum').innerText = P;
-            return [];
-        }
 
         if (currentMode !== 'busy' && currentMode !== 'tired') {
             const readingMin = budget === 30 ? 15 : budget === 45 ? 25 : 40;
