@@ -160,17 +160,17 @@
             text-align: center;
         }
         .cal-day {
-            padding: 4px 2px;
+            padding: 6px 2px;
             border-radius: 6px;
             font-size: 0.7rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2px;
+            gap: 4px;
             background: var(--bg);
         }
         .cal-day.today { border: 1.5px solid var(--primary); background: var(--primary-light); }
-        .cal-status { width: 16px; height: 16px; border-radius: 50%; display: grid; place-content: center; font-size: 0.65rem; background: var(--border); color: transparent; }
+        .cal-status { width: 18px; height: 18px; border-radius: 50%; display: grid; place-content: center; font-size: 0.7rem; background: var(--border); color: transparent; }
         .cal-status.done { background: var(--primary); color: white; font-weight: bold; }
 
         .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
@@ -191,7 +191,7 @@
             display: flex; gap: 10px; align-items: flex-start; transition: all 0.2s;
         }
         .task-card.active-target { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(5,150,105,0.2); }
-        .task-card.completed { opacity: 0.55; }
+        .task-card.completed { opacity: 0.6; background: var(--primary-light); border-color: var(--primary); }
 
         .task-card.locked-card {
             background: rgba(241, 245, 249, 0.6);
@@ -689,7 +689,7 @@
     <button class="btn-next" onclick="nextDay()">✨ بارك الله فيك، أتممت ورد اليوم وانتقل للغد ←</button>
 </div>
 
-<!-- نافذة دليل وشرح التطبيق (الشكل القديم الجميل والمنسق بالكامل) -->
+<!-- نافذة دليل وشرح التطبيق (الشكل القديم الأصلي الجميل والمنسق بالكامل) -->
 <div class="modal-overlay" id="helpModal" onclick="closeHelpModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
         <h3 style="font-family:'Amiri', serif; font-size:1.6rem; color:var(--primary); margin-bottom:4px;">دليل استخدام رفيق الحصون الخمسة</h3>
@@ -748,23 +748,15 @@
                 </div>
                 <p><strong>من يحدد المستوى؟</strong></p>
                 <p>• <strong>المراجعة ترفع الصحة:</strong> كلما أتممت ورد القريب أو البعيد ووضعت علامة ✔️، تتحول صفحاته تلقائياً للأخضر النضر.</p>
-                <p>• <strong>الوقت يقلل الصحة (عامل التفلت):</strong> إذا مرت أيام دون مراجعة صفحة معينة، تتراجع درجتها تدريجياً من الأخضر للأصفر ثم الأحمر لتنبهك قبل فوات الأوان.</p>
+                <p>• <strong>الوقت يقلل الصحة:</strong> إذا مرت أيام دون مراجعة صفحة معينة، تتراجع درجتها تدريجياً من الأخضر للأصفر ثم الأحمر لتنبهك قبل فوات الأوان.</p>
             </div>
 
             <div class="help-box" data-keywords="المصحف بلور حجب للتسميع تظليل نصف ملء الشاشة سحب تقليب تكرار صوت الشيخ">
                 <h4>👁️ أدوات المصحف الشريف المدمجة</h4>
                 <p><strong>• 👈👉 التقليب بالسحب (Swipe):</strong> اسحب الشاشة يميناً أو يساراً بإصبعك للانتقال فوراً للصفحة التالية أو السابقة مثل المصحف الحقيقي.</p>
                 <p><strong>• 👁️ وضع حجب للتسميع:</strong> يغطي الصفحة بطبقة ضبابية لتختبر استحضارك غيباً، ولا تنكشف الآيات إلا بالضغط المطول عليها.</p>
-                <p><strong>• ⛶ ملء الشاشة:</strong> يخفي كل الأشرطة لتقرأ الآيات بأكبر حجم ووضوح ممكن على كامل الشاشة.</p>
+                <p><strong>• ⛶ ملء الشاشة:</strong> يخفي كل الأشرطة لتقرأ الآيات بأكبر حجم وضوح ممكن على كامل الشاشة.</p>
                 <p><strong>• 🌓 تظليل نصف الصفحة:</strong> يحجب النصف غير المطلوب (أعلى أو أسفل) ليركز بصرك وذهنك على مقدارك اليومي فقط دون تشتت.</p>
-                <p><strong>• 🔁 تكرار الآية والصفحة وتغيير القارئ:</strong> تتيح لك تكرار أي آية أو صفحة بالعدد الذي تحتاجه والبحث الفوري عن أي شيخ.</p>
-            </div>
-
-            <div class="help-box" data-keywords="عداد الايام ختمة موعد متى اختم ضياع الورد غياب فوتت تعويض صلاة تنبيهات">
-                <h4>👑 عداد الأيام وتنبيهات الصلاة وإذا فاتك ورد اليوم</h4>
-                <p><strong>• عداد الختمة:</strong> يحسب بدقة كم يوماً متبقياً لك لتختم القرآن بناءً على مسارك وحفظك الحالي.</p>
-                <p><strong>• تنبيهات الصلوات:</strong> تذكرك بأورادك بعد كل أذان.</p>
-                <p><strong>• إذا فاتك يوم:</strong> التطبيق مصمم ألا يضاعف عليك الحفظ الجديد نهائياً، بل يستمر معك بنفس وتيرتك لتواصل دون تراكم أو إحباط.</p>
             </div>
         </div>
 
@@ -782,7 +774,7 @@
     </div>
 </div>
 
-<!-- نافذة الاختبار التشخيصي المبدئي (المعدلة للعمل بسلاسة في الخلفية وعدم الخروج) -->
+<!-- نافذة الاختبار التشخيصي المبدئي -->
 <div class="modal-overlay" id="diagModal" style="z-index: 180;">
     <div class="modal-card diagnostic-card" onclick="event.stopPropagation()">
         <h3 style="font-family:'Amiri', serif; font-size:1.5rem; color:var(--primary); margin-bottom:4px;">🧪 اختبار تحديد المستوى الأنسب لك</h3>
@@ -1600,8 +1592,17 @@
                 prayerAlerts: false,
                 history: {},
                 pageHealth: {},
-                reciter: 'Minshawy_Murattal_128kbps'
+                reciter: 'Minshawy_Murattal_128kbps',
+                weekNumber: getWeekNumber(new Date())
             };
+            localStorage.setItem('quran_user_profile', JSON.stringify(user));
+        }
+
+        // فحص تلقائي لترست الأيام إذا بدأ أسبوع جديد
+        const currentWeek = getWeekNumber(new Date());
+        if (user.weekNumber !== currentWeek) {
+            user.weekNumber = currentWeek;
+            user.history = {}; // تفريغ الأيام للأسبوع الجديد
             localStorage.setItem('quran_user_profile', JSON.stringify(user));
         }
 
@@ -1619,6 +1620,14 @@
         renderCalendar();
         renderTasks();
         initPrayerTimes();
+    }
+
+    function getWeekNumber(d) {
+        d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+        d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+        var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+        var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1)/7);
+        return weekNo;
     }
 
     function updateKhatmaCountdown(currentPage, pace) {
@@ -1777,16 +1786,22 @@
         generatedTasksCache = generateTasks(P, D);
         updateHeroCard();
 
+        const user = getUserData() || {};
+        const dayKey = `day_${D}_tasks`;
+        const completedTasksMap = user[dayKey] || {};
+
         generatedTasksCache.forEach((task, idx) => {
             let quranBtnHtml = task.range ? 
                 `<button type="button" class="quran-btn" onclick='openQuranRange(${task.range.start}, ${task.range.end}, "${task.range.label}")'>📖 تصفح ورد الحصن</button>` : '';
 
             const isLocked = !!task.isLocked;
+            const isChecked = !!completedTasksMap[idx];
+
             const card = document.createElement('div');
-            card.className = `task-card ${idx === heroTaskIndex && !isLocked ? 'active-target' : ''} ${isLocked ? 'locked-card' : ''}`;
+            card.className = `task-card ${idx === heroTaskIndex && !isLocked ? 'active-target' : ''} ${isLocked ? 'locked-card' : ''} ${isChecked ? 'completed' : ''}`;
             card.innerHTML = `
                 <div class="checkbox-wrapper">
-                    <input type="checkbox" ${isLocked ? 'disabled' : ''} onchange="toggleTask(this, ${idx})">
+                    <input type="checkbox" ${isLocked ? 'disabled' : ''} ${isChecked ? 'checked' : ''} onchange="toggleTask(this, ${idx})">
                 </div>
                 <div class="task-content">
                     <div class="task-header">
@@ -1839,14 +1854,24 @@
     }
 
     function toggleTask(cb, idx) {
+        const user = getUserData() || {};
+        const D = parseInt(document.getElementById('currentDay').value);
+        const dayKey = `day_${D}_tasks`;
+        if (!user[dayKey]) user[dayKey] = {};
+
         if (cb.checked) {
             playSuccessChime();
+            user[dayKey][idx] = true;
             if (idx === heroTaskIndex) heroTaskIndex++;
             const task = generatedTasksCache[idx];
             if (task && task.range) {
                 for (let p = task.range.start; p <= task.range.end; p++) updatePageHealth(p, 95);
             }
+        } else {
+            user[dayKey][idx] = false;
         }
+
+        localStorage.setItem('quran_user_profile', JSON.stringify(user));
         renderTasks();
     }
 
@@ -1861,18 +1886,19 @@
         document.getElementById('progressBar').style.width = `${percent}%`;
         document.getElementById('progressText').innerText = `${percent}%`;
 
-        if (percent === 100) {
-            markCurrentDayDoneInHistory();
+        const D = parseInt(document.getElementById('currentDay').value);
+        if (percent === 100 && checkboxes.length > 0) {
+            markDayDoneInHistory(D, true);
+        } else {
+            markDayDoneInHistory(D, false);
         }
     }
 
-    function markCurrentDayDoneInHistory() {
+    function markDayDoneInHistory(dayIndex, isDone) {
         const user = getUserData() || {};
-        const currentDayIndex = parseInt(document.getElementById('currentDay').value);
-        const dayKey = `day_${currentDayIndex}`;
-        
+        const dayKey = `day_${dayIndex}`;
         if (!user.history) user.history = {};
-        user.history[dayKey] = true;
+        user.history[dayKey] = isDone;
         localStorage.setItem('quran_user_profile', JSON.stringify(user));
         renderCalendar();
     }
@@ -1909,7 +1935,9 @@
 
     function nextDay() {
         playSuccessChime();
-        markCurrentDayDoneInHistory();
+        const D = parseInt(document.getElementById('currentDay').value);
+        markDayDoneInHistory(D, true);
+
         const user = getUserData() || {};
         const pace = user.dailyPace || 1;
         const budget = user.timeBudget || 45;
