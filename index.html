@@ -34,6 +34,7 @@
             --quran-bg: #1e293b;
         }
 
+        /* تكبير الخطوط في وضع كبار السن لراحة البصر */
         body.elderly-mode {
             font-size: 1.15rem;
         }
@@ -99,11 +100,11 @@
         .countdown-khatma-info span { font-size: 0.75rem; color: var(--text-muted); display: block; }
         .countdown-badge { background: var(--primary-light); color: var(--primary); font-size: 0.75rem; font-weight: 800; padding: 4px 8px; border-radius: 8px; }
 
-        /* الأشكال القديمة الأنيقة لأزرار الأنماط */
+        /* أزرار الأنماط الأربعة متجاورة ومرتبة */
         .mode-selector {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 6px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
             background: var(--border);
             padding: 4px;
             border-radius: 12px;
@@ -111,14 +112,15 @@
         }
         .mode-btn {
             border: none;
-            padding: 6px;
+            padding: 6px 2px;
             border-radius: 8px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
             cursor: pointer;
             background: transparent;
             color: var(--text-muted);
             transition: all 0.2s;
+            text-align: center;
         }
         .mode-btn.active { background: var(--card-bg); color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 
@@ -495,7 +497,6 @@
         .h-danger { background-color: #ef4444; }
         .h-empty { background-color: #64748b; }
 
-        /* شريط البحث في دليل الاستخدام */
         .help-search-box {
             position: sticky;
             top: 0;
@@ -645,11 +646,12 @@
         <div class="countdown-badge" id="khatmaPaceLabel">صفحة / يوم</div>
     </div>
 
-    <!-- الأشكال القديمة الأنيقة لثلاثة أزرار الأنماط -->
+    <!-- أزرار الأنماط الأربعة متجاورة ومرتبة (طبيعي، مسافر، مرهق، كبار السن) -->
     <div class="mode-selector">
         <button class="mode-btn active" id="modeNormal" onclick="setDayMode('normal')">🌿 طبيعي</button>
-        <button class="mode-btn" id="modeBusy" onclick="setDayMode('busy')">🧳 مسافر/مزدحم</button>
+        <button class="mode-btn" id="modeBusy" onclick="setDayMode('busy')">🧳 مسافر</button>
         <button class="mode-btn" id="modeTired" onclick="setDayMode('tired')">😴 مرهق</button>
+        <button class="mode-btn" id="modeElderly" onclick="setDayMode('elderly')">👴 كبار السن</button>
     </div>
 
     <div class="focus-hero-card" id="heroCard">
@@ -707,10 +709,15 @@
         
         <div class="help-search-box">
             <input type="text" id="helpSearchInput" class="help-search-input" placeholder="🔍 اكتب أي كلمة مفتاحية للبحث الفوري..." oninput="handleHelpSearch(this.value)">
-            <div class="help-search-hint">💡 اكتب أي حاجة مش فاهمها أو اسأل عن أي مصطلح (مثل: بلور، حدر، تحضير، ألوان، صلاة) وهنساعدك فوراً.</div>
+            <div class="help-search-hint">💡 اكتب أي حاجة مش فاهمها أو اسأل عن أي مصطلح (مثل: كبار السن، بلور، حدر، تحضير، ألوان) وهنساعدك فوراً.</div>
         </div>
 
         <div id="helpBoxesContainer">
+            <div class="help-box" data-keywords="كبار السن ميسر حفظ ضعيف استماع تلقين">
+                <h4>👴 وضع كبار السن (الحفظ الميسر والمنشغلين)</h4>
+                <p>مخصص لمن يعاني من ضعف الذاكرة أو ضيق الوقت الشديد؛ يلغي الحفظ الجديد المجهد ويحول التطبيق إلى جلسة استماع وتلاوة هادئة لصفحة واحدة يومياً مع التكرار والسكينة دون أي ضغط.</p>
+            </div>
+
             <div class="help-box" data-keywords="الحصون الخمسة فكرة المنهج سعيد ابو العلا حمزة تعريف اساسيات">
                 <h4>🛡️ ما هي فكرة منظومة «الحصون الخمسة»؟</h4>
                 <p>منهج علمي متقن لحفظ القرآن الكريم وتثبيته وضعه د. سعيد أبو العلا حمزة. يقوم على تقسيم الجهد إلى 5 حصون متوازية تمنع تفلت الآيات:</p>
@@ -731,14 +738,14 @@
 
             <div class="help-box" data-keywords="الاوضاع مود طبيعي مسافر مزدحم مرهق سيرفايفل انقطاع تعب">
                 <h4>🎛️ ما هي فكرة الأنماط (Mode) ولماذا صممناها؟</h4>
-                <p style="margin-bottom:8px;">لأن ظروف الحياة تتغير وأكبر سبب لانقطاع الحفاظ هو العجز عن أداء الورد كاملاً عند الانشغال، أوجدنا 3 أنماط للمرونة بضغطة زر:</p>
+                <p style="margin-bottom:8px;">لأن ظروف الحياة تتغير وأكبر سبب لانقطاع الحفاظ هو العجز عن أداء الورد كاملاً عند الانشغال، أوجدنا أنماطاً للمرونة بضغطة زر:</p>
                 <div style="margin-bottom:8px;">
                     <span class="help-mode-badge badge-normal">🌿 النمط الطبيعي:</span>
                     <p>يومك مستقر وعندك وقت كافٍ لإنجاز الأركان الخمسة كاملة.</p>
                 </div>
                 <div style="margin-bottom:8px;">
                     <span class="help-mode-badge badge-busy">🧳 نمط المسافر / المزدحم (Survival Mode):</span>
-                    <p>يطبق قاعدة «المراجعة مقدمة على الحفظ»؛ يلغي الحفظ الجديد والتحضير الأسبوعي تماماً، ويركز فقط على مراجعة القديم والقريب في 12 دقيقة فقط لتحميك من الانقطاع أو الشعور بالذنب.</p>
+                    <p>يطبق قاعدة «المراجعة مقدمة على الحفظ»؛ يلغي الحفظ الجديد والتحضير الأسبوعي تماماً، ويركز فقط على مراجعة القديم والقريب في 12 دقيقة فقط.</p>
                 </div>
                 <div>
                     <span class="help-mode-badge badge-tired">😴 نمط المرهق (Low Energy Mode):</span>
@@ -756,9 +763,6 @@
                     <p>🔴 <strong>الأحمر:</strong> إنذار تفلت! صفحة أهملتها منذ فترة طويلة ومعرضة للنسيان، اضغط عليها فوراً لمراجعتها.</p>
                     <p>⚪ <strong>الرمادي:</strong> صفحات لم تصل إليها بعد في رحلة حفظك.</p>
                 </div>
-                <p><strong>من يحدد المستوى؟</strong></p>
-                <p>• <strong>المراجعة ترفع الصحة:</strong> كلما أتممت ورد القريب أو البعيد ووضعت علامة ✔️، تتحول صفحاته تلقائياً للأخضر النضر.</p>
-                <p>• <strong>الوقت يقلل الصحة:</strong> إذا مرت أيام دون مراجعة صفحة معينة، تتراجع درجتها تدريجياً من الأخضر للأصفر ثم الأحمر لتنبهك قبل فوات الأوان.</p>
             </div>
 
             <div class="help-box" data-keywords="المصحف بلور حجب للتسميع تظليل نصف ملء الشاشة سحب تقليب تكرار صوت الشيخ">
@@ -1660,6 +1664,12 @@
         if (mode === 'normal') document.getElementById('modeNormal').classList.add('active');
         if (mode === 'busy') document.getElementById('modeBusy').classList.add('active');
         if (mode === 'tired') document.getElementById('modeTired').classList.add('active');
+        if (mode === 'elderly') {
+            document.getElementById('modeElderly').classList.add('active');
+            document.body.classList.add('elderly-mode');
+        } else {
+            document.body.classList.remove('elderly-mode');
+        }
         heroTaskIndex = 0;
         renderTasks();
     }
