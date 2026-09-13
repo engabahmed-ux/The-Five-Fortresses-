@@ -267,6 +267,7 @@
             padding: 2px; 
             min-height: 0; 
             height: 100%;
+            touch-action: pan-y; /* يسمح بالسحب الأفقي برمجياً */
         }
 
         .quran-img-container img { 
@@ -315,7 +316,6 @@
         .h-danger { background-color: #ef4444; }
         .h-empty { background-color: #64748b; }
 
-        /* صندوق البحث الذكي داخل دليل الشرح */
         .help-search-box {
             position: sticky;
             top: 0;
@@ -441,10 +441,9 @@
     <div class="modal-card" onclick="event.stopPropagation()">
         <h3 style="font-family:'Amiri', serif; font-size:1.6rem; color:var(--primary); margin-bottom:2px;">دليل استخدام رفيق الحصون الخمسة</h3>
         
-        <!-- شريط البحث الذكي داخل الدليل -->
         <div class="help-search-box">
             <input type="text" id="helpSearchInput" class="help-search-input" placeholder="🔍 اكتب أي كلمة مفتاحية للبحث الفوري..." oninput="handleHelpSearch(this.value)">
-            <div class="help-search-hint">💡 اكتب أي حاجة مش فاهمها أو اسأل عن أي مصطلح (مثل: بلور، حدر، تحضير، ألوان، طيران) وهنساعدك فوراً.</div>
+            <div class="help-search-hint">💡 اكتب أي حاجة مش فاهمها أو اسأل عن أي مصطلح (مثل: بلور، حدر، تحضير، ألوان، صلاة) وهنساعدك فوراً.</div>
         </div>
         
         <div id="helpBoxesContainer">
@@ -483,6 +482,11 @@
                 </div>
             </div>
 
+            <div class="help-box" data-keywords="تنبيهات اشعارات مواقيت الصلاة بعد الصلاة اذان فجر ظهر عصر مغرب عشاء">
+                <h4>🕌 تذكير الأوراد بعد الصلوات المكتوبة</h4>
+                <p>خير عادة لحافظ القرآن هي ربط ورده بالصلاة؛ التطبيق يرسل لك تنبيهاً تشجيعياً بعد كل أذان يسألك: <em>«تقبل الله صلاتك.. صليت؟ يلا نبدأ ورد ما بعد الصلاة»</em> لتقسم حصونك براحة تامة دون أن تشعر بثقل الوقت.</p>
+            </div>
+
             <div class="help-box" data-keywords="خريطة صحة الحفظ الوان اخضر اصفر احمر رمادي تفلت درجات health score">
                 <h4>🗺️ خريطة صحة الحفظ.. كيف تعمل ومن يحدد ألوانها؟</h4>
                 <p>الخريطة يقودها <strong>«مؤشر صحة الحفظ الذكي (Health Score)»</strong> الذي يتابع كل صفحة كأنها كائن حي يحتاج للرعاية والتثبيت:</p>
@@ -498,18 +502,12 @@
                 <p>• <strong>الوقت يقلل الصحة:</strong> إذا مرت أيام دون مراجعة صفحة، تتراجع تدريجياً لتنبهك قبل أن تُنسى.</p>
             </div>
 
-            <div class="help-box" data-keywords="المصحف بلور حجب تظليل نصف ملء الشاشة تكرار صوت الشيخ">
+            <div class="help-box" data-keywords="المصحف بلور حجب للتسميع تظليل نصف ملء الشاشة سحب تقليب تكرار صوت الشيخ">
                 <h4>👁️ أدوات المصحف الشريف المدمجة</h4>
+                <p><strong>• 👈👉 التقليب بالسحب (Swipe):</strong> اسحب الشاشة يميناً أو يساراً بإصبعك للانتقال فوراً للصفحة التالية أو السابقة مثل المصحف الحقيقي.</p>
+                <p><strong>• 👁️ وضع حجب للتسميع:</strong> يغطي الصفحة بطبقة ضبابية لتختبر استحضارك غيباً، ولا تنكشف الآيات إلا بالضغط المطول عليها.</p>
                 <p><strong>• ⛶ ملء الشاشة:</strong> يخفي كل الأشرطة لتقرأ الآيات بأكبر حجم ووضوح ممكن على كامل الشاشة.</p>
                 <p><strong>• 🌓 تظليل نصف الصفحة:</strong> يحجب النصف غير المطلوب (أعلى أو أسفل) ليركز بصرك على مقدار اليوم فقط دون تشتت.</p>
-                <p><strong>• 👁️ حجب كامل (البلور):</strong> يغطي الصفحة بطبقة ضبابية لتختبر استحضارك غيباً باللمس.</p>
-                <p><strong>• 🔁 التكرار التلقائي (Loop):</strong> يتيح لك إعادة سماع تلاوة الشيخ 3 أو 5 أو 10 مرات تلقائياً.</p>
-            </div>
-
-            <div class="help-box" data-keywords="عداد الايام ختمة موعد متى اختم ضياع الورد غياب فوتت تعويض">
-                <h4>👑 عداد الأيام وإذا فاتك ورد اليوم</h4>
-                <p><strong>• عداد الختمة:</strong> يحسب بدقة كم يوماً متبقياً لك لتختم القرآن بناءً على سرعتك وحفظك الحالي.</p>
-                <p><strong>• إذا فاتك يوم:</strong> التطبيق مصمم ألا يضاعف عليك الحفظ الجديد نهائياً، بل يستمر معك بنفس وتيرتك لتواصل دون تراكم أو إحباط.</p>
             </div>
         </div>
 
@@ -533,9 +531,9 @@
         </div>
 
         <div id="diagStage2" style="display:none; text-align:right;">
-            <p style="font-size:0.85rem; font-weight:700; margin-bottom:8px;">والآن، افتح الصفحة محجوبة (بلور) واستحضرها غيباً. اضغط لكشف الكلمات إذا تعثرت فقط.</p>
+            <p style="font-size:0.85rem; font-weight:700; margin-bottom:8px;">والآن، افتح الصفحة في وضع الحجب واستحضرها غيباً. اضغط لكشف الكلمات إذا تعثرت فقط.</p>
             <div style="display:flex; justify-content:space-between; align-items:center; background:var(--bg); padding:8px; border-radius:8px; margin-bottom:10px;">
-                <button class="quran-btn" onclick="openQuranRange(562, 562, 'تسميع بالبلور')">👁️ افتح صفحة التسميع</button>
+                <button class="quran-btn" onclick="openQuranRange(562, 562, 'تسميع بالحجب')">👁️ افتح صفحة التسميع</button>
                 <span style="font-size:0.8rem; font-weight:700;">مرات الكشف: <span id="diagPeekCount" style="color:var(--danger)">0</span></span>
             </div>
             <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:6px;">بعد التسميع، اختر النتيجة الأقرب لأدائك:</p>
@@ -548,7 +546,7 @@
     </div>
 </div>
 
-<!-- نافذة المصحف الشريف المتطورة -->
+<!-- نافذة المصحف الشريف المتطورة مع السحب ووضع حجب للتسميع -->
 <div class="modal-overlay" id="quranModal" onclick="closeQuranModal()">
     <div class="modal-card quran-modal-card" id="quranModalCard" onclick="event.stopPropagation()">
         
@@ -586,13 +584,14 @@
                     <span id="loopStatus" style="color:var(--primary); font-size:0.65rem;"></span>
                 </div>
                 <button class="blur-btn" id="maskToggleBtn" onclick="cycleHalfMask()" title="تظليل النصف">🌓 نصف</button>
-                <button class="blur-btn" id="blurToggleBtn" onclick="toggleBlurMode()">👁️ حجب</button>
+                <!-- اسم الزر المحدث -->
+                <button class="blur-btn" id="blurToggleBtn" onclick="toggleBlurMode()">👁️ وضع حجب للتسميع</button>
                 <button class="blur-btn" style="background:#0284c7; color:white; border-color:#0284c7;" onclick="toggleMushafFullscreen()" title="ملء الشاشة">⛶ ملء الشاشة</button>
             </div>
             <audio id="quranAudio" preload="none"></audio>
         </div>
 
-        <div class="quran-img-container" oncontextmenu="return false;">
+        <div class="quran-img-container" id="quranSwipeContainer" oncontextmenu="return false;">
             <img id="quranPageImg" src="" alt="صفحة المصحف" oncontextmenu="return false;" draggable="false" onerror="handleImageError(this)">
             <div class="half-mask mask-bottom" id="maskBottom">متروك لورد الغد ⏳</div>
             <div class="half-mask mask-top" id="maskTop">تم إنجازه بالأمس ✔️</div>
@@ -617,10 +616,10 @@
     </div>
 </div>
 
-<!-- نافذة الإعدادات وتخصيص الخطة -->
+<!-- نافذة الإعدادات وتخصيص الخطة ومواقيت الصلاة -->
 <div class="modal-overlay" id="settingsModal">
     <div class="modal-card">
-        <h3 style="font-family:'Amiri', serif; font-size:1.4rem; color:var(--primary); margin-bottom:8px;">الإعدادات وتخصيص الخطة</h3>
+        <h3 style="font-family:'Amiri', serif; font-size:1.4rem; color:var(--primary); margin-bottom:8px;">الإعدادات والتنبيهات</h3>
         <div class="input-group" style="text-align:right; margin-bottom:8px;">
             <label>اسمك الكريم:</label>
             <input type="text" id="setupName">
@@ -641,7 +640,7 @@
                 <option value="2">صفحتان يومياً</option>
             </select>
         </div>
-        <div class="input-group" style="text-align:right; margin-bottom:10px;">
+        <div class="input-group" style="text-align:right; margin-bottom:8px;">
             <label>الميزانية الزمنية المتاحة يومياً:</label>
             <select id="setupTimeBudget">
                 <option value="30">30 دقيقة (سريع)</option>
@@ -649,7 +648,16 @@
                 <option value="90">90 دقيقة (كامل)</option>
             </select>
         </div>
-        <button class="diag-score-btn" style="background:#ecfdf5; border-color:var(--primary); color:var(--primary); text-align:center; margin-bottom:10px;" onclick="openDiagnosticTest()">🧪 تشغيل اختبار تحديد المستوى (15 دقيقة)</button>
+        <div class="input-group" style="text-align:right; margin-bottom:10px; background:#ecfdf5; border-color:var(--primary);">
+            <label style="color:var(--primary);">🕌 تذكير الأوراد بعد الصلوات المكتوبة:</label>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:4px;">
+                <span style="font-size:0.75rem; color:var(--text-main); font-weight:700;">تفعيل إشعارات ما بعد الصلاة</span>
+                <input type="checkbox" id="setupPrayerNotifications" style="width:20px; height:20px; cursor:pointer;" onchange="togglePrayerNotifications(this.checked)">
+            </div>
+            <small id="prayerStatusNotice" style="display:block; font-size:0.68rem; color:var(--text-muted); margin-top:4px;"></small>
+        </div>
+
+        <button class="diag-score-btn" style="background:#ecfdf5; border-color:var(--primary); color:var(--primary); text-align:center; margin-bottom:8px;" onclick="openDiagnosticTest()">🧪 تشغيل اختبار تحديد المستوى (15 دقيقة)</button>
         <button class="hero-btn" style="background:var(--primary); color:white;" onclick="saveSettings()">حفظ التعديلات</button>
         <button class="btn-close" onclick="closeSettings()">إلغاء</button>
     </div>
@@ -670,6 +678,109 @@
     let diagPeekCount = 0;
     let diagSecs = 15 * 60;
     let diagInterval = null;
+
+    /* إيماءات اللمس والسحب (Swipe Gesture) للمصحف */
+    (function setupTouchSwipe() {
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const container = document.getElementById('quranSwipeContainer');
+
+        container.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        container.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipeGesture();
+        }, { passive: true });
+
+        function handleSwipeGesture() {
+            const swipeDistance = touchEndX - touchStartX;
+            // السحب لليسار ينقل للصفحة التالية، ولليمين للسابقة
+            if (swipeDistance < -45) {
+                changeQuranPage(1); // التالي
+            } else if (swipeDistance > 45) {
+                changeQuranPage(-1); // السابق
+            }
+        }
+    })();
+
+    /* جلب مواقيت الصلاة ونظام التنبيهات */
+    let prayerTimesCache = null;
+
+    async function initPrayerTimes() {
+        try {
+            const today = new Date();
+            // جلب مواقيت الصلاة بتوقيت القاهرة أو الموقع الحالي
+            const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=Cairo&country=Egypt&method=5`);
+            const data = await res.json();
+            if (data && data.data && data.data.timings) {
+                prayerTimesCache = data.data.timings;
+                localStorage.setItem('cached_prayer_times', JSON.stringify(prayerTimesCache));
+            }
+        } catch (e) {
+            prayerTimesCache = JSON.parse(localStorage.getItem('cached_prayer_times')) || {
+                Fajr: "04:45", Dhuhr: "12:00", Asr: "15:20", Maghrib: "18:05", Isha: "19:25"
+            };
+        }
+        checkPrayerSchedule();
+    }
+
+    function togglePrayerNotifications(enabled) {
+        const notice = document.getElementById('prayerStatusNotice');
+        if (enabled) {
+            if ('Notification' in window) {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        notice.innerText = "تم تفعيل الإشعارات بنجاح! سيصلك تذكير بعد كل أذان.";
+                        schedulePrayerHabitNotification();
+                    } else {
+                        notice.innerText = "يرجى منح إذن الإشعارات من إعدادات المتصفح لتصلك التنبيهات.";
+                        document.getElementById('setupPrayerNotifications').checked = false;
+                    }
+                });
+            } else {
+                notice.innerText = "المتصفح الحالي لا يدعم إشعارات النظام المباشرة.";
+            }
+        } else {
+            notice.innerText = "تم إيقاف تنبيهات الصلوات.";
+        }
+    }
+
+    function checkPrayerSchedule() {
+        if (!prayerTimesCache) return;
+        const now = new Date();
+        const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+        
+        const prayers = [
+            { name: "الفجر", task: "الحفظ الجديد والتحضير القبلي", time: prayerTimesCache.Fajr },
+            { name: "الظهر", task: "مراجعة القريب", time: prayerTimesCache.Dhuhr },
+            { name: "العصر", task: "القراءة المستمرة (الحصن الأول)", time: prayerTimesCache.Asr },
+            { name: "المغرب", task: "مراجعة البعيد", time: prayerTimesCache.Maghrib },
+            { name: "العشاء", task: "التحضير الليلي لصفحة الغد", time: prayerTimesCache.Isha }
+        ];
+
+        prayers.forEach(p => {
+            if (p.time && p.time.startsWith(currentTime)) {
+                sendPrayerNotification(p.name, p.task);
+            }
+        });
+    }
+
+    function sendPrayerNotification(prayerName, taskName) {
+        const user = getUserData() || {};
+        if (!user.prayerAlerts) return;
+
+        if (Notification.permission === 'granted') {
+            new Notification(`🕌 حان وقت أذان ${prayerName}`, {
+                body: `تقبل الله طاعتك.. هل صليت؟ يلا نبدأ ورد [${taskName}] لتثبيت عهدك مع القرآن 🌱`,
+                icon: "https://android.quran.com/data/width_1260/page003.png"
+            });
+        }
+    }
+
+    // دورية فحص مواقيت الصلاة كل 60 ثانية
+    setInterval(checkPrayerSchedule, 60000);
 
     function openModalWithHistory(modalId) {
         document.getElementById(modalId).classList.add('active');
@@ -695,7 +806,6 @@
         }
     }
 
-    /* محرك البحث الذكي المرن داخل دليل الشرح */
     function handleHelpSearch(query) {
         const clean = query.trim().toLowerCase().replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
         const boxes = document.querySelectorAll('#helpBoxesContainer .help-box');
@@ -707,8 +817,6 @@
 
         boxes.forEach(box => {
             const text = (box.innerText + " " + (box.dataset.keywords || "")).toLowerCase().replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
-            
-            // بحث ذكي يقارن الأجزاء المشتركة
             const words = clean.split(' ');
             const isMatch = words.some(w => w.length > 1 && text.includes(w)) || text.includes(clean);
 
@@ -792,6 +900,7 @@
                 currentDay: todayDayIndex,
                 dailyPace: 1,
                 timeBudget: 45,
+                prayerAlerts: false,
                 history: {},
                 pageHealth: {},
                 reciter: 'Minshawy_Murattal_128kbps'
@@ -799,10 +908,7 @@
             localStorage.setItem('quran_user_profile', JSON.stringify(user));
         }
 
-        if (user.readingCurrentPage === undefined) {
-            user.readingCurrentPage = 1;
-            localStorage.setItem('quran_user_profile', JSON.stringify(user));
-        }
+        if (user.readingCurrentPage === undefined) user.readingCurrentPage = 1;
 
         document.getElementById('currentPage').value = user.currentPage;
         document.getElementById('currentDay').value = user.currentDay !== undefined ? user.currentDay : todayDayIndex;
@@ -812,6 +918,7 @@
         setupAudioEvents();
         renderCalendar();
         renderTasks();
+        initPrayerTimes();
     }
 
     function updateKhatmaCountdown(currentPage, pace) {
@@ -1304,6 +1411,7 @@
         document.getElementById('setupReadingPage').value = user.readingCurrentPage || 1;
         document.getElementById('setupPace').value = user.dailyPace || 1;
         document.getElementById('setupTimeBudget').value = user.timeBudget || 45;
+        document.getElementById('setupPrayerNotifications').checked = !!user.prayerAlerts;
         openModalWithHistory('settingsModal');
     }
 
@@ -1316,6 +1424,7 @@
         user.readingCurrentPage = parseInt(document.getElementById('setupReadingPage').value) || 1;
         user.dailyPace = parseFloat(document.getElementById('setupPace').value) || 1;
         user.timeBudget = parseInt(document.getElementById('setupTimeBudget').value) || 45;
+        user.prayerAlerts = document.getElementById('setupPrayerNotifications').checked;
         localStorage.setItem('quran_user_profile', JSON.stringify(user));
         history.back();
         initUser();
@@ -1387,7 +1496,7 @@
             alert("بارك الله في جهدك وحرصك 🌿\nتم ضبط خطتك على: نصف صفحة مع التركيز على الاستماع والتحضير لتيسير الحفظ.");
         }
         localStorage.setItem('quran_user_profile', JSON.stringify(user));
-        closeDiagModal();
+        history.back();
         initUser();
     }
 
