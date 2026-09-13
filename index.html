@@ -3,37 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق الحصون الخمسة لحفظ القرآن</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Amiri:wght@700&display=swap" rel="stylesheet">
+    <title>تطبيق الحصون الخمسة | المساعد الذكي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Amiri:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #15803d;
-            --primary-dark: #166534;
-            --secondary: #d97706;
-            --bg: #f8fafc;
+            --primary: #059669; /* أخضر إسلامي هادئ */
+            --primary-dark: #047857;
+            --primary-light: #d1fae5;
+            --accent: #d97706; /* ذهبي للتميز */
+            --bg: #f3f4f6;
             --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --radius: 16px;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Tajawal', sans-serif;
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background-color: var(--bg); color: var(--text-main); padding: 20px 15px; display: flex; justify-content: center; }
+        .app-container { width: 100%; max-width: 500px; position: relative; }
+
+        /* Header & Progress */
+        header { text-align: center; margin-bottom: 20px; }
+        header h1 { font-family: 'Amiri', serif; color: var(--primary-dark); font-size: 2.2rem; }
+        
+        .progress-wrapper {
+            background: var(--card-bg); padding: 15px; border-radius: var(--radius);
+            box-shadow: var(--shadow); margin-bottom: 20px; text-align: center;
+        }
+        .progress-header { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; color: var(--primary-dark); }
+        .progress-bar-bg { width: 100%; height: 10px; background: var(--border); border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.4s ease; }
+
+        /* Inputs */
+        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .input-group { background: var(--card-bg); padding: 12px; border-radius: 12px; box-shadow: var(--shadow); }
+        .input-group label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 5px; }
+        .input-group input, .input-group select { width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 8px; outline: none; font-weight: 600; }
+        
+        /* Action Buttons Row */
+        .actions-row { display: flex; gap: 10px; margin-bottom: 20px; }
+        .btn-report { flex: 1; background: var(--text-main); color: white; border: none; padding: 10px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .btn-report:hover { background: #000; }
+        
+        /* Tasks */
+        .task-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+        .task-card { 
+            background: var(--card-bg); border-radius: var(--radius); padding: 15px; 
+            border: 1px solid var(--border); box-shadow: var(--shadow);
+            display: flex; gap: 15px; align-items: center; transition: 0.3s opacity;
+        }
+        .task-card.completed { opacity: 0.6; border-color: var(--primary); }
+        
+        .checkbox-wrapper input {
+            appearance: none; width: 28px; height: 28px; border: 2px solid var(--border);
+            border-radius: 50%; cursor: pointer; display: grid; place-content: center; transition: 0.2s;
+        }
+        .checkbox-wrapper input:checked { background: var(--primary); border-color: var(--primary); }
+        .checkbox-wrapper input:checked::before { content: '✔'; color: white; font-weight: bold; font-size: 14px; }
+        
+        .task-content { flex: 1; }
+        .task-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+        .task-title { font-weight: 700; font-size: 1rem; color: var(--primary-dark); }
+        .task-time { font-size: 0.75rem; background: var(--primary-light); color: var(--primary-dark); padding: 2px 8px; border-radius: 10px; font-weight: 700; }
+        .task-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 8px; }
+        
+        /* Quran Link Button */
+        .quran-btn {
+            display: inline-block; background: #f3f4f6; color: var(--text-main);
+            text-decoration: none; font-size: 0.8rem; font-weight: 700;
+            padding: 5px 12px; border-radius: 8px; border: 1px solid var(--border);
+            transition: 0.2s;
+        }
+        .quran-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+        /* Next Day Button */
+        .btn-next { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1.1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px rgba(5, 150, 105, 0.3); }
+        
+        /* Modal (Report) */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; place-items: center; z-index: 100; padding: 20px; }
+        .modal-overlay.active { display: grid; }
+        .modal-card { background: white; width: 100%; max-width: 400px; border-radius: 20px; padding: 25px; text-align: center; }
+        .modal-title { font-size: 1.5rem; color: var(--primary-dark); margin-bottom: 20px; font-family: 'Amiri', serif;}
+        .stat-circle { width: 120px; height: 120px; border-radius: 50%; background: conic-gradient(var(--primary) 0%, var(--bg) 0%); margin: 0 auto 20px; display: grid; place-items: center; font-size: 1.5rem; font-weight: bold; color: var(--primary-dark); box-shadow: inset 0 0 10px rgba(0,0,0,0.1); }
+        .stat-circle span { background: white; width: 90px; height: 90px; border-radius: 50%; display: grid; place-items: center; }
+        .stat-details { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; text-align: right; }
+        .stat-box { background: var(--bg); padding: 10px; border-radius: 10px; text-align: center; }
+        .stat-box strong { display: block; font-size: 1.2rem; color: var(--text-main); }
+        .btn-close { background: var(--border); border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <header>
+        <h1>الحصون الخمسة</h1>
+    </header>
+
+    <div class="progress-wrapper">
+        <div class="progress-header">
+            <span>إنجاز اليوم</span>
+            <span id="progressText">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="input-group">
+            <label>صفحة الحفظ اليوم:</label>
+            <input type="number" id="currentPage" value="5" min="3" max="604">
+        </div>
+        <div class="input-group">
+            <label>اليوم:</label>
+            <select id="currentDay">
+                <option value="0">السبت</option><option value="1">الأحد</option><option value="2">الإثنين</option>
+                <option value="3">الثلاثاء</option><option value="4">الأربعاء</option><option value="5">الخميس</option><option value="6">الجمعة</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="actions-row">
+        <button class="btn-report" onclick="openReport()">📊 تقرير التقدم الشامل</button>
+    </div>
+
+    <div class="task-list" id="tasksList"></div>
+
+    <button class="btn-next" onclick="nextDay()">✨ أتممت ورد اليوم (انتقل للغد)</button>
+</div>
+
+<!-- Modal Report -->
+<div class="modal-overlay" id="reportModal">
+    <div class="modal-card">
+        <h2 class="modal-title">رحلتك مع القرآن</h2>
+        <div class="stat-circle" id="reportCircle">
+            <span id="reportPercent">0%</span>
+        </div>
+        <div class="stat-details">
+            <div class="stat-box">
+                <small>ما تم حفظه</small>
+                <strong id="repCompleted">0</strong> صفحة
+            </div>
+            <div class="stat-box">
+                <small>المتبقي للختم</small>
+                <strong id="repRemaining">0</strong> صفحة
+            </div>
+        </div>
+        <p style="font-size:0.85rem; color:gray; margin-bottom:15px;">القرآن 604 صفحة (يبدأ الحفظ من صـ 3)</p>
+        <button class="btn-close" onclick="closeReport()">إغلاق</button>
+    </div>
+</div>
+
+<script>
+    const daysMap = ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
+
+    function generateTasks(P, dayIndex) {
+        let tasks = [];
+
+        // الحصن الأول
+        tasks.push({
+            order: 1,
+            title: "الحصن الأول: القراءة المستمرة",
+            time: 40,
+            pagesText: "جزأين من المصحف",
+            desc: "قراءة حدر من المصحف (ختمة نصف شهرية).",
+            quranLink: null
+        });
+
+        // الحصن الثاني (مقسم)
+        tasks.push({
+            order: 2,
+            title: "الحصن الثاني: التحضير الأسبوعي",
+            time: 10,
+            pagesText: `قراءة الصفحات من ${3 + (Math.floor((P - 3) / 7) + 1) * 7} إلى ${3 + (Math.floor((P - 3) / 7) + 1) * 7 + 6}`,
+            desc: "قراءة سريعة لصفحات الأسبوع القادم.",
+            quranLink: 3 + (Math.floor((P - 3) / 7) + 1) * 7
+        });
+
+        tasks.push({
+            order: 3,
+            title: "الحصن الثاني: التحضير الليلي",
+            time: 15,
+            pagesText: `صفحة الغد (${P + 1})`,
+            desc: "استماع وتكرار قبل النوم.",
+            quranLink: P + 1
+        });
+
+        tasks.push({
+            order: 4,
+            title: "الحصن الثاني: التحضير القبلي",
+            time: 15,
+            pagesText: `صفحة اليوم (${P})`,
+            desc: "حدر 15 مرة قبل الحفظ مباشرة.",
+            quranLink: P
+        });
+
+        // الحصن الثالث
+        let distantPool = P > 23 ? (P - 20) - 3 : 0;
+        if (distantPool > 0) {
+            const tubeStart = 3 + (dayIndex * 40);
+            const availableForThisDay = distantPool - (dayIndex * 40);
+            if (availableForThisDay > 0) {
+                const pagesToday = Math.min(40, availableForThisDay);
+                tasks.push({
+                    order: 5,
+                    title: `الحصن الثالث: مراجعة البعيد`,
+                    time: pagesToday,
+                    pagesText: `صـ ${tubeStart} إلى ${tubeStart + pagesToday - 1}`,
+                    desc: `مراجعة الأنبوبة الخاصة بيوم ${daysMap[dayIndex]}.`,
+                    quranLink: tubeStart
+                });
+            }
         }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            padding: 20px 15px;
-            display: flex;
-            justify-content: center;
+        // الحصن الرابع
+        if (P > 3) {
+            const startNear = Math.max(3, P - 20);
+            const endNear = P - 1;
+            tasks.push({
+                order: 6,
+                title: "الحصن الرابع: مراجعة القريب",
+                time: endNear - startNear + 1,
+                pagesText: `صـ ${startNear} إلى ${endNear}`,
+                desc: "مراجعة الصفحات الملاصقة.",
+                quranLink: startNear
+            });
         }
 
-        .container {
+        // الحصن الخامس
+        tasks.push({
+            order: 7,
+            title: "الحصن الخامس: الحفظ الجديد",
+            time: 15,
+            pagesText: `صفحة رقم ${P}`,
+            desc: "حفظ متقن للصفحة المحددة اليوم.",
+            quranLink: P
+        });
+
+        // ترتيب المهام تصاعدياً حسب رقم الحصن
+        return tasks.sort((a, b) => a.order - b.order);
+    }
+
+    function renderTasks() {
+        const P = parseInt(document.getElementById('currentPage').value) || 3;
+        const D = parseInt(document.getElementById('currentDay').value);
+        const container = document.getElementById('tasksList');
+        container.innerHTML = '';
+
+        const tasks = generateTasks(P, D);
+        
+        tasks.forEach((task, index) => {
+            let quranBtnHtml = task.quranLink ? 
+                `<a href="https://quran.com/page/${task.quranLink}" target="_blank" class="quran-btn">📖 افتح المصحف (صـ ${task.quranLink})</a>` : 
+                '';
+
+            const card = document.createElement('div');
+            card.className = 'task-card';
+            card.innerHTML = `
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" onchange="updateProgress()">
+                </div>
+                <div class="task-content">
+                    <div class="task-header">
+                        <span class="task-title">${task.title}</span>
+                        <span class="task-time">${task.time} د</span>
+                    </div>
+                    <div class="task-desc">
+                        <strong>${task.pagesText}</strong><br>
+                        ${task.desc}
+                    </div>
+                    ${quranBtnHtml}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+        updateProgress();
+    }
+
+    function updateProgress() {
+        const checkboxes = document.querySelectorAll('.task-card input[type="checkbox"]');
+        const cards = document.querySelectorAll('.task-card');
+        
+        let checked = 0;
+        checkboxes.forEach((cb, index) => {
+            if (cb.checked) {
+                checked++;
+                cards[index].classList.add('completed');
+            } else {
+                cards[index].classList.remove('completed');
+            }
+        });
+
+        const percent = checkboxes.length ? Math.round((checked / checkboxes.length) * 100) : 0;
+        document.getElementById('progressBar').style.width = `${percent}%`;
+        document.getElementById('progressText').innerText = `${percent}%`;
+    }
+
+    function nextDay() {
+        let pInput = document.getElementById('currentPage');
+        let dInput = document.getElementById('currentDay');
+        pInput.value = parseInt(pInput.value) + 1;
+        dInput.value = (parseInt(dInput.value) + 1) % 7;
+        renderTasks();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // تقرير الإنجاز
+    function openReport() {
+        const P = parseInt(document.getElementById('currentPage').value) || 3;
+        const totalQuranPages = 602; // ص 3 إلى 604
+        let completed = P - 3;
+        if(completed < 0) completed = 0;
+        let remaining = totalQuranPages - completed;
+        let percent = ((completed / totalQuranPages) * 100).toFixed(1);
+
+        document.getElementById('repCompleted').innerText = completed;
+        document.getElementById('repRemaining').innerText = remaining;
+        document.getElementById('reportPercent').innerText = `${percent}%`;
+        
+        // رسم الدائرة
+        document.getElementById('reportCircle').style.background = `conic-gradient(var(--primary) ${percent}%, var(--border) 0%)`;
+        
+        document.getElementById('reportModal').classList.add('active');
+    }
+
+    function closeReport() {
+        document.getElementById('reportModal').classList.remove('active');
+    }
+
+    document.getElementById('currentPage').addEventListener('input', renderTasks);
+    document.getElementById('currentDay').addEventListener('change', renderTasks);
+
+    renderTasks();
+</script>
+</body>
+</html>
             width: 100%;
             max-width: 650px;
         }
