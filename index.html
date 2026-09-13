@@ -229,12 +229,11 @@
 
         .btn-next { width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 12px; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
 
-        /* طبقات النوافذ المنبثقة مع تنظيم الـ Z-Index بدقة */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: none; place-items: center; z-index: 100; padding: 6px; backdrop-filter: blur(2px); }
         .modal-overlay.active { display: grid; }
         
-        /* نافذة اختيار القراء بطبقة أعلى لتستجيب للضغط فوراً */
         #recitersModal { z-index: 250 !important; }
+        #diagModal { z-index: 180 !important; }
 
         .modal-card { background: var(--card-bg); color: var(--text-main); width: 100%; max-width: 440px; border-radius: 18px; padding: 16px; text-align: center; max-height: 94vh; display: flex; flex-direction: column; overflow-y: auto; }
 
@@ -248,7 +247,7 @@
             display: flex; 
             flex-direction: column; 
             position: relative;
-            z-index: 100;
+            z-index: 200;
         }
 
         .quran-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
@@ -696,7 +695,7 @@
         
         <div class="help-search-box">
             <input type="text" id="helpSearchInput" class="help-search-input" placeholder="🔍 اكتب أي كلمة مفتاحية للبحث الفوري..." oninput="handleHelpSearch(this.value)">
-            <div class="help-search-hint">💡 اكتب أي حاجة مش فاهمها أو اسأل عن أي مصطلح (مثل: تكرار الآية، شيخ، بلور، حدر، تحضير) وهنساعدك فوراً.</div>
+            <div class="help-search-hint">💡 اكتب أي حاجة مش فاهمها أو اسأل عن أي مصطلح (مثل: اختبار، تكرار، شيخ، بلور، حدر) وهنساعدك فوراً.</div>
         </div>
         
         <div id="helpBoxesContainer">
@@ -710,41 +709,9 @@
                 <p>5. <strong>الحصن الخامس (الحفظ الجديد):</strong> غرس الورد الجديد ركناً بركن بإتقان تام.</p>
             </div>
 
-            <div class="help-box" data-keywords="تكرار الاية تكرار الصفحة كيف اكرر الاية تلقين اعادة شيخ قارئ">
-                <h4>🔁 كيفية تكرار الآية نفسها وتكرار الصفحة واختيار الشيخ</h4>
-                <p><strong>• تكرار الآية المحددة:</strong> اختر أي آية من قائمة الآيات، وحدد عدد مرات التكرار التي تريدها بدقة، وسيعيدها الشيخ تلقائياً حتى تحفظها.</p>
-                <p><strong>• تكرار الصفحة كاملة:</strong> للتحضير الليلي والقبلي؛ يقرأ الشيخ الصفحة كاملة ويعيدها بالعدد الذي تحدده.</p>
-                <p><strong>• تغيير القارئ:</strong> اضغط على اسم الشيخ أو زر العدسة `🔍 تغيير` للبحث السريع والاختيار من بين عشرات كبار القراء.</p>
-            </div>
-
-            <div class="help-box" data-keywords="الحصن الثالث الرابع مقفول ليه مش ظاهر متى يبدا بداية الحفظ">
-                <h4>🔒 لماذا يظهر الحصن الثالث أو الرابع مقفولاً في البداية؟</h4>
-                <p><strong>• الحصن الرابع (مراجعة القريب):</strong> يبدأ تلقائياً عند وصولك للصفحة 4 لعدم وجود صفحات سابقة قبل ذلك.</p>
-                <p>• <strong>الحصن الثالث (مراجعة البعيد):</strong> يبدأ تلقائياً بعد حفظ أول جزء تقريباً (تجاوز الصفحة 23) لحماية القديم في أنابيب أسبوعية.</p>
-            </div>
-
-            <div class="help-box" data-keywords="الاوضاع مود طبيعي مسافر مزدحم مرهق سيرفايفل انقطاع تعب">
-                <h4>🎛️ ما هي فكرة الأنماط (Mode) ولماذا صممناها؟</h4>
-                <p style="margin-bottom:8px;">لأن ظروف الحياة تتغير وأكبر سبب لانقطاع الحفاظ هو العجز عن أداء الورد كاملاً عند الانشغال، أوجدنا 3 أنماط للمرونة بضغطة زر:</p>
-                <div style="margin-bottom:8px;">
-                    <span class="help-mode-badge badge-normal">🌿 النمط الطبيعي:</span>
-                    <p>يومك مستقر وعندك وقت كافٍ لإنجاز الأركان الخمسة كاملة.</p>
-                </div>
-                <div style="margin-bottom:8px;">
-                    <span class="help-mode-badge badge-busy">🧳 نمط المسافر / المزدحم (Survival Mode):</span>
-                    <p>يطبق قاعدة «المراجعة مقدمة على الحفظ»؛ يلغي الحفظ الجديد ويركز فقط على مراجعة القديم والقريب في 12 دقيقة فقط.</p>
-                </div>
-                <div>
-                    <span class="help-mode-badge badge-tired">😴 نمط المرهق (Low Energy Mode):</span>
-                    <p>يركز فقط على الاستماع الهادئ مع الشيخ والقراءة البصرية السريعة دون ضغط ذهني.</p>
-                </div>
-            </div>
-
-            <div class="help-box" data-keywords="المصحف بلور حجب للتسميع تظليل نصف ملء الشاشة سحب تقليب">
-                <h4>👁️ أدوات المصحف الشريف المدمجة</h4>
-                <p><strong>• 👈👉 السحب الانسيابي:</strong> اسحب الصفحة بإصبعك (يميناً للصفحة التالية أو يساراً للسابقة) بنعومة تامة.</p>
-                <p><strong>• 👁️ وضع حجب للتسميع:</strong> يغطي الصفحة بطبقة ضبابية لتختبر استحضارك غيباً باللمس.</p>
-                <p><strong>• 🌓 تظليل نصف الصفحة:</strong> يحجب النصف غير المقرر اليوم لتصفية تركيزك البصري.</p>
+            <div class="help-box" data-keywords="اختبار تحديد المستوى عشوائي أول أربعة أجزاء عم تبارك قد سمع المجادلة">
+                <h4>🧪 اختبار تحديد المستوى الأنسب لك</h4>
+                <p>يختار لك التطبيق عشوائياً صفحة من أول 4 أجزاء الأولى (عمّ، تبارك، قد سمع، والمجادلة) لتختبر قدرتك في 15 دقيقة، ثم تظهر لك نتائج التقييم (كامل، نصف، قليل) ليحدد سرعتك اليومية المناسبة.</p>
             </div>
         </div>
 
@@ -762,17 +729,17 @@
     </div>
 </div>
 
-<!-- نافذة الاختبار التشخيصي المبدئي (15 دقيقة) -->
+<!-- نافذة الاختبار التشخيصي المبدئي (15 دقيقة مع صفحة عشوائية والرجوع للمؤقت) -->
 <div class="modal-overlay" id="diagModal">
     <div class="modal-card diagnostic-card">
         <h3 style="font-family:'Amiri', serif; font-size:1.5rem; color:var(--primary); margin-bottom:4px;">🧪 اختبار تحديد المستوى الأنسب لك</h3>
-        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:8px;">سنختبر قدرتك على حفظ مقطع نموذجي واضح (صـ 562 سورة الملك) خلال 15 دقيقة لنحدد خطتك بدقة.</p>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:8px;">اخترنا لك عشوائياً صفحة من أول 4 أجزاء (صـ <span id="diagTargetPageNum">562</span>). احفظها خلال المؤقت ثم انتقل للتسميع.</p>
         
         <div id="diagStage1">
             <div class="diag-timer" id="diagTimerClock">15:00</div>
             <div style="display:flex; gap:6px; margin-bottom:12px;">
                 <button class="hero-btn" id="diagTimerToggleBtn" style="background:var(--primary); color:white;" onclick="toggleDiagTimer()">بدء المؤقت والحفظ</button>
-                <button class="hero-btn secondary" style="background:var(--bg); color:var(--text-main); border:1px solid var(--border);" onclick="openQuranRange(562, 562, 'صفحة الاختبار')">📖 فتح الصفحة</button>
+                <button class="hero-btn secondary" style="background:var(--bg); color:var(--text-main); border:1px solid var(--border);" onclick="openDiagTestQuranPage()">📖 فتح صفحة الاختبار</button>
             </div>
             <button class="diag-score-btn" style="text-align:center; background:#ecfdf5; border-color:var(--primary); color:var(--primary);" onclick="finishDiagMemorization()">أتممت حفظها قبل الوقت! الانتقال للتسميع ←</button>
         </div>
@@ -780,7 +747,7 @@
         <div id="diagStage2" style="display:none; text-align:right;">
             <p style="font-size:0.85rem; font-weight:700; margin-bottom:8px;">والآن، افتح الصفحة في وضع الحجب واستحضرها غيباً. اضغط لكشف الكلمات إذا تعثرت فقط.</p>
             <div style="display:flex; justify-content:space-between; align-items:center; background:var(--bg); padding:8px; border-radius:8px; margin-bottom:10px;">
-                <button class="quran-btn" onclick="openQuranRange(562, 562, 'تسميع بالحجب')">👁️ افتح صفحة التسميع</button>
+                <button class="quran-btn" onclick="openDiagTestQuranPage()">👁️ افتح صفحة التسميع بالحجب</button>
                 <span style="font-size:0.8rem; font-weight:700;">مرات الكشف: <span id="diagPeekCount" style="color:var(--danger)">0</span></span>
             </div>
             <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:6px;">بعد التسميع، اختر النتيجة الأقرب لأدائك:</p>
@@ -827,7 +794,6 @@
                 <button class="repeat-tab-btn" id="tabModePage" onclick="switchAudioMode('page')">📄 تكرار الصفحة كاملة</button>
             </div>
 
-            <!-- لوحة تكرار الآية مع إمكانية تحديد عدد المرات بحرية -->
             <div class="repeat-control-panel" id="panelAyahControls">
                 <div class="ayah-selector-row">
                     <select id="pageAyahsSelect" class="ayah-select" onchange="onAyahSelectChange(this.value)">
@@ -856,7 +822,6 @@
                 <div class="playback-status-badge" id="ayahLoopStatusBadge">مرات تكرار الآية: 1 من 3</div>
             </div>
 
-            <!-- لوحة تكرار الصفحة كاملة -->
             <div class="repeat-control-panel" id="panelPageControls" style="display:none;">
                 <div class="ayah-selector-row">
                     <span style="font-size:0.75rem; font-weight:700;">تلاوة الصفحة كاملة:</span>
@@ -971,6 +936,7 @@
     let diagPeekCount = 0;
     let diagSecs = 15 * 60;
     let diagInterval = null;
+    let diagRandomPage = 582; // صفحة افتراضية للاختبار العشوائي ضمن أول 4 أجزاء
 
     /* قائمة القراء المعتمدين */
     const ALL_RECITERS = [
@@ -1002,17 +968,13 @@
         { id: "Fares_Abbad_64kbps", name: "فارس عباد" }
     ];
 
-    /* إدارة الصوت والتكرار الذكي للآية والصفحة */
     let audioPlaybackMode = 'ayah'; 
     let pageAyahsList = [];
     let currentAyahIndex = 0;
-    
     let targetAyahLoops = 3;
     let currentAyahLoopCount = 1;
-
     let targetPageLoops = 3;
     let currentPageLoopCount = 1;
-
     let cachedPagesAyahs = {};
 
     function updateReciterDisplay(reciterId) {
@@ -1285,7 +1247,7 @@
         }
     }
 
-    /* إيماءات اللمس والسحب الانسيابي الصحيحة (السحب لليمين يتقدم، ولليسار يعود) */
+    /* إيماءات اللمس والسحب الانسيابي (السحب لليمين يتقدم، ولليسار يعود) */
     (function setupSmoothSwipe() {
         const container = document.getElementById('quranSwipeContainer');
         const img = document.getElementById('quranPageImg');
@@ -1316,7 +1278,6 @@
             img.style.transition = 'transform 0.22s cubic-bezier(0.25, 1, 0.5, 1)';
 
             if (diffX > threshold) {
-                // سحب لليمين -> الصفحة التالية
                 if (activeQuranPage < allowedMaxPage) {
                     img.style.transform = 'translateX(100%)';
                     setTimeout(() => {
@@ -1332,7 +1293,6 @@
                     img.style.transform = 'translateX(0)';
                 }
             } else if (diffX < -threshold) {
-                // سحب لليسار -> الصفحة السابقة
                 if (activeQuranPage > allowedMinPage) {
                     img.style.transform = 'translateX(-100%)';
                     setTimeout(() => {
@@ -2063,10 +2023,15 @@
         initUser();
     }
 
+    /* اختبار التسميع: اختيار صفحة عشوائية من أول 4 أجزاء والعودة للمؤقت */
     function openDiagnosticTest() {
         if (document.getElementById('settingsModal').classList.contains('active')) {
             document.getElementById('settingsModal').classList.remove('active');
         }
+        // اختيار صفحة عشوائية ضمن أول 80 صفحة (أول 4 أجزاء: عم، تبارك، قد سمع، قد أفلح)
+        diagRandomPage = Math.floor(Math.random() * 75) + 3; 
+        document.getElementById('diagTargetPageNum').innerText = diagRandomPage;
+
         document.getElementById('diagStage1').style.display = 'block';
         document.getElementById('diagStage2').style.display = 'none';
         diagSecs = 15 * 60;
@@ -2077,6 +2042,11 @@
     }
 
     function closeDiagModal() { history.back(); }
+
+    function openDiagTestQuranPage() {
+        // فتح صفحة الاختبار مع السماح بالرجوع لنافذة المؤقت والتسميع
+        openQuranRange(diagRandomPage, diagRandomPage, `صفحة الاختبار (${diagRandomPage})`);
+    }
 
     function toggleDiagTimer() {
         const btn = document.getElementById('diagTimerToggleBtn');
@@ -2092,7 +2062,7 @@
                 } else {
                     clearInterval(diagInterval);
                     diagInterval = null;
-                    alert("انتهت الـ 15 دقيقة المحددة! حان وقت التسميع واختبار الاستحضار.");
+                    alert("⏰ انتهت الـ 15 دقيقة المحددة لاختبار الحفظ! حان وقت التسميع واختيار تقييم أدائك.");
                     finishDiagMemorization();
                 }
             }, 1000);
