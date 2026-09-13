@@ -618,7 +618,7 @@
         <button class="tool-btn" onclick="openHelpModal()">📖 شرح التطبيق والأوضاع</button>
         <div style="display:flex; gap:6px;">
             <button class="tool-btn" onclick="openDiagnosticTest()" style="background:#ecfdf5; border-color:var(--primary); color:var(--primary);">🧪 اختبار المستوى</button>
-            <button class="tool-btn" id="installAppBtn" onclick="installPWA()" style="display:none;">📲 تثبيت</button>
+            <button class="tool-btn" id="installAppBtn" onclick="installPWA()" style="display:inline-flex;">📲 تثبيت</button>
             <button class="tool-btn" onclick="toggleTheme()" id="themeBtn">🌙 ليلي</button>
         </div>
     </div>
@@ -689,7 +689,7 @@
     <button class="btn-next" onclick="nextDay()">✨ بارك الله فيك، أتممت ورد اليوم وانتقل للغد ←</button>
 </div>
 
-<!-- نافذة دليل وشرح التطبيق (الشكل القديم الأصلي الجميل والمنسق بالكامل) -->
+<!-- نافذة دليل وشرح التطبيق (بشكلها الأصلي المنسق بالكامل) -->
 <div class="modal-overlay" id="helpModal" onclick="closeHelpModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
         <h3 style="font-family:'Amiri', serif; font-size:1.6rem; color:var(--primary); margin-bottom:4px;">دليل استخدام رفيق الحصون الخمسة</h3>
@@ -1598,11 +1598,10 @@
             localStorage.setItem('quran_user_profile', JSON.stringify(user));
         }
 
-        // فحص تلقائي لترست الأيام إذا بدأ أسبوع جديد
         const currentWeek = getWeekNumber(new Date());
         if (user.weekNumber !== currentWeek) {
             user.weekNumber = currentWeek;
-            user.history = {}; // تفريغ الأيام للأسبوع الجديد
+            user.history = {}; 
             localStorage.setItem('quran_user_profile', JSON.stringify(user));
         }
 
@@ -2145,7 +2144,7 @@
         user.readingCurrentPage = parseInt(document.getElementById('setupReadingPage').value) || 1;
         user.dailyPace = parseFloat(document.getElementById('setupPace').value) || 1;
         user.timeBudget = parseInt(document.getElementById('setupTimeBudget').value) || 45;
-        user.prayerAlerts = document.getElementById('setupPrayerNotifications').checked;
+        user.prayerAlerts = document.getElementById('setupPrayerNotifications'].checked;
         localStorage.setItem('quran_user_profile', JSON.stringify(user));
         history.back();
         initUser();
