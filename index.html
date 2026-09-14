@@ -725,7 +725,7 @@
         </div>
     </div>
 
-    <!-- واجهة وضع كبار السن والحفظ الميسر (بدون خيارات المقدار المعقدة بالخارج لتكون نظيفة ومرتاحة) -->
+    <!-- واجهة وضع كبار السن والبساطة المطلقة النظيفة تماماً بدون مربعات اختيار مقدار مزعجة -->
     <div class="elderly-simple-container" style="margin-bottom: 14px;">
         <div class="focus-hero-card" style="text-align: center; margin-bottom: 14px;">
             <span class="hero-tag">👴 وضع كبار السن والحفظ الميسر</span>
@@ -739,7 +739,7 @@
         <button class="elderly-huge-btn secondary" onclick="openElderlySingleAyahMode()">
             🔍 عرض الآية الكريمة وحدها
         </button>
-        <button class="elderly-huge-btn accent" onclick="elderlyMarkDoneAndNext()">
+        <button class="elderly-huge-btn accent" onclick="elderlyMarkDoneAndNextAyah()">
             ✔ تم إنجاز ورد اليوم بحمد الله
         </button>
     </div>
@@ -806,7 +806,7 @@
         <div id="helpBoxesContainer">
             <div class="help-box" data-keywords="كبار السن ميسر حفظ ضعيف استماع تلقين آية">
                 <h4>👴 وضع كبار السن والحفظ الميسر</h4>
-                <p>مخصص لمن يعاني من ضعف الذاكرة أو يحب البساطة؛ يتيح لك اختيار المقدار (آية، نصف صفحة، صفحة، أو صفحتان من الإعدادات)، ويسمح بعرض الآية الكريمة وحدها بخط عملاق وواضح مع التتابع التلقائي للآية التالية يوماً بيوم دون زحمة المصحف.</p>
+                <p>مخصص لمن يعاني من ضعف الذاكرة أو يحب البساطة؛ يتيح لك تلاوة المصحف أو عرض الآية الكريمة وحدها بخط عملاق وواضح مع التتابع التلقائي للآية التالية يوماً بيوم دون زحمة المصحف.</p>
             </div>
 
             <div class="help-box" data-keywords="الحصون الخمسة فكرة المنهج سعيد ابو العلا حمزة تعريف اساسيات">
@@ -1131,7 +1131,7 @@
         { id: "Husary_128kbps", name: "محمود خليل الحصري (مرتل)" },
         { id: "Husary_Muallim_128kbps", name: "محمود خليل الحصري (المصحف المعلم)" },
         { id: "Abdul_Basit_Murattal_192kbps", name: "عبد الباسط عبد الصمد (مرتل)" },
-        { id: "Abdul_Basit_Mujawwad_128kbps", name: "عبد الباسط عبد الصمد (مجود)" },
+        { id: "Abdul_Basit_Mujawwad_192kbps", name: "عبد الباسط عبد الصمد (مجود)" },
         { id: "Hudhaify_128kbps", name: "علي بن عبد الرحمن الحذيفي" },
         { id: "Alafasy_128kbps", name: "مشاري راشد العفاسي" },
         { id: "Abdurrahmaan_As-Sudais_192kbps", name: "عبد الرحمن السديس" },
@@ -1736,6 +1736,13 @@
             localStorage.setItem('quran_user_profile', JSON.stringify(user));
         }
 
+        const currentWeek = getWeekNumber(new Date());
+        if (user.weekNumber !== currentWeek) {
+            user.weekNumber = currentWeek;
+            user.history = {}; 
+            localStorage.setItem('quran_user_profile', JSON.stringify(user));
+        }
+
         if (user.readingCurrentPage === undefined) user.readingCurrentPage = 1;
         if (!user.reciter) user.reciter = 'Minshawy_Murattal_128kbps';
         if (user.elderlyAyahGlobalIdx === undefined) user.elderlyAyahGlobalIdx = 0;
@@ -1799,7 +1806,7 @@
             const data = await res.json();
             if (data && data.data && data.data.ayahs) {
                 elderlyCurrentAyahsPool = data.data.ayahs;
-                // جلب الآية الحالية المتبعة بدقة
+                // اعتماد مؤشر الآية المخزن لضمان التتابع اليومي الدقيق
                 elderlyAyahCursor = user.elderlyAyahGlobalIdx || 0;
                 if (elderlyAyahCursor >= elderlyCurrentAyahsPool.length) elderlyAyahCursor = 0;
                 renderElderlyCurrentAyahWithoutAudio();
@@ -1858,18 +1865,18 @@
         let pInput = document.getElementById('currentPage');
         let dInput = document.getElementById('currentDay');
 
-        // الانتقال للصفحة التالية والبدء من الآية الأولى فيها تلقائياً
+        // الانتقال التلقائي لليوم التالي وصفحة الحفظ التالية مع تصفير مؤشر الآية لتظهر آية رقم 1 من الصفحة الجديدة
         pInput.value = parseInt(pInput.value) + 1;
         dInput.value = (parseInt(dInput.value) + 1) % 7;
 
         user.currentPage = parseInt(pInput.value);
         user.currentDay = parseInt(dInput.value);
-        user.elderlyAyahGlobalIdx = 0; // تصفير مؤشر الآية للبدء من أول آية في الصفحة الجديدة
+        user.elderlyAyahGlobalIdx = 0; 
         localStorage.setItem('quran_user_profile', JSON.stringify(user));
 
         updateKhatmaCountdown(user.currentPage, user.dailyPace || 1);
         applyElderlyModeUI(true);
-        alert("✨ ما شاء الله! تم تسجيل إنجاز اليوم وانتقلت تلقائياً لصفحة الغد وبدء الآية الأولى منها بكل تيسير.");
+        alert("✨ ما شاء الله! تم تسجيل إنجاز اليوم وانتقلت تلقائياً للآية الأولى من صفحة الغد بكل تيسير.");
     }
 
     function resetWeekHistory() {
