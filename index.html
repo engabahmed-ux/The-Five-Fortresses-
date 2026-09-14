@@ -34,6 +34,15 @@
             --quran-bg: #0f172a;
         }
 
+        /* إصلاح واضح وتام لصفحة القرآن في الوضع الليلي لتكون واضحة وجلية */
+        body.dark-mode .quran-img-container {
+            background-color: #ffffff !important; /* خلفية بيضاء نقية لصفحة المصحف تضمن وضوح الخط الأسود تماماً */
+            border-color: #475569 !important;
+        }
+        body.dark-mode .quran-img-container img {
+            filter: invert(0.92) hue-rotate(180deg) contrast(1.2); /* عكس ألوان صفحة المصحف لتصبح واضحة جداً بخط أسود على خلفية مريحة في الليل */
+        }
+
         body.elderly-simple-mode .normal-mode-container { display: none !important; }
         body:not(.elderly-simple-mode) .elderly-simple-container { display: none !important; }
 
@@ -178,23 +187,6 @@
         .progress-header { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--primary); }
         .progress-bar-bg { width: 100%; height: 8px; background: var(--border); border-radius: 10px; overflow: hidden; }
         .progress-bar-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s ease; }
-
-        .calendar-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 4px;
-            padding: 0 2px;
-        }
-        .reset-week-btn {
-            background: none;
-            border: none;
-            color: var(--primary);
-            font-size: 0.72rem;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: underline;
-        }
 
         .calendar-strip {
             display: grid;
@@ -717,7 +709,7 @@
         </div>
     </div>
 
-    <!-- واجهة وضع كبار السن والبساطة المطلقة -->
+    <!-- واجهة وضع كبار السن والحفظ الميسر -->
     <div class="elderly-simple-container" style="margin-bottom: 14px;">
         <div class="focus-hero-card" style="text-align: center; margin-bottom: 14px;">
             <span class="hero-tag">👴 وضع كبار السن والحفظ الميسر</span>
@@ -740,7 +732,6 @@
         </button>
     </div>
 
-    <!-- شريط الأيام مع زر تصفير وإعادة تعيين الأسبوع -->
     <div class="calendar-header-row">
         <span style="font-size:0.75rem; font-weight:700; color:var(--text-muted);">متابعة الأسبوع:</span>
         <button class="reset-week-btn" onclick="resetWeekHistory()">🔄 بدء أسبوع جديد (تصفير الأيام)</button>
@@ -772,10 +763,10 @@
     <button class="btn-next normal-mode-container" onclick="nextDay()">✨ بارك الله فيك، أتممت ورد اليوم وانتقل للغد ←</button>
 </div>
 
-<!-- نافذة عرض الآية وحدها لكبار السن -->
+<!-- نافذة عرض الآية وحدها لكبار السن (مع عدم التشغيل التلقائي) -->
 <div class="modal-overlay" id="elderlyAyahModal" onclick="closeElderlyAyahModal()">
     <div class="modal-card" onclick="event.stopPropagation()" style="background: var(--quran-bg);">
-        <h3 style="font-family:'Amiri', serif; font-size:1.4rem; color:var(--primary); margin-bottom:8px;">🌸 التركيز على الآية الكريمة</h3>
+        <h3 style="font-family:'Amiri', serif; font-size:1.4rem; color:var(--primary); margin-bottom:8px;">🌸 عرض الآية الكريمة وحدها</h3>
         <div style="background:var(--card-bg); border:2px solid var(--primary); border-radius:14px; padding:18px; margin-bottom:14px; text-align:center;">
             <p id="elderlyAyahText" style="font-family:'Amiri', serif; font-size:1.4rem; line-height:2.2; color:var(--text-main);">جاري تحميل الآية...</p>
             <small id="elderlyAyahInfo" style="display:block; margin-top:8px; color:var(--primary); font-weight:700; font-size:0.9rem;"></small>
@@ -798,7 +789,7 @@
         <div style="text-align:right; display:flex; flex-direction:column; gap:10px; font-size:0.85rem; line-height:1.6; color:var(--text-main);">
             <div style="background:var(--bg); padding:10px; border-radius:10px; border:1px solid var(--border);">
                 <strong>1️⃣ كيف نفعل «مود كبار السن»؟</strong>
-                <p style="color:var(--text-muted); font-size:0.78rem;">من زر (الإعدادات ⚙️) أسفل الشاشة، قم بتفعيل مفتاح (وضع كبار السن والحفظ الميسر)، فستتحول الشاشة فوراً إلى أزرار عملاقة وواضحة جداً بدون أي زحمة أو مهام معقدة.</p>
+                <p style="color:var(--text-muted); font-size:0.78rem;">من زر (الإعدادات ⚙️) أسفل الشاشة، قم بتفعيل مفتاح (وضع كبار السن والحفظ الميسر)، فستتحول الشاشة فوراً إلى أزرار عملاقة وواضحة جداً.</p>
             </div>
             <div style="background:var(--bg); padding:10px; border-radius:10px; border:1px solid var(--border);">
                 <strong>2️⃣ الزر الأول: «📖 تلاوة صفحة اليوم»</strong>
@@ -806,7 +797,7 @@
             </div>
             <div style="background:var(--bg); padding:10px; border-radius:10px; border:1px solid var(--border);">
                 <strong>3️⃣ الزر الثاني: «🔍 عرض الآية وحدها»</strong>
-                <p style="color:var(--text-muted); font-size:0.78rem;">يعرض نص الآية بخط كبير ومنفرد على الشاشة بدون زحمة صفحات المصحف لسهولة الاستماع والتلقين.</p>
+                <p style="color:var(--text-muted); font-size:0.78rem;">يعرض نص الآية بخط كبير ومنفرد على الشاشة بدون زحمة صفحات المصحف لسهولة الاستماع والتلقين (وعند فتحه ينتظر ضغطك على زر الاستماع).</p>
             </div>
             <div style="background:var(--bg); padding:10px; border-radius:10px; border:1px solid var(--border);">
                 <strong>4️⃣ الزر الثالث: «✔ تم إنجاز ورد اليوم»</strong>
@@ -830,9 +821,9 @@
         </div>
 
         <div id="helpBoxesContainer">
-            <div class="help-box" data-keywords="كبار السن ميسر حفظ ضعيف استماع تلقين">
-                <h4>👴 وضع كبار السن (الحفظ الميسر والمنشغلين)</h4>
-                <p>مخصص لمن يعاني من ضعف الذاكرة أو ضيق الوقت الشديد؛ يلغي الحفظ الجديد المجهد ويحول التطبيق إلى جلسة استماع وتلاوة هادئة لصفحة واحدة يومياً مع التكرار والسكينة دون أي ضغط.</p>
+            <div class="help-box" data-keywords="كبار السن ميسر حفظ ضعيف استماع تلقين آية">
+                <h4>👴 وضع كبار السن والحفظ الميسر</h4>
+                <p>مخصص لمن يعاني من ضعف الذاكرة أو يحب البساطة؛ يتيح لك اختيار المقدار (نصف صفحة أو صفحة)، ويسمح بعرض الآية الكريمة وحدها بخط عملاق وواضح مع الاستماع والتكرار بدون زحمة المصحف.</p>
             </div>
 
             <div class="help-box" data-keywords="الحصون الخمسة فكرة المنهج سعيد ابو العلا حمزة تعريف اساسيات">
@@ -1003,7 +994,7 @@
     </div>
 </div>
 
-<!-- نافذة الإعدادات وتخصيص الخطة -->
+<!-- نافذة الإعدادات وتخصيص الخطة (تتضمن اختيار آية واحدة يومياً) -->
 <div class="modal-overlay" id="settingsModal">
     <div class="modal-card">
         <h3 style="font-family:'Amiri', serif; font-size:1.4rem; color:var(--primary); margin-bottom:8px;">الإعدادات والتنبيهات</h3>
@@ -1022,6 +1013,7 @@
         <div class="input-group" style="text-align:right; margin-bottom:8px;">
             <label>معدل الحفظ اليومي:</label>
             <select id="setupPace">
+                <option value="0.03">آية واحدة يومياً (ميسر جداً)</option>
                 <option value="0.5">نصف صفحة يومياً</option>
                 <option value="1" selected>صفحة كاملة يومياً</option>
                 <option value="2">صفحتان يومياً</option>
@@ -1582,6 +1574,14 @@
             return;
         }
 
+        const elderlyAyahModal = document.getElementById('elderlyAyahModal');
+        if (elderlyAyahModal.classList.contains('active')) {
+            elderlyAyahModal.classList.remove('active');
+            const audio = document.getElementById('elderlyAyahAudio');
+            if (audio) audio.pause();
+            return;
+        }
+
         document.querySelectorAll('.modal-overlay').forEach(modal => {
             modal.classList.remove('active');
         });
@@ -1705,6 +1705,13 @@
             localStorage.setItem('quran_user_profile', JSON.stringify(user));
         }
 
+        const currentWeek = getWeekNumber(new Date());
+        if (user.weekNumber !== currentWeek) {
+            user.weekNumber = currentWeek;
+            user.history = {}; 
+            localStorage.setItem('quran_user_profile', JSON.stringify(user));
+        }
+
         if (user.readingCurrentPage === undefined) user.readingCurrentPage = 1;
         if (!user.reciter) user.reciter = 'Minshawy_Murattal_128kbps';
 
@@ -1769,8 +1776,14 @@
 
     async function openElderlySingleAyahMode() {
         const P = parseInt(document.getElementById('currentPage').value) || 5;
-        document.getElementById('elderlyAyahText').innerText = "جاري تحميل الآيات...";
+        document.getElementById('elderlyAyahText').innerText = "جاري تحميل الآية الكريمة...";
         document.getElementById('elderlyAyahInfo').innerText = "";
+        
+        // إيقاف أي صوت سابق فوراً عند الفتح وعدم التشغيل التلقائي أبداً
+        const audio = document.getElementById('elderlyAyahAudio');
+        audio.pause();
+        audio.src = "";
+
         openModalWithHistory('elderlyAyahModal');
 
         try {
@@ -1779,38 +1792,39 @@
             if (data && data.data && data.data.ayahs) {
                 elderlyCurrentAyahsPool = data.data.ayahs;
                 elderlyAyahCursor = 0;
-                renderElderlyCurrentAyah();
+                renderElderlyCurrentAyahWithoutAudio();
             }
         } catch (e) {
             document.getElementById('elderlyAyahText').innerText = "تعذر تحميل الآية - تأكد من الإنترنت";
         }
     }
 
-    function renderElderlyCurrentAyah() {
+    function renderElderlyCurrentAyahWithoutAudio() {
         if (!elderlyCurrentAyahsPool.length) return;
         const ayah = elderlyCurrentAyahsPool[elderlyAyahCursor];
         document.getElementById('elderlyAyahText').innerText = `« ${ayah.text} »`;
         document.getElementById('elderlyAyahInfo').innerText = `سورة ${ayah.surah.name} - آية ${ayah.numberInSurah} (صفحة ${activeQuranPage || 5})`;
+    }
 
+    function playElderlyAyahAudio() {
+        if (!elderlyCurrentAyahsPool.length) return;
+        const ayah = elderlyCurrentAyahsPool[elderlyAyahCursor];
         const user = getUserData() || {};
         const reciter = user.reciter || 'Minshawy_Murattal_128kbps';
         const surahPad = String(ayah.surah.number).padStart(3, '0');
         const ayahPad = String(ayah.numberInSurah).padStart(3, '0');
         const audio = document.getElementById('elderlyAyahAudio');
         audio.src = `https://everyayah.com/data/${reciter}/${surahPad}${ayahPad}.mp3`;
-        audio.play();
-    }
-
-    function playElderlyAyahAudio() {
-        const audio = document.getElementById('elderlyAyahAudio');
         audio.currentTime = 0;
         audio.play();
     }
 
     function nextElderlyAyah() {
+        const audio = document.getElementById('elderlyAyahAudio');
+        audio.pause();
         if (elderlyAyahCursor < elderlyCurrentAyahsPool.length - 1) {
             elderlyAyahCursor++;
-            renderElderlyCurrentAyah();
+            renderElderlyCurrentAyahWithoutAudio();
         } else {
             alert("هذه هي أخر آية في هذه الصفحة، بارك الله فيك!");
         }
@@ -1856,7 +1870,7 @@
         const daysRemaining = Math.ceil(remainingPages / pace);
         document.getElementById('khatmaDaysText').innerText = `متبقي ${daysRemaining} يوماً`;
         
-        const paceLabels = { 0.5: 'نصف صفحة / يوم', 1: 'صفحة / يوم', 2: 'صفحتان / يوم' };
+        const paceLabels = { 0.03: 'آية واحدة يومياً', 0.5: 'نصف صفحة / يوم', 1: 'صفحة / يوم', 2: 'صفحتان / يوم' };
         document.getElementById('khatmaPaceLabel').innerText = paceLabels[pace] || 'صفحة / يوم';
     }
 
@@ -1984,7 +1998,7 @@
         }
 
         if (currentMode === 'normal') {
-            const newLabel = pace === 0.5 ? `نصف صفحة من صـ ${P}` : pace === 2 ? `صفحتان (صـ ${P} و ${P+1})` : `صفحة رقم ${P}`;
+            const newLabel = pace === 0.03 ? `آية واحدة يومياً` : pace === 0.5 ? `نصف صفحة من صـ ${P}` : pace === 2 ? `صفحتان (صـ ${P} و ${P+1})` : `صفحة رقم ${P}`;
             tasks.push({
                 order: 7, 
                 title: "الحصن الخامس: الحفظ الجديد", 
