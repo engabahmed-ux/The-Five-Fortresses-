@@ -34,7 +34,6 @@
             --quran-bg: #0f172a;
         }
 
-        /* تحسين مظهر صفحة المصحف في الوضع الليلي بخط أبيض مصفر دافئ */
         body.dark-mode .quran-img-container {
             background-color: #0f172a !important;
             border-color: #334155 !important;
@@ -139,9 +138,9 @@
             background: var(--primary);
             color: white;
             border: none;
-            padding: 16px;
+            padding: 18px;
             border-radius: 16px;
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             font-weight: 800;
             cursor: pointer;
             box-shadow: 0 6px 12px rgba(5, 150, 105, 0.25);
@@ -726,17 +725,12 @@
         </div>
     </div>
 
-    <!-- واجهة وضع كبار السن والحفظ الميسر (تم تعديل أزرار المقدار وإزالة الجملة الزائدة وتفعيل الانتقال لليوم التالي عند الضغط على تم) -->
+    <!-- واجهة وضع كبار السن والبساطة المطلقة (تم إزالة صندوق المقدار العلوي لعدم التشتت) -->
     <div class="elderly-simple-container" style="margin-bottom: 14px;">
         <div class="focus-hero-card" style="text-align: center; margin-bottom: 14px;">
             <span class="hero-tag">👴 وضع كبار السن والحفظ الميسر</span>
-            <div class="hero-title" style="font-size: 1.1rem; margin-bottom: 6px;">اختر مقدار الورد اليومي المريح:</div>
-            <div style="display: flex; gap: 4px; justify-content: center; flex-wrap: wrap;">
-                <button class="tool-btn" id="amountAyah" onclick="setElderlyAmount('ayah')" style="background:var(--card-bg); color:var(--text-main);">آية واحدة</button>
-                <button class="tool-btn" id="amountHalf" onclick="setElderlyAmount(0.5)" style="background:var(--card-bg); color:var(--text-main);">نصف صفحة</button>
-                <button class="tool-btn active" id="amountFull" onclick="setElderlyAmount(1)" style="background:var(--primary); color:white;">صفحة كاملة</button>
-                <button class="tool-btn" id="amountDouble" onclick="setElderlyAmount(2)" style="background:var(--card-bg); color:var(--text-main);">صفحتان</button>
-            </div>
+            <div class="hero-title" style="font-size: 1.3rem;">ورد اليوم: تلاوة مباركة ميسرة</div>
+            <div class="hero-desc">استمع لآياتك بتركيز وطمأنينة تامة.</div>
         </div>
 
         <button class="elderly-huge-btn" onclick="openElderlyQuranPage()">
@@ -781,7 +775,7 @@
     <button class="btn-next normal-mode-container" onclick="nextDay()">✨ بارك الله فيك، أتممت ورد اليوم وانتقل للغد ←</button>
 </div>
 
-<!-- نافذة عرض الآية وحدها لكبار السن (مع عدم التشغيل التلقائي أبداً) -->
+<!-- نافذة عرض الآية وحدها لكبار السن (مع تتابع الآيات يوماً بيوم وتجنب التشغيل التلقائي) -->
 <div class="modal-overlay" id="elderlyAyahModal" onclick="closeElderlyAyahModal()">
     <div class="modal-card" onclick="event.stopPropagation()" style="background: var(--quran-bg);">
         <h3 style="font-family:'Amiri', serif; font-size:1.4rem; color:var(--primary); margin-bottom:8px;">🌸 عرض الآية الكريمة وحدها</h3>
@@ -791,7 +785,7 @@
         </div>
         <div style="display:flex; gap:8px; margin-bottom:10px;">
             <button class="elderly-huge-btn secondary" style="padding:10px; font-size:1rem;" onclick="playElderlyAyahAudio()">▶ استماع للآية</button>
-            <button class="elderly-huge-btn accent" style="padding:10px; font-size:1rem;" onclick="nextElderlyAyah()">الآية التالية ←</button>
+            <button class="elderly-huge-btn accent" style="padding:10px; font-size:1rem;" onclick="nextElderlyAyahSequence()">الآية التالية ←</button>
         </div>
         <audio id="elderlyAyahAudio" preload="none"></audio>
         <button class="btn-close" onclick="closeElderlyAyahModal()">إغلاق الشاشة</button>
@@ -812,7 +806,7 @@
         <div id="helpBoxesContainer">
             <div class="help-box" data-keywords="كبار السن ميسر حفظ ضعيف استماع تلقين آية">
                 <h4>👴 وضع كبار السن والحفظ الميسر</h4>
-                <p>مخصص لمن يعاني من ضعف الذاكرة أو يحب البساطة؛ يتيح لك اختيار المقدار (آية، نصف صفحة، صفحة، أو صفحتان)، ويسمح بعرض الآية الكريمة وحدها بخط عملاق وواضح مع الاستماع والتكرار بدون زحمة المصحف.</p>
+                <p>مخصص لمن يعاني من ضعف الذاكرة أو يحب البساطة؛ يتيح لك اختيار المقدار (من الإعدادات)، ويسمح بعرض الآية الكريمة وحدها بخط عملاق وواضح مع الانتقال التلقائي للآية التالية يومياً بدون زحمة المصحف.</p>
             </div>
 
             <div class="help-box" data-keywords="الحصون الخمسة فكرة المنهج سعيد ابو العلا حمزة تعريف اساسيات">
@@ -1065,7 +1059,7 @@
     let diagRandomPage = 582;
     let isDiagRunningFromMain = false;
     let isElderlyModeActive = false;
-    let elderlyAmount = 1; // 0.03 (آية), 0.5 (نصف صفحة), 1 (صفحة), 2 (صفحتان)
+    let elderlyAmount = 1;
 
     function playSuccessChime() {
         try {
@@ -1686,6 +1680,7 @@
                 timeBudget: 45,
                 prayerAlerts: false,
                 elderlyMode: false,
+                elderlyAyahGlobalIdx: 0, // تتبع مؤشر الآية في وضع كبار السن
                 history: {},
                 pageHealth: {},
                 reciter: 'Minshawy_Murattal_128kbps',
@@ -1696,6 +1691,7 @@
 
         if (user.readingCurrentPage === undefined) user.readingCurrentPage = 1;
         if (!user.reciter) user.reciter = 'Minshawy_Murattal_128kbps';
+        if (user.elderlyAyahGlobalIdx === undefined) user.elderlyAyahGlobalIdx = 0;
 
         isElderlyModeActive = !!user.elderlyMode;
         applyElderlyModeUI(isElderlyModeActive);
@@ -1720,9 +1716,6 @@
         } else {
             body.classList.remove('elderly-simple-mode');
         }
-        const P = parseInt(document.getElementById('currentPage').value) || 5;
-        const elSpan = document.getElementById('elderlyPageNum');
-        if (elSpan) elSpan.innerText = P;
     }
 
     function toggleElderlySetting(enabled) {
@@ -1764,6 +1757,7 @@
     let elderlyAyahCursor = 0;
 
     async function openElderlySingleAyahMode() {
+        const user = getUserData() || {};
         const P = parseInt(document.getElementById('currentPage').value) || 5;
         document.getElementById('elderlyAyahText').innerText = "جاري تحميل الآية الكريمة...";
         document.getElementById('elderlyAyahInfo').innerText = "";
@@ -1779,7 +1773,9 @@
             const data = await res.json();
             if (data && data.data && data.data.ayahs) {
                 elderlyCurrentAyahsPool = data.data.ayahs;
-                elderlyAyahCursor = 0;
+                // ضبط المؤشر بناءً على المحفوظ أو البداية
+                elderlyAyahCursor = user.elderlyAyahGlobalIdx || 0;
+                if (elderlyAyahCursor >= elderlyCurrentAyahsPool.length) elderlyAyahCursor = 0;
                 renderElderlyCurrentAyahWithoutAudio();
             }
         } catch (e) {
@@ -1807,14 +1803,17 @@
         audio.play();
     }
 
-    function nextElderlyAyah() {
+    function nextElderlyAyahSequence() {
         const audio = document.getElementById('elderlyAyahAudio');
         audio.pause();
         if (elderlyAyahCursor < elderlyCurrentAyahsPool.length - 1) {
             elderlyAyahCursor++;
+            const user = getUserData() || {};
+            user.elderlyAyahGlobalIdx = elderlyAyahCursor;
+            localStorage.setItem('quran_user_profile', JSON.stringify(user));
             renderElderlyCurrentAyahWithoutAudio();
         } else {
-            alert("هذه هي أخر آية في هذه الصفحة، بارك الله فيك!");
+            alert("أتممت آيات هذه الصفحة بنجاح! بالضغط على (تم إنجاز الورد) ستنتقل للصفحة التالية تلقائياً.");
         }
     }
 
@@ -1829,9 +1828,8 @@
         const D = parseInt(document.getElementById('currentDay').value);
         markDayDoneInHistory(D, true);
 
-        // الانتقال التلقائي لليوم التالي وصفحة الحفظ التالية تماماً مثل زر nextDay()
         const user = getUserData() || {};
-        let stepInc = elderlyAmount === 'ayah' ? 0.5 : elderlyAmount;
+        let stepInc = elderlyAmount === 'ayah' ? 1 : elderlyAmount;
         let pInput = document.getElementById('currentPage');
         let dInput = document.getElementById('currentDay');
 
@@ -1840,6 +1838,7 @@
 
         user.currentPage = parseInt(pInput.value);
         user.currentDay = parseInt(dInput.value);
+        user.elderlyAyahGlobalIdx = 0; // تصفير مؤشر الآية للصفحة الجديدة
         localStorage.setItem('quran_user_profile', JSON.stringify(user));
 
         updateKhatmaCountdown(user.currentPage, user.dailyPace || 1);
