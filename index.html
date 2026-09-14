@@ -31,19 +31,9 @@
             --text-muted: #94a3b8;
             --border: #334155;
             --primary-light: #064e3b;
-            --quran-bg: #0f172a; /* إصلاح ظهور صفحة القرآن بوضوح في الوضع الليلي */
+            --quran-bg: #0f172a;
         }
 
-        /* إصلاح خلفية صفحة القرآن في الوضع الليلي لتكون واضحة */
-        body.dark-mode .quran-img-container {
-            background-color: #1e293b !important;
-            border-color: #475569 !important;
-        }
-        body.dark-mode .quran-img-container img {
-            filter: brightness(0.95) contrast(1.05);
-        }
-
-        /* تنسيق وضع كبار السن والبساطة */
         body.elderly-simple-mode .normal-mode-container { display: none !important; }
         body:not(.elderly-simple-mode) .elderly-simple-container { display: none !important; }
 
@@ -79,21 +69,19 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 8px;
-            flex-wrap: wrap;
-            gap: 4px;
         }
         .tool-btn {
             background: var(--card-bg);
             border: 1px solid var(--border);
             color: var(--text-main);
-            padding: 5px 8px;
+            padding: 5px 10px;
             border-radius: 8px;
-            font-size: 0.72rem;
+            font-size: 0.75rem;
             font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 3px;
+            gap: 4px;
         }
 
         header { text-align: center; margin-bottom: 8px; }
@@ -137,7 +125,6 @@
         }
         .mode-btn.active { background: var(--card-bg); color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 
-        /* أزرار وضع كبار السن العملاقة والمريحة */
         .elderly-huge-btn {
             width: 100%;
             background: var(--primary);
@@ -145,11 +132,11 @@
             border: none;
             padding: 16px;
             border-radius: 16px;
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             font-weight: 800;
             cursor: pointer;
             box-shadow: 0 6px 12px rgba(5, 150, 105, 0.25);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -191,6 +178,23 @@
         .progress-header { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--primary); }
         .progress-bar-bg { width: 100%; height: 8px; background: var(--border); border-radius: 10px; overflow: hidden; }
         .progress-bar-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s ease; }
+
+        .calendar-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+            padding: 0 2px;
+        }
+        .reset-week-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 0.72rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: underline;
+        }
 
         .calendar-strip {
             display: grid;
@@ -713,7 +717,7 @@
         </div>
     </div>
 
-    <!-- واجهة وضع كبار السن والبساطة المطلقة (مع خيار المقدار وعرض الآية وحدها) -->
+    <!-- واجهة وضع كبار السن والبساطة المطلقة -->
     <div class="elderly-simple-container" style="margin-bottom: 14px;">
         <div class="focus-hero-card" style="text-align: center; margin-bottom: 14px;">
             <span class="hero-tag">👴 وضع كبار السن والحفظ الميسر</span>
@@ -736,6 +740,11 @@
         </button>
     </div>
 
+    <!-- شريط الأيام مع زر تصفير وإعادة تعيين الأسبوع -->
+    <div class="calendar-header-row">
+        <span style="font-size:0.75rem; font-weight:700; color:var(--text-muted);">متابعة الأسبوع:</span>
+        <button class="reset-week-btn" onclick="resetWeekHistory()">🔄 بدء أسبوع جديد (تصفير الأيام)</button>
+    </div>
     <div class="calendar-strip" id="calendarStrip"></div>
 
     <div class="controls">
@@ -763,7 +772,7 @@
     <button class="btn-next normal-mode-container" onclick="nextDay()">✨ بارك الله فيك، أتممت ورد اليوم وانتقل للغد ←</button>
 </div>
 
-<!-- نافذة عرض الآية وحدها لكبار السن (بدون صفحة المصحف) -->
+<!-- نافذة عرض الآية وحدها لكبار السن -->
 <div class="modal-overlay" id="elderlyAyahModal" onclick="closeElderlyAyahModal()">
     <div class="modal-card" onclick="event.stopPropagation()" style="background: var(--quran-bg);">
         <h3 style="font-family:'Amiri', serif; font-size:1.4rem; color:var(--primary); margin-bottom:8px;">🌸 التركيز على الآية الكريمة</h3>
@@ -780,6 +789,35 @@
     </div>
 </div>
 
+<!-- نافذة شرح مود كبار السن -->
+<div class="modal-overlay" id="elderlyHelpModal" onclick="closeElderlyHelpModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <h3 style="font-family:'Amiri', serif; font-size:1.5rem; color:var(--primary); margin-bottom:6px;">👴 دليل وشرح «مود كبار السن»</h3>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">دليل مبسط ومباشر لشرح كيفية استخدام التطبيق لكبير السن بكل سهولة</p>
+        
+        <div style="text-align:right; display:flex; flex-direction:column; gap:10px; font-size:0.85rem; line-height:1.6; color:var(--text-main);">
+            <div style="background:var(--bg); padding:10px; border-radius:10px; border:1px solid var(--border);">
+                <strong>1️⃣ كيف نفعل «مود كبار السن»؟</strong>
+                <p style="color:var(--text-muted); font-size:0.78rem;">من زر (الإعدادات ⚙️) أسفل الشاشة، قم بتفعيل مفتاح (وضع كبار السن والحفظ الميسر)، فستتحول الشاشة فوراً إلى أزرار عملاقة وواضحة جداً بدون أي زحمة أو مهام معقدة.</p>
+            </div>
+            <div style="background:var(--bg); padding:10px; border-radius:10px; border:1px solid var(--border);">
+                <strong>2️⃣ الزر الأول: «📖 تلاوة صفحة اليوم»</strong>
+                <p style="color:var(--text-muted); font-size:0.78rem;">يفتح المصحف مباشرة بخط واضح وكبير ليتلو الصفحة أو يسمعها كاملة مع الشيخ بضغطة زر واحدة.</p>
+            </div>
+            <div style="background:var(--bg); padding:10px; border-radius:10px; border:1px solid var(--border);">
+                <strong>3️⃣ الزر الثاني: «🔍 عرض الآية وحدها»</strong>
+                <p style="color:var(--text-muted); font-size:0.78rem;">يعرض نص الآية بخط كبير ومنفرد على الشاشة بدون زحمة صفحات المصحف لسهولة الاستماع والتلقين.</p>
+            </div>
+            <div style="background:var(--bg); padding:10px; border-radius:10px; border:1px solid var(--border);">
+                <strong>4️⃣ الزر الثالث: «✔ تم إنجاز ورد اليوم»</strong>
+                <p style="color:var(--text-muted); font-size:0.78rem;">بعد الانتهاء من القراءة أو الاستماع، يضغط على هذا الزر الكبير لتسجيل اليوم في التقويم مع نغمة إنجاز مبهجة.</p>
+            </div>
+        </div>
+
+        <button class="btn-close" onclick="closeElderlyHelpModal()" style="margin-top:12px;">فهمت الشرح، جزاكم الله خيراً</button>
+    </div>
+</div>
+
 <!-- نافذة دليل وشرح التطبيق -->
 <div class="modal-overlay" id="helpModal" onclick="closeHelpModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
@@ -792,14 +830,19 @@
         </div>
 
         <div id="helpBoxesContainer">
-            <div class="help-box" data-keywords="كبار السن ميسر حفظ ضعيف استماع آية">
-                <h4>👴 وضع كبار السن والحفظ الميسر</h4>
-                <p>مخصص لمن يعاني من ضعف الذاكرة أو يحب البساطة؛ يتيح لك اختيار المقدار (نصف صفحة أو صفحة)، ويسمح بعرض الآية الكريمة وحدها بخط عملاق وواضح مع الاستماع والتكرار بدون زحمة المصحف.</p>
+            <div class="help-box" data-keywords="كبار السن ميسر حفظ ضعيف استماع تلقين">
+                <h4>👴 وضع كبار السن (الحفظ الميسر والمنشغلين)</h4>
+                <p>مخصص لمن يعاني من ضعف الذاكرة أو ضيق الوقت الشديد؛ يلغي الحفظ الجديد المجهد ويحول التطبيق إلى جلسة استماع وتلاوة هادئة لصفحة واحدة يومياً مع التكرار والسكينة دون أي ضغط.</p>
             </div>
 
             <div class="help-box" data-keywords="الحصون الخمسة فكرة المنهج سعيد ابو العلا حمزة تعريف اساسيات">
                 <h4>🛡️ ما هي فكرة منظومة «الحصون الخمسة»؟</h4>
-                <p>منهج علمي متقن لحفظ القرآن الكريم وتثبيته وضعه د. سعيد أبو العلا حمزة يقوم على تقسيم الجهد إلى حصون متوازية.</p>
+                <p>منهج علمي متقن لحفظ القرآن الكريم وتثبيته وضعه د. سعيد أبو العلا حمزة. يقوم على تقسيم الجهد إلى 5 حصون متوازية تمنع تفلت الآيات:</p>
+                <p>1. <strong>القراءة المستمرة:</strong> ورد تلاوة سريع (حدر) لتغذية الذاكرة البصرية بكامل المصحف.</p>
+                <p>2. <strong>التحضير الثلاثي:</strong> (أسبوعي + ليلي قبل النوم + قبلي قبل الحفظ مباشرة) لكسر صعوبة الصفحة.</p>
+                <p>3. <strong>مراجعة البعيد:</strong> تغطية الحفظ القديم المستقر في أنابيب أسبوعية ثابتة.</p>
+                <p>4. <strong>مراجعة القريب:</strong> تثبيت آخر 20 صفحة ملاصقة حتى تستقر في الذاكرة الدائمة.</p>
+                <p>5. <strong>الحفظ الجديد:</strong> غرس المقدار اليومي المحدد بهدوء وإتقان.</p>
             </div>
         </div>
 
@@ -960,7 +1003,7 @@
     </div>
 </div>
 
-<!-- نافذة الإعدادات وتخصيص الخطة (تتضمن زر تفعيل وضع كبار السن وشرحه) -->
+<!-- نافذة الإعدادات وتخصيص الخطة -->
 <div class="modal-overlay" id="settingsModal">
     <div class="modal-card">
         <h3 style="font-family:'Amiri', serif; font-size:1.4rem; color:var(--primary); margin-bottom:8px;">الإعدادات والتنبيهات</h3>
@@ -1041,7 +1084,7 @@
     let diagRandomPage = 582;
     let isDiagRunningFromMain = false;
     let isElderlyModeActive = false;
-    let elderlyAmount = 1; // 0.5, 1, 2
+    let elderlyAmount = 1;
 
     function playSuccessChime() {
         try {
@@ -1630,6 +1673,11 @@
     }
     function closeHelpModal() { history.back(); }
 
+    function openElderlyHelpModal() {
+        openModalWithHistory('elderlyHelpModal');
+    }
+    function closeElderlyHelpModal() { history.back(); }
+
     function getUserData() {
         return JSON.parse(localStorage.getItem('quran_user_profile')) || null;
     }
@@ -1654,13 +1702,6 @@
                 reciter: 'Minshawy_Murattal_128kbps',
                 weekNumber: getWeekNumber(new Date())
             };
-            localStorage.setItem('quran_user_profile', JSON.stringify(user));
-        }
-
-        const currentWeek = getWeekNumber(new Date());
-        if (user.weekNumber !== currentWeek) {
-            user.weekNumber = currentWeek;
-            user.history = {}; 
             localStorage.setItem('quran_user_profile', JSON.stringify(user));
         }
 
@@ -1723,7 +1764,6 @@
         switchAudioMode('page');
     }
 
-    /* عرض الآية الكريمة وحدها لكبار السن بدون زحمة المصحف */
     let elderlyCurrentAyahsPool = [];
     let elderlyAyahCursor = 0;
 
@@ -1786,7 +1826,21 @@
         playSuccessChime();
         const D = parseInt(document.getElementById('currentDay').value);
         markDayDoneInHistory(D, true);
-        alert("✨ بارك الله فيك! تم تسجيل إنجاز ورد اليوم بنجاح ورفع تقديس الأيام.");
+        alert("✨ بارك الله فيك! تم تسجيل إنجاز ورد اليوم بنجاح وصعدت في درجات التقدير.");
+    }
+
+    function resetWeekHistory() {
+        if (confirm("هل تريد حقاً إعادة تصفير الأيام وبدء أسبوع جديد؟")) {
+            const user = getUserData() || {};
+            user.history = {};
+            for(let i=0; i<7; i++) {
+                user[`day_${i}_tasks`] = {};
+            }
+            localStorage.setItem('quran_user_profile', JSON.stringify(user));
+            renderCalendar();
+            renderTasks();
+            alert("✔ تم تصفير الأيام بنجاح، وبارك الله في جهدك لأسبوع جديد مبارك!");
+        }
     }
 
     function getWeekNumber(d) {
