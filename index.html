@@ -546,7 +546,6 @@
         .h-danger { background-color: #ef4444; }
         .h-empty { background-color: #64748b; }
 
-        /* شريط البحث في دليل الإرشادات الشامل القديم */
         .help-search-box {
             position: sticky;
             top: 0;
@@ -793,7 +792,7 @@
     </div>
 </div>
 
-<!-- نافذة دليل وشرح التطبيق والأوضاع الشامل والكامل (بكل تفاصيله القديمة) -->
+<!-- نافذة دليل وشرح التطبيق والأوضاع الشامل والكامل -->
 <div class="modal-overlay" id="helpModal" onclick="closeHelpModal()">
     <div class="modal-card" onclick="event.stopPropagation()">
         <h3 style="font-family:'Amiri', serif; font-size:1.6rem; color:var(--primary); margin-bottom:4px;">دليل استخدام رفيق الحصون الخمسة</h3>
@@ -801,7 +800,7 @@
         
         <div class="help-search-box">
             <input type="text" id="helpSearchInput" class="help-search-input" placeholder="🔍 اكتب أي كلمة مفتاحية للبحث الفوري..." oninput="handleHelpSearch(this.value)">
-            <div class="help-search-hint">💡 اكتب أي حاجة مش فاهمها أو اسأل عن أي مصطلح (مثل: كبار السن، تكرار، آية، بلور، تقييم) وهنساعدك فوراً.</div>
+            <div class="help-search-hint">💡 اكتب أي حاجة مش فاهمها أو اسأل عن أي مصطلح (مثل: كبار السن، تكرار، آية، بلور) وهنساعدك فوراً.</div>
         </div>
 
         <div id="helpBoxesContainer">
@@ -828,8 +827,8 @@
                 <p>• <strong>(3) التحضير القبلي:</strong> قراءة الصفحة 15 مرة حدر سريعاً قبل جلسة الحفظ مباشرة لتنطلق في لسانك بسهولة.</p>
             </div>
 
-            <div class="help-box" data-keywords="الاوضاع مود طبيعي مسافر مزدحم مرهق سيرفايفل انقطاع تعب تقييم">
-                <h4>🎛️ ما هي فكرة الأنماط (Mode) والتقييمات؟</h4>
+            <div class="help-box" data-keywords="الاوضاع مود طبيعي مسافر مزدحم مرهق سيرفايفل انقطاع تعب">
+                <h4>🎛️ ما هي فكرة الأنماط (Mode) ولماذا صممناها؟</h4>
                 <p style="margin-bottom:8px;">لأن ظروف الحياة تتغير وأكبر سبب لانقطاع الحفاظ هو العجز عن أداء الورد كاملاً عند الانشغال، أوجدنا 3 أنماط للمرونة بضغطة زر:</p>
                 <div style="margin-bottom:8px;">
                     <span class="help-mode-badge badge-normal">🌿 النمط الطبيعي:</span>
@@ -837,7 +836,7 @@
                 </div>
                 <div style="margin-bottom:8px;">
                     <span class="help-mode-badge badge-busy">🧳 نمط المسافر / المزدحم (Survival Mode):</span>
-                    <p>يطبق قاعدة «المراجعة مقدمة على الحفظ»؛ يلغي الحفظ الجديد والتحضير الأسبوعي تماماً، ويركز فقط على مراجعة القديم والقريب في 12 دقيقة فقط لتحميك من الانقطاع.</p>
+                    <p>يطبق قاعدة «المراجعة مقدمة على الحفظ»؛ يلغي الحفظ الجديد والتحضير الأسبوعي تماماً، ويركز فقط على مراجعة القديم والقريب في 12 دقيقة فقط لتحميك من الانقطاع أو الشعور بالذنب.</p>
                 </div>
                 <div>
                     <span class="help-mode-badge badge-tired">😴 نمط المرهق (Low Energy Mode):</span>
@@ -845,7 +844,7 @@
                 </div>
             </div>
 
-            <div class="help-box" data-keywords="خريطة صحة الحفظ الوان اخضر اصفر احمر رمادي تفلت درجات health score تقييم">
+            <div class="help-box" data-keywords="خريطة صحة الحفظ الوان اخضر اصفر احمر رمادي تفلت درجات health score">
                 <h4>🗺️ خريطة صحة الحفظ.. كيف تعمل ومن يحدد ألوانها؟</h4>
                 <p>الخريطة لا تعتمد على التخمين، بل يقودها <strong>«مؤشر صحة الحفظ الذكي (Health Score)»</strong> الذي يتابع كل صفحة من الـ 604 صفحة كأنها كائن حي يحتاج للرعاية والتثبيت:</p>
                 <div style="margin: 8px 0;">
@@ -1023,10 +1022,14 @@
     </div>
 </div>
 
-<!-- نافذة الإعدادات وتخصيص الخطة -->
+<!-- نافذة الإعدادات وتخصيص الخطة (مع زر تواصل مع المطور في المكان الذي حددته) -->
 <div class="modal-overlay" id="settingsModal">
     <div class="modal-card">
-        <h3 style="font-family:'Amiri', serif; font-size:1.4rem; color:var(--primary); margin-bottom:8px;">الإعدادات والتنبيهات</h3>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <h3 style="font-family:'Amiri', serif; font-size:1.4rem; color:var(--primary); margin:0;">الإعدادات والتنبيهات</h3>
+            <a href="https://wa.me/201009204577" target="_blank" style="background:#25d366; color:white; padding:4px 8px; border-radius:6px; font-size:0.7rem; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:3px;">💬 تواصل مع المطور</a>
+        </div>
+
         <div class="input-group" style="text-align:right; margin-bottom:8px;">
             <label>اسمك الكريم:</label>
             <input type="text" id="setupName">
